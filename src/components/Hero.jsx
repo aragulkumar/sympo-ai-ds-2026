@@ -29,8 +29,8 @@ const Hero = () => {
     // Clear canvas
     ctx.clearRect(0, 0, size, size);
 
-    // Add glow effect
-    ctx.shadowBlur = 30;
+    // Add subtle glow effect
+    ctx.shadowBlur = 15; // Reduced from 30
     ctx.shadowColor = color;
 
     // Set text properties - much larger and bolder
@@ -39,11 +39,7 @@ const Hero = () => {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    // Draw text multiple times for extra glow
-    ctx.fillText(formula, size / 2, size / 2);
-    ctx.shadowBlur = 20;
-    ctx.fillText(formula, size / 2, size / 2);
-    ctx.shadowBlur = 10;
+    // Draw text with subtle glow
     ctx.fillText(formula, size / 2, size / 2);
 
     const texture = new THREE.CanvasTexture(canvas);
@@ -74,8 +70,8 @@ const Hero = () => {
     canvasRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // Create chemical formula sprites
-    const formulaCount = window.innerWidth < 768 ? 30 : 50;
+    // Create chemical formula sprites - MORE formulas
+    const formulaCount = window.innerWidth < 768 ? 60 : 100; // Increased from 30/50
     const formulas = [];
 
     for (let i = 0; i < formulaCount; i++) {
