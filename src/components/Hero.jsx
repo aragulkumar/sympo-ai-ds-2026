@@ -21,7 +21,7 @@ const Hero = () => {
   // Create canvas texture for chemical formula
   const createFormulaTexture = (formula, color) => {
     const canvas = document.createElement('canvas');
-    const size = 256;
+    const size = 512; // Increased from 256 for better quality
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext('2d');
@@ -29,13 +29,21 @@ const Hero = () => {
     // Clear canvas
     ctx.clearRect(0, 0, size, size);
 
-    // Set text properties
-    ctx.font = 'bold 48px Arial';
+    // Add glow effect
+    ctx.shadowBlur = 30;
+    ctx.shadowColor = color;
+
+    // Set text properties - much larger and bolder
+    ctx.font = 'bold 96px Arial'; // Increased from 48px
     ctx.fillStyle = color;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    // Draw text
+    // Draw text multiple times for extra glow
+    ctx.fillText(formula, size / 2, size / 2);
+    ctx.shadowBlur = 20;
+    ctx.fillText(formula, size / 2, size / 2);
+    ctx.shadowBlur = 10;
     ctx.fillText(formula, size / 2, size / 2);
 
     const texture = new THREE.CanvasTexture(canvas);
@@ -75,8 +83,8 @@ const Hero = () => {
 
       // Randomly choose between green and gray colors
       const isGreen = Math.random() > 0.5;
-      const color = isGreen ? '#39ff14' : '#666666';
-      const opacity = isGreen ? (0.6 + Math.random() * 0.4) : (0.3 + Math.random() * 0.3);
+      const color = isGreen ? '#39ff14' : '#888888'; // Lighter gray
+      const opacity = isGreen ? (0.8 + Math.random() * 0.2) : (0.5 + Math.random() * 0.3); // Brighter
 
       const texture = createFormulaTexture(formula, color);
       const material = new THREE.SpriteMaterial({
@@ -93,8 +101,8 @@ const Hero = () => {
       sprite.position.y = (Math.random() - 0.5) * 20;
       sprite.position.z = (Math.random() - 0.5) * 20;
 
-      // Random scale
-      const scale = 0.3 + Math.random() * 0.5;
+      // Much larger scale
+      const scale = 0.8 + Math.random() * 1.2; // Increased from 0.3-0.8
       sprite.scale.set(scale, scale, scale);
 
       // Store rotation speed
