@@ -251,7 +251,7 @@ const Hero = () => {
     rendererRef.current = renderer;
 
     // Create chemical formula sprites - MORE formulas
-    const formulaCount = window.innerWidth < 768 ? 60 : 100; // Increased from 30/50
+    const formulaCount = window.innerWidth < 768 ? 90 : 150; // Increased from 60/100
     const formulas = [];
 
     for (let i = 0; i < formulaCount; i++) {
@@ -277,8 +277,8 @@ const Hero = () => {
       sprite.position.y = (Math.random() - 0.5) * 20;
       sprite.position.z = (Math.random() - 0.5) * 20;
 
-      // Much larger scale
-      const scale = 0.8 + Math.random() * 1.2; // Increased from 0.3-0.8
+      // Much larger scale for bigger molecules
+      const scale = 1.2 + Math.random() * 1.6; // Increased from 0.8-2.0
       sprite.scale.set(scale, scale, scale);
 
       // Store rotation speed
