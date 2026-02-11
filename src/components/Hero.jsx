@@ -7,8 +7,41 @@ const Hero = () => {
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
-  const particlesRef = useRef(null);
+  const formulasRef = useRef([]);
   const mouseRef = useRef({ x: 0, y: 0 });
+
+  // Chemical formulas for Breaking Bad theme
+  const chemicalFormulas = [
+    'CH₃', 'C₆H₅', 'NH₂', 'OH', 'COOH', 'CH₂',
+    'C₂H₅', 'NO₂', 'SO₃', 'PO₄', 'NH₃', 'H₂O',
+    'C₃H₇', 'CH₃CO', 'C₆H₁₂O₆', 'NaCl', 'HCl',
+    'C₈H₁₀N₄O₂', 'C₁₇H₂₁NO₄', 'C₁₀H₁₅N'
+  ];
+
+  // Create canvas texture for chemical formula
+  const createFormulaTexture = (formula, color) => {
+    const canvas = document.createElement('canvas');
+    const size = 256;
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+
+    // Clear canvas
+    ctx.clearRect(0, 0, size, size);
+
+    // Set text properties
+    ctx.font = 'bold 48px Arial';
+    ctx.fillStyle = color;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Draw text
+    ctx.fillText(formula, size / 2, size / 2);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  };
 
   useEffect(() => {
     // Initialize Three.js scene
@@ -24,39 +57,61 @@ const Hero = () => {
     camera.position.z = 5;
     cameraRef.current = camera;
 
-    const renderer = new THREE.WebGLRenderer({ 
+    const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true 
+      antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     canvasRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // Create particles
-    const particleCount = window.innerWidth < 768 ? 1000 : 2000; // Reduce for mobile
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
+    // Create chemical formula sprites
+    const formulaCount = window.innerWidth < 768 ? 30 : 50;
+    const formulas = [];
 
-    for (let i = 0; i < particleCount * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 20;
+    for (let i = 0; i < formulaCount; i++) {
+      const formula = chemicalFormulas[Math.floor(Math.random() * chemicalFormulas.length)];
+
+      // Randomly choose between green and gray colors
+      const isGreen = Math.random() > 0.5;
+      const color = isGreen ? '#39ff14' : '#666666';
+      const opacity = isGreen ? (0.6 + Math.random() * 0.4) : (0.3 + Math.random() * 0.3);
+
+      const texture = createFormulaTexture(formula, color);
+      const material = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        opacity: opacity,
+        depthWrite: false
+      });
+
+      const sprite = new THREE.Sprite(material);
+
+      // Random position
+      sprite.position.x = (Math.random() - 0.5) * 20;
+      sprite.position.y = (Math.random() - 0.5) * 20;
+      sprite.position.z = (Math.random() - 0.5) * 20;
+
+      // Random scale
+      const scale = 0.3 + Math.random() * 0.5;
+      sprite.scale.set(scale, scale, scale);
+
+      // Store rotation speed
+      sprite.userData = {
+        rotationSpeed: (Math.random() - 0.5) * 0.002,
+        driftSpeed: {
+          x: (Math.random() - 0.5) * 0.01,
+          y: (Math.random() - 0.5) * 0.01,
+          z: (Math.random() - 0.5) * 0.005
+        }
+      };
+
+      scene.add(sprite);
+      formulas.push(sprite);
     }
 
-    geometry.setAttribute(
-      'position',
-      new THREE.BufferAttribute(positions, 3)
-    );
-
-    const material = new THREE.PointsMaterial({
-      color: 0x39ff14,
-      size: 0.1,
-      transparent: true,
-      opacity: 0.8
-    });
-
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
-    particlesRef.current = particles;
+    formulasRef.current = formulas;
 
     // Mouse move handler
     const handleMouseMove = (event) => {
@@ -106,8 +161,13 @@ const Hero = () => {
       if (canvasRef.current && renderer.domElement) {
         canvasRef.current.removeChild(renderer.domElement);
       }
-      geometry.dispose();
-      material.dispose();
+
+      // Dispose of all sprites
+      formulas.forEach((sprite) => {
+        if (sprite.material.map) sprite.material.map.dispose();
+        sprite.material.dispose();
+      });
+
       renderer.dispose();
     };
   }, []);
