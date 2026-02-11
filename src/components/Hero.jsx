@@ -10,18 +10,204 @@ const Hero = () => {
   const formulasRef = useRef([]);
   const mouseRef = useRef({ x: 0, y: 0 });
 
-  // Chemical formulas for Breaking Bad theme
-  const chemicalFormulas = [
-    'CH₃', 'C₆H₅', 'NH₂', 'OH', 'COOH', 'CH₂',
-    'C₂H₅', 'NO₂', 'SO₃', 'PO₄', 'NH₃', 'H₂O',
-    'C₃H₇', 'CH₃CO', 'C₆H₁₂O₆', 'NaCl', 'HCl',
-    'C₈H₁₀N₄O₂', 'C₁₇H₂₁NO₄', 'C₁₀H₁₅N'
+  // Molecular structures for Breaking Bad theme
+  const moleculeTypes = [
+    'benzene', 'phenyl', 'methyl', 'amine',
+    'caffeine', 'ephedrine', 'pseudoephedrine', 'pyridine',
+    'benzene', 'phenyl', 'benzene', 'amine', // Repeat popular ones
+    'caffeine', 'ephedrine', 'benzene', 'pyridine'
   ];
 
-  // Create canvas texture for chemical formula
-  const createFormulaTexture = (formula, color) => {
+  // Draw molecular structures on canvas
+  const drawMolecularStructure = (ctx, type, color, size) => {
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const scale = size / 400; // Scale factor
+
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 3 * scale;
+    ctx.font = `bold ${24 * scale}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    switch (type) {
+      case 'benzene':
+        // Benzene ring (C6H6)
+        const radius = 60 * scale;
+        for (let i = 0; i < 6; i++) {
+          const angle1 = (Math.PI / 3) * i - Math.PI / 2;
+          const angle2 = (Math.PI / 3) * (i + 1) - Math.PI / 2;
+          const x1 = centerX + radius * Math.cos(angle1);
+          const y1 = centerY + radius * Math.sin(angle1);
+          const x2 = centerX + radius * Math.cos(angle2);
+          const y2 = centerY + radius * Math.sin(angle2);
+
+          // Draw bond
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+
+          // Draw double bonds (inner circle)
+          if (i % 2 === 0) {
+            const innerRadius = radius * 0.75;
+            const ix1 = centerX + innerRadius * Math.cos(angle1);
+            const iy1 = centerY + innerRadius * Math.sin(angle1);
+            const ix2 = centerX + innerRadius * Math.cos(angle2);
+            const iy2 = centerY + innerRadius * Math.sin(angle2);
+            ctx.beginPath();
+            ctx.moveTo(ix1, iy1);
+            ctx.lineTo(ix2, iy2);
+            ctx.stroke();
+          }
+        }
+        break;
+
+      case 'phenyl':
+        // Phenyl group with substituent
+        const r = 50 * scale;
+        for (let i = 0; i < 6; i++) {
+          const a1 = (Math.PI / 3) * i - Math.PI / 2;
+          const a2 = (Math.PI / 3) * (i + 1) - Math.PI / 2;
+          ctx.beginPath();
+          ctx.moveTo(centerX + r * Math.cos(a1), centerY + r * Math.sin(a1));
+          ctx.lineTo(centerX + r * Math.cos(a2), centerY + r * Math.sin(a2));
+          ctx.stroke();
+        }
+        // Add CH3 group
+        ctx.fillText('CH₃', centerX, centerY - r - 30 * scale);
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY - r);
+        ctx.lineTo(centerX, centerY - r - 20 * scale);
+        ctx.stroke();
+        break;
+
+      case 'methyl':
+        // Methyl group structure
+        ctx.fillText('CH₃', centerX, centerY);
+        const bondLen = 40 * scale;
+        for (let i = 0; i < 3; i++) {
+          const angle = (Math.PI * 2 / 3) * i;
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.lineTo(centerX + bondLen * Math.cos(angle), centerY + bondLen * Math.sin(angle));
+          ctx.stroke();
+          ctx.fillText('H', centerX + (bondLen + 15 * scale) * Math.cos(angle), centerY + (bondLen + 15 * scale) * Math.sin(angle));
+        }
+        break;
+
+      case 'amine':
+        // Amine group (NH2)
+        ctx.fillText('N', centerX, centerY);
+        ctx.beginPath();
+        ctx.moveTo(centerX - 20 * scale, centerY - 20 * scale);
+        ctx.lineTo(centerX, centerY);
+        ctx.stroke();
+        ctx.fillText('H', centerX - 30 * scale, centerY - 30 * scale);
+        ctx.beginPath();
+        ctx.moveTo(centerX + 20 * scale, centerY - 20 * scale);
+        ctx.lineTo(centerX, centerY);
+        ctx.stroke();
+        ctx.fillText('H', centerX + 30 * scale, centerY - 30 * scale);
+        break;
+
+      case 'caffeine':
+        // Simplified caffeine structure (two fused rings)
+        // First ring (5-membered)
+        const r1 = 40 * scale;
+        for (let i = 0; i < 5; i++) {
+          const a1 = (Math.PI * 2 / 5) * i;
+          const a2 = (Math.PI * 2 / 5) * (i + 1);
+          ctx.beginPath();
+          ctx.moveTo(centerX + r1 * Math.cos(a1), centerY + r1 * Math.sin(a1));
+          ctx.lineTo(centerX + r1 * Math.cos(a2), centerY + r1 * Math.sin(a2));
+          ctx.stroke();
+        }
+        // Second ring (6-membered, attached)
+        const r2 = 45 * scale;
+        const offsetX = 50 * scale;
+        for (let i = 0; i < 6; i++) {
+          const a1 = (Math.PI / 3) * i;
+          const a2 = (Math.PI / 3) * (i + 1);
+          ctx.beginPath();
+          ctx.moveTo(centerX + offsetX + r2 * Math.cos(a1), centerY + r2 * Math.sin(a1));
+          ctx.lineTo(centerX + offsetX + r2 * Math.cos(a2), centerY + r2 * Math.sin(a2));
+          ctx.stroke();
+        }
+        ctx.fillText('N', centerX, centerY - r1);
+        ctx.fillText('O', centerX + offsetX, centerY - r2 - 20 * scale);
+        break;
+
+      case 'ephedrine':
+        // Simplified ephedrine structure
+        const ringR = 45 * scale;
+        // Benzene ring
+        for (let i = 0; i < 6; i++) {
+          const a1 = (Math.PI / 3) * i - Math.PI / 2;
+          const a2 = (Math.PI / 3) * (i + 1) - Math.PI / 2;
+          ctx.beginPath();
+          ctx.moveTo(centerX + ringR * Math.cos(a1), centerY + ringR * Math.sin(a1));
+          ctx.lineTo(centerX + ringR * Math.cos(a2), centerY + ringR * Math.sin(a2));
+          ctx.stroke();
+        }
+        // Side chain
+        ctx.beginPath();
+        ctx.moveTo(centerX + ringR, centerY);
+        ctx.lineTo(centerX + ringR + 40 * scale, centerY);
+        ctx.stroke();
+        ctx.fillText('OH', centerX + ringR + 60 * scale, centerY);
+        ctx.fillText('NH', centerX + ringR + 40 * scale, centerY - 30 * scale);
+        break;
+
+      case 'pseudoephedrine':
+        // Similar to ephedrine but different stereochemistry indicator
+        const pR = 45 * scale;
+        for (let i = 0; i < 6; i++) {
+          const a1 = (Math.PI / 3) * i - Math.PI / 2;
+          const a2 = (Math.PI / 3) * (i + 1) - Math.PI / 2;
+          ctx.beginPath();
+          ctx.moveTo(centerX + pR * Math.cos(a1), centerY + pR * Math.sin(a1));
+          ctx.lineTo(centerX + pR * Math.cos(a2), centerY + pR * Math.sin(a2));
+          ctx.stroke();
+        }
+        ctx.fillText('CH₃', centerX, centerY);
+        ctx.fillText('NH₂', centerX + pR + 50 * scale, centerY);
+        ctx.beginPath();
+        ctx.moveTo(centerX + pR, centerY);
+        ctx.lineTo(centerX + pR + 35 * scale, centerY);
+        ctx.stroke();
+        break;
+
+      case 'pyridine':
+        // Pyridine ring (6-membered with N)
+        const pyR = 50 * scale;
+        for (let i = 0; i < 6; i++) {
+          const a1 = (Math.PI / 3) * i - Math.PI / 2;
+          const a2 = (Math.PI / 3) * (i + 1) - Math.PI / 2;
+          ctx.beginPath();
+          ctx.moveTo(centerX + pyR * Math.cos(a1), centerY + pyR * Math.sin(a1));
+          ctx.lineTo(centerX + pyR * Math.cos(a2), centerY + pyR * Math.sin(a2));
+          ctx.stroke();
+        }
+        ctx.fillText('N', centerX, centerY - pyR);
+        break;
+
+      default:
+        // Simple bond structure
+        ctx.beginPath();
+        ctx.moveTo(centerX - 40 * scale, centerY);
+        ctx.lineTo(centerX + 40 * scale, centerY);
+        ctx.stroke();
+        ctx.fillText('C', centerX - 40 * scale, centerY);
+        ctx.fillText('C', centerX + 40 * scale, centerY);
+    }
+  };
+
+  // Create canvas texture for molecular structure
+  const createMolecularTexture = (moleculeType, color) => {
     const canvas = document.createElement('canvas');
-    const size = 512; // Increased from 256 for better quality
+    const size = 512;
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext('2d');
@@ -30,17 +216,11 @@ const Hero = () => {
     ctx.clearRect(0, 0, size, size);
 
     // Add subtle glow effect
-    ctx.shadowBlur = 15; // Reduced from 30
+    ctx.shadowBlur = 15;
     ctx.shadowColor = color;
 
-    // Set text properties - much larger and bolder
-    ctx.font = 'bold 96px Arial'; // Increased from 48px
-    ctx.fillStyle = color;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    // Draw text with subtle glow
-    ctx.fillText(formula, size / 2, size / 2);
+    // Draw molecular structure
+    drawMolecularStructure(ctx, moleculeType, color, size);
 
     const texture = new THREE.CanvasTexture(canvas);
     texture.needsUpdate = true;
@@ -75,14 +255,14 @@ const Hero = () => {
     const formulas = [];
 
     for (let i = 0; i < formulaCount; i++) {
-      const formula = chemicalFormulas[Math.floor(Math.random() * chemicalFormulas.length)];
+      const moleculeType = moleculeTypes[Math.floor(Math.random() * moleculeTypes.length)];
 
       // Randomly choose between green and gray colors
       const isGreen = Math.random() > 0.5;
       const color = isGreen ? '#39ff14' : '#888888'; // Lighter gray
       const opacity = isGreen ? (0.8 + Math.random() * 0.2) : (0.5 + Math.random() * 0.3); // Brighter
 
-      const texture = createFormulaTexture(formula, color);
+      const texture = createMolecularTexture(moleculeType, color);
       const material = new THREE.SpriteMaterial({
         map: texture,
         transparent: true,
