@@ -142,11 +142,29 @@ const Hero = () => {
     const animate = () => {
       requestAnimationFrame(animate);
 
-      particles.rotation.y += 0.001;
-      particles.rotation.x += 0.0005;
+      // Animate each formula sprite
+      formulas.forEach((sprite) => {
+        // Rotate sprite
+        sprite.material.rotation += sprite.userData.rotationSpeed;
 
-      particles.rotation.x += mouseRef.current.y * 0.01;
-      particles.rotation.y += mouseRef.current.x * 0.01;
+        // Gentle drift
+        sprite.position.x += sprite.userData.driftSpeed.x;
+        sprite.position.y += sprite.userData.driftSpeed.y;
+        sprite.position.z += sprite.userData.driftSpeed.z;
+
+        // Wrap around boundaries
+        if (sprite.position.x > 10) sprite.position.x = -10;
+        if (sprite.position.x < -10) sprite.position.x = 10;
+        if (sprite.position.y > 10) sprite.position.y = -10;
+        if (sprite.position.y < -10) sprite.position.y = 10;
+        if (sprite.position.z > 10) sprite.position.z = -10;
+        if (sprite.position.z < -10) sprite.position.z = 10;
+      });
+
+      // Camera movement based on mouse
+      camera.position.x += (mouseRef.current.x * 0.5 - camera.position.x) * 0.05;
+      camera.position.y += (-mouseRef.current.y * 0.5 - camera.position.y) * 0.05;
+      camera.lookAt(scene.position);
 
       renderer.render(scene, camera);
     };
