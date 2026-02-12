@@ -16,34 +16,39 @@
     pointer-events: none;
 }
 
-/* Gas/Smoke effect */
+/* Gas/Smoke effect - MORE INTENSE */
 .gas-particle {
-    background: radial-gradient(circle, rgba(57, 255, 20, 0.4) 0%, rgba(57, 255, 20, 0.2) 30%, transparent 60%);
+    background: radial-gradient(circle,
+            rgba(57, 255, 20, 0.7) 0%,
+            rgba(57, 255, 20, 0.4) 30%,
+            rgba(57, 255, 20, 0.1) 60%,
+            transparent 80%);
     box-shadow:
-        0 0 30px rgba(57, 255, 20, 0.4),
-        0 0 60px rgba(57, 255, 20, 0.2),
-        inset 0 0 20px rgba(57, 255, 20, 0.1);
-    animation: gasFloat 2s ease-out forwards;
-    filter: blur(8px);
+        0 0 40px rgba(57, 255, 20, 0.7),
+        0 0 80px rgba(57, 255, 20, 0.5),
+        0 0 120px rgba(57, 255, 20, 0.3),
+        inset 0 0 30px rgba(57, 255, 20, 0.2);
+    animation: gasFloat 2.5s ease-out forwards;
+    filter: blur(10px);
 }
 
 @keyframes gasFloat {
     0% {
-        opacity: 0.8;
-        transform: translate(-50%, -50%) scale(0.5);
-        filter: blur(4px);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.6);
+        filter: blur(6px);
     }
 
     50% {
-        opacity: 0.5;
-        transform: translate(calc(-50% + var(--speed-x, 0) * 20px), calc(-50% + var(--speed-y, -40) * 1px)) scale(1.5);
-        filter: blur(12px);
+        opacity: 0.8;
+        transform: translate(calc(-50% + var(--speed-x, 0) * 30px), calc(-50% + var(--speed-y, -60) * 1px)) scale(2);
+        filter: blur(15px);
     }
 
     100% {
         opacity: 0;
-        transform: translate(calc(-50% + var(--speed-x, 0) * 40px), calc(-50% + var(--speed-y, -80) * 1px)) scale(2.5);
-        filter: blur(20px);
+        transform: translate(calc(-50% + var(--speed-x, 0) * 60px), calc(-50% + var(--speed-y, -120) * 1px)) scale(3.5);
+        filter: blur(25px);
     }
 }
 
@@ -61,25 +66,27 @@
     width: 100%;
     height: 100%;
     background:
-        radial-gradient(circle at 20% 30%, rgba(57, 255, 20, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(57, 255, 20, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(57, 255, 20, 0.02) 0%, transparent 60%);
+        radial-gradient(circle at 20% 30%, rgba(57, 255, 20, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(57, 255, 20, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(57, 255, 20, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 10% 80%, rgba(57, 255, 20, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(57, 255, 20, 0.06) 0%, transparent 40%);
     pointer-events: none;
     z-index: 0;
-    animation: backgroundGas 8s ease-in-out infinite;
+    animation: backgroundGas 6s ease-in-out infinite;
 }
 
 @keyframes backgroundGas {
 
     0%,
     100% {
-        opacity: 0.5;
+        opacity: 0.7;
         transform: scale(1);
     }
 
     50% {
-        opacity: 0.8;
-        transform: scale(1.1);
+        opacity: 1;
+        transform: scale(1.15);
     }
 }
 
