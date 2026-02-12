@@ -382,10 +382,6 @@ const Hero = () => {
     <section className="hero">
       <div ref={canvasRef} className="hero-canvas"></div>
       <div className="hero-content">
-        <div className="hero-logo">
-          <span className="logo-he">He</span>
-          <span className="logo-number">15</span>
-        </div>
         <h1 className="hero-title">HEISENBYTE</h1>
         <p className="hero-subtitle">National Level Technical Symposium 2026</p>
         <p className="hero-tagline">Move your cursor and feel the chemistry.</p>
