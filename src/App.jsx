@@ -7,6 +7,7 @@ import Contact from './components/Contact';
 import CursorTrail from './components/CursorTrail';
 import './styles/global.css';
 import './styles/cursor.css';
+import './styles/cinematic.css';
 
 function App() {
   return (
