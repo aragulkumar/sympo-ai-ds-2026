@@ -3,13 +3,14 @@ import { useEffect } from 'react';
 const CursorGlow = () => {
     useEffect(() => {
         const handleMouseMove = (e) => {
-            // Check if cursor is NOT in hero section
+            // Check if cursor is in hero section OR navbar
             const target = document.elementFromPoint(e.clientX, e.clientY);
             const inHeroSection = target?.closest('.hero, #hero');
+            const inNavbar = target?.closest('.navbar, nav');
 
-            // Only apply glow effect outside hero section
-            if (inHeroSection) {
-                // Reset to default background when in hero
+            // Only apply glow effect outside hero and navbar
+            if (inHeroSection || inNavbar) {
+                // Reset to default background when in hero or navbar
                 document.body.style.background = 'radial-gradient(circle at center, #071a0f 0%, #000000 70%)';
             } else {
                 // Apply green glow in other sections
