@@ -6,6 +6,7 @@ const CursorTrail = () => {
 
     useEffect(() => {
         let particleId = 0;
+        let lastTime = Date.now();
 
         const handleMouseMove = (e) => {
             // Check if cursor is in event sections
@@ -15,13 +16,18 @@ const CursorTrail = () => {
             // Only create particles in event sections
             if (!inEventSection) return;
 
+            // Throttle particle creation for milder effect
+            const now = Date.now();
+            if (now - lastTime < 50) return; // Create particle every 50ms max
+            lastTime = now;
+
             const newParticle = {
                 id: particleId++,
                 x: e.clientX,
                 y: e.clientY,
-                size: Math.random() * 60 + 40, // Keep larger size
-                speedX: (Math.random() - 0.5) * 3,
-                speedY: -Math.random() * 3 - 1.5, // Keep faster movement
+                size: Math.random() * 30 + 20, // Smaller, milder particles
+                speedX: (Math.random() - 0.5) * 1.5, // Slower, gentler movement
+                speedY: -Math.random() * 1.5 - 0.5, // Gentle upward drift
             };
 
             setParticles((prev) => [...prev, newParticle]);
@@ -29,7 +35,7 @@ const CursorTrail = () => {
             // Remove particle after animation
             setTimeout(() => {
                 setParticles((prev) => prev.filter((p) => p.id !== newParticle.id));
-            }, 2500);
+            }, 3000); // Longer, slower fade
         };
 
         window.addEventListener('mousemove', handleMouseMove);
