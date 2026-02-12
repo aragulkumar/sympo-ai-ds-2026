@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import heisenbyteLogo from '../assets/heisenbyte-logo.png';
 import './Hero.css';
 
 const Hero = () => {
@@ -382,7 +383,7 @@ const Hero = () => {
     <section className="hero">
       <div ref={canvasRef} className="hero-canvas"></div>
       <div className="hero-content">
-        <h1 className="hero-title">HEISENBYTE</h1>
+        <img src={heisenbyteLogo} alt="HEISENBYTE" className="hero-title-image" />
         <p className="hero-subtitle">National Level Technical Symposium 2026</p>
         <p className="hero-tagline">Move your cursor and feel the chemistry.</p>
         <div className="hero-buttons">
