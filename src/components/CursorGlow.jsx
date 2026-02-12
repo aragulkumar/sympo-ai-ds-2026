@@ -5,8 +5,8 @@ const CursorGlow = () => {
         const handleMouseMove = (e) => {
             document.body.style.background =
                 `radial-gradient(circle at ${e.clientX}px ${e.clientY}px, 
-         rgba(57, 255, 20, 0.12), 
-         #071a0f 40%, 
+         rgba(57, 255, 20, 0.06), 
+         #071a0f 30%, 
          #000000 70%)`;
         };
 
