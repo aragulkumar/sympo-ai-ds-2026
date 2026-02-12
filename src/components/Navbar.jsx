@@ -57,9 +57,6 @@ const Navbar = () => {
                     <li>
                         <a onClick={() => scrollToSection('contact')}>Contact</a>
                     </li>
-                    <li>
-                        <button className="btn btn-nav">Register</button>
-                    </li>
                 </ul>
             </div>
         </nav>
