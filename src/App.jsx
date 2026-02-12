@@ -5,6 +5,7 @@ import TechnicalEvents from './components/TechnicalEvents';
 import NonTechnicalEvents from './components/NonTechnicalEvents';
 import Contact from './components/Contact';
 import CursorTrail from './components/CursorTrail';
+import CursorGlow from './components/CursorGlow';
 import './styles/global.css';
 import './styles/cursor.css';
 import './styles/cinematic.css';
@@ -12,6 +13,7 @@ import './styles/cinematic.css';
 function App() {
   return (
     <div className="App">
+      <CursorGlow />
       <CursorTrail />
       <Navbar />
       <main>
