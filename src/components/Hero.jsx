@@ -251,7 +251,7 @@ const Hero = () => {
     rendererRef.current = renderer;
 
     // Create chemical formula sprites - MORE formulas
-    const formulaCount = window.innerWidth < 768 ? 90 : 150; // Increased from 60/100
+    const formulaCount = window.innerWidth < 768 ? 150 : 250; // Increased to 250
     const formulas = [];
 
     for (let i = 0; i < formulaCount; i++) {
@@ -297,17 +297,17 @@ const Hero = () => {
 
     formulasRef.current = formulas;
 
-    // Mouse move handler
+    // Mouse move handler - increased sensitivity
     const handleMouseMove = (event) => {
-      mouseRef.current.x = (event.clientX - window.innerWidth / 2) / 500;
-      mouseRef.current.y = (event.clientY - window.innerHeight / 2) / 500;
+      mouseRef.current.x = (event.clientX - window.innerWidth / 2) / 200; // Increased sensitivity from 500
+      mouseRef.current.y = (event.clientY - window.innerHeight / 2) / 200;
     };
 
-    // Touch move handler for mobile
+    // Touch move handler for mobile - increased sensitivity
     const handleTouchMove = (event) => {
       if (event.touches.length > 0) {
-        mouseRef.current.x = (event.touches[0].clientX - window.innerWidth / 2) / 500;
-        mouseRef.current.y = (event.touches[0].clientY - window.innerHeight / 2) / 500;
+        mouseRef.current.x = (event.touches[0].clientX - window.innerWidth / 2) / 200; // Increased sensitivity
+        mouseRef.current.y = (event.touches[0].clientY - window.innerHeight / 2) / 200;
       }
     };
 
