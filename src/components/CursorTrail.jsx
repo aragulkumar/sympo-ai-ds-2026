@@ -25,7 +25,7 @@ const CursorTrail = () => {
                 id: particleId++,
                 x: e.clientX,
                 y: e.clientY,
-                size: Math.random() * 40 + 35, // Larger overlapping particles
+                size: Math.random() * 15 + 15, // Smaller particles (15-30px)
                 speedX: (Math.random() - 0.5) * 1,
                 speedY: -Math.random() * 1 - 0.3,
             };
