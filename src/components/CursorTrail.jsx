@@ -8,11 +8,20 @@ const CursorTrail = () => {
         let particleId = 0;
 
         const handleMouseMove = (e) => {
+            // Check if cursor is in event sections
+            const target = document.elementFromPoint(e.clientX, e.clientY);
+            const inEventSection = target?.closest('.events-section');
+
+            // Only create particles in event sections
+            if (!inEventSection) return;
+
             const newParticle = {
                 id: particleId++,
                 x: e.clientX,
                 y: e.clientY,
-                size: Math.random() * 20 + 10,
+                size: Math.random() * 40 + 30, // Larger for gas effect
+                speedX: (Math.random() - 0.5) * 2,
+                speedY: -Math.random() * 2 - 1, // Float upward like gas
             };
 
             setParticles((prev) => [...prev, newParticle]);
@@ -20,7 +29,7 @@ const CursorTrail = () => {
             // Remove particle after animation
             setTimeout(() => {
                 setParticles((prev) => prev.filter((p) => p.id !== newParticle.id));
-            }, 1000);
+            }, 2000); // Longer duration for gas effect
         };
 
         window.addEventListener('mousemove', handleMouseMove);
@@ -35,12 +44,14 @@ const CursorTrail = () => {
             {particles.map((particle) => (
                 <div
                     key={particle.id}
-                    className="cursor-particle"
+                    className="cursor-particle gas-particle"
                     style={{
                         left: `${particle.x}px`,
                         top: `${particle.y}px`,
                         width: `${particle.size}px`,
                         height: `${particle.size}px`,
+                        '--speed-x': particle.speedX,
+                        '--speed-y': particle.speedY,
                     }}
                 />
             ))}

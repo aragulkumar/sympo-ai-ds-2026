@@ -12,70 +12,87 @@
 .cursor-particle {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(57, 255, 20, 0.8) 0%, rgba(57, 255, 20, 0.4) 40%, transparent 70%);
-    box-shadow:
-        0 0 20px rgba(57, 255, 20, 0.6),
-        0 0 40px rgba(57, 255, 20, 0.4),
-        0 0 60px rgba(57, 255, 20, 0.2);
     transform: translate(-50%, -50%);
-    animation: particleFade 1s ease-out forwards;
-    filter: blur(2px);
+    pointer-events: none;
 }
 
-@keyframes particleFade {
+/* Gas/Smoke effect */
+.gas-particle {
+    background: radial-gradient(circle, rgba(57, 255, 20, 0.4) 0%, rgba(57, 255, 20, 0.2) 30%, transparent 60%);
+    box-shadow:
+        0 0 30px rgba(57, 255, 20, 0.4),
+        0 0 60px rgba(57, 255, 20, 0.2),
+        inset 0 0 20px rgba(57, 255, 20, 0.1);
+    animation: gasFloat 2s ease-out forwards;
+    filter: blur(8px);
+}
+
+@keyframes gasFloat {
     0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(0.5);
+        filter: blur(4px);
     }
 
     50% {
-        opacity: 0.6;
-        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.5;
+        transform: translate(calc(-50% + var(--speed-x, 0) * 20px), calc(-50% + var(--speed-y, -40) * 1px)) scale(1.5);
+        filter: blur(12px);
     }
 
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(2);
+        transform: translate(calc(-50% + var(--speed-x, 0) * 40px), calc(-50% + var(--speed-y, -80) * 1px)) scale(2.5);
+        filter: blur(20px);
     }
 }
 
-/* Add a subtle glow effect on the entire trail */
-.cursor-particle::before {
+/* Subtle background gas effect for event sections */
+.events-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.events-section::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 150%;
-    height: 150%;
-    background: radial-gradient(circle, rgba(57, 255, 20, 0.3) 0%, transparent 70%);
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    animation: pulseGlow 1s ease-out forwards;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(57, 255, 20, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(57, 255, 20, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(57, 255, 20, 0.02) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    animation: backgroundGas 8s ease-in-out infinite;
 }
 
-@keyframes pulseGlow {
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(0.5);
+@keyframes backgroundGas {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
     }
 
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(2);
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
     }
+}
+
+/* Ensure content is above background */
+.events-section .container {
+    position: relative;
+    z-index: 1;
 }
 
 /* Mobile optimization - reduce particle count */
 @media (max-width: 768px) {
-    .cursor-particle {
+    .gas-particle {
         display: none;
         /* Disable on mobile for performance */
-    }
-}
-
-/* Tablet - smaller particles */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .cursor-particle {
-        filter: blur(1px);
     }
 }
