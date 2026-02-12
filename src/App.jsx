@@ -5,6 +5,7 @@ import TechnicalEvents from './components/TechnicalEvents';
 import NonTechnicalEvents from './components/NonTechnicalEvents';
 import Contact from './components/Contact';
 import './styles/global.css';
+import './styles/cursor.css';
 
 function App() {
   return (

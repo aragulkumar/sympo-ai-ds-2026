@@ -1,0 +1,71 @@
+/* Custom Green Acid Cursor */
+body,
+html,
+* {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><defs><filter id="glow"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M2,2 L2,20 L8,14 L12,24 L16,22 L12,12 L20,12 Z" fill="%2339ff14" stroke="%2339ff14" stroke-width="1" filter="url(%23glow)"/><circle cx="3" cy="3" r="1.5" fill="%23ffffff" opacity="0.8"/></svg>') 2 2, auto;
+}
+
+/* Pointer cursor for interactive elements */
+a,
+button,
+.btn,
+input[type="submit"],
+input[type="button"],
+[role="button"] {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><defs><filter id="glow"><feGaussianBlur stdDeviation="2.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M16,2 L16,16 M16,16 L22,10 M16,16 L10,10" stroke="%2339ff14" stroke-width="3" fill="none" filter="url(%23glow)" stroke-linecap="round"/><circle cx="16" cy="16" r="8" fill="none" stroke="%2339ff14" stroke-width="2" opacity="0.5" filter="url(%23glow)"/><circle cx="16" cy="16" r="3" fill="%2339ff14" opacity="0.8"/></svg>') 16 16, pointer;
+}
+
+/* Text cursor for input fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" viewBox="0 0 24 32"><defs><filter id="glow"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><line x1="12" y1="4" x2="12" y2="28" stroke="%2339ff14" stroke-width="2" filter="url(%23glow)"/><line x1="8" y1="4" x2="16" y2="4" stroke="%2339ff14" stroke-width="2" filter="url(%23glow)"/><line x1="8" y1="28" x2="16" y2="28" stroke="%2339ff14" stroke-width="2" filter="url(%23glow)"/></svg>') 12 16, text;
+}
+
+/* Dripping acid effect on hover for buttons */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(57, 255, 20, 0.3) 0%,
+            transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    opacity: 1;
+}
+
+/* Add drip animation */
+@keyframes drip {
+    0% {
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(10px) scaleY(1.5);
+        opacity: 0;
+    }
+}
+
+/* Acid trail effect */
+@keyframes acidTrail {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
