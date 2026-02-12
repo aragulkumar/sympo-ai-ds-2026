@@ -15,24 +15,21 @@ const CursorTrail = () => {
             // Only create particles in event sections
             if (!inEventSection) return;
 
-            // Create multiple particles per movement for MORE INTENSE effect
-            for (let i = 0; i < 3; i++) {
-                const newParticle = {
-                    id: particleId++,
-                    x: e.clientX + (Math.random() - 0.5) * 30,
-                    y: e.clientY + (Math.random() - 0.5) * 30,
-                    size: Math.random() * 60 + 40, // Larger particles
-                    speedX: (Math.random() - 0.5) * 3,
-                    speedY: -Math.random() * 3 - 1.5, // Faster upward movement
-                };
+            const newParticle = {
+                id: particleId++,
+                x: e.clientX,
+                y: e.clientY,
+                size: Math.random() * 60 + 40, // Keep larger size
+                speedX: (Math.random() - 0.5) * 3,
+                speedY: -Math.random() * 3 - 1.5, // Keep faster movement
+            };
 
-                setParticles((prev) => [...prev, newParticle]);
+            setParticles((prev) => [...prev, newParticle]);
 
-                // Remove particle after animation
-                setTimeout(() => {
-                    setParticles((prev) => prev.filter((p) => p.id !== newParticle.id));
-                }, 2500); // Longer duration
-            }
+            // Remove particle after animation
+            setTimeout(() => {
+                setParticles((prev) => prev.filter((p) => p.id !== newParticle.id));
+            }, 2500);
         };
 
         window.addEventListener('mousemove', handleMouseMove);
