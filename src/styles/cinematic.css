@@ -1,6 +1,6 @@
-/* Breaking Bad Cinematic Atmosphere Effects */
+/* Breaking Bad Cinematic Atmosphere Effects - REDUCED INTENSITY */
 
-/* Moving Green Light Sweep */
+/* Moving Green Light Sweep - MILDER */
 body::before {
     content: "";
     position: fixed;
@@ -8,8 +8,8 @@ body::before {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(57, 255, 20, 0.15) 0%, transparent 60%);
-    animation: moveLight 12s ease-in-out infinite;
+    background: radial-gradient(circle, rgba(57, 255, 20, 0.08) 0%, transparent 60%);
+    animation: moveLight 15s ease-in-out infinite;
     pointer-events: none;
     z-index: 1;
 }
@@ -28,7 +28,7 @@ body::before {
     }
 }
 
-/* Chemical Fog Effect */
+/* Chemical Fog Effect - SUBTLE */
 body::after {
     content: "";
     position: fixed;
@@ -38,11 +38,11 @@ body::after {
     height: 100%;
     background:
         repeating-linear-gradient(90deg,
-            rgba(57, 255, 20, 0.02) 0px,
+            rgba(57, 255, 20, 0.01) 0px,
             transparent 100px,
-            rgba(57, 255, 20, 0.03) 200px,
+            rgba(57, 255, 20, 0.015) 200px,
             transparent 300px);
-    opacity: 0.3;
+    opacity: 0.2;
     animation: fogMove 60s linear infinite;
     pointer-events: none;
     z-index: 1;
@@ -70,104 +70,99 @@ body {
     z-index: 2;
 }
 
-/* Enhanced Neon Glow for Headers */
+/* Mild Neon Glow for Headers - GREEN ONLY */
 h1,
 h2,
 .section-title,
 .hero-title {
     text-shadow:
-        0 0 5px #39ff14,
-        0 0 10px #39ff14,
-        0 0 20px #39ff14,
-        0 0 40px #39ff14,
-        0 0 80px rgba(57, 255, 20, 0.5);
+        0 0 3px #39ff14,
+        0 0 6px #39ff14,
+        0 0 12px rgba(57, 255, 20, 0.6);
 }
 
-/* Glass Card Effect for Event Cards */
+/* Glass Card Effect for Event Cards - SUBTLE */
 .event-card,
 .card {
-    background: rgba(57, 255, 20, 0.05) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(57, 255, 20, 0.2) !important;
+    background: rgba(57, 255, 20, 0.03) !important;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(57, 255, 20, 0.15) !important;
+    box-shadow:
+        0 0 10px rgba(57, 255, 20, 0.1),
+        inset 0 0 15px rgba(57, 255, 20, 0.03) !important;
+}
+
+.event-card:hover,
+.card:hover {
+    border-color: rgba(57, 255, 20, 0.25) !important;
     box-shadow:
         0 0 15px rgba(57, 255, 20, 0.15),
         inset 0 0 20px rgba(57, 255, 20, 0.05) !important;
 }
 
-.event-card:hover,
-.card:hover {
-    border-color: rgba(57, 255, 20, 0.4) !important;
-    box-shadow:
-        0 0 25px rgba(57, 255, 20, 0.3),
-        inset 0 0 30px rgba(57, 255, 20, 0.1) !important;
-}
-
-/* Toxic Green Accents */
+/* Toxic Green Accents - MILD */
 .btn,
 button {
     box-shadow:
-        0 0 10px rgba(57, 255, 20, 0.3),
-        inset 0 0 10px rgba(57, 255, 20, 0.1);
+        0 0 8px rgba(57, 255, 20, 0.2),
+        inset 0 0 8px rgba(57, 255, 20, 0.05);
 }
 
 .btn:hover,
 button:hover {
     box-shadow:
-        0 0 20px rgba(57, 255, 20, 0.5),
-        0 0 40px rgba(57, 255, 20, 0.3),
-        inset 0 0 15px rgba(57, 255, 20, 0.2);
+        0 0 15px rgba(57, 255, 20, 0.3),
+        0 0 25px rgba(57, 255, 20, 0.2),
+        inset 0 0 12px rgba(57, 255, 20, 0.1);
 }
 
-/* Navbar Glass Effect */
+/* Navbar Glass Effect - SUBTLE */
 .navbar {
     background: rgba(0, 0, 0, 0.7) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(57, 255, 20, 0.15);
 }
 
 .navbar.scrolled {
-    background: rgba(0, 0, 0, 0.9) !important;
-    box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+    background: rgba(0, 0, 0, 0.85) !important;
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.15);
 }
 
-/* Section Dividers with Glow */
+/* Section Dividers with Glow - VERY SUBTLE */
 section {
-    border-bottom: 1px solid rgba(57, 255, 20, 0.1);
-    box-shadow: 0 1px 0 rgba(57, 255, 20, 0.05);
+    border-bottom: 1px solid rgba(57, 255, 20, 0.05);
+    box-shadow: 0 1px 0 rgba(57, 255, 20, 0.03);
 }
 
-/* Pulsing Glow Animation for Important Elements */
+/* Gentle Pulsing Glow Animation */
 @keyframes pulseGlow {
 
     0%,
     100% {
         text-shadow:
-            0 0 5px #39ff14,
-            0 0 10px #39ff14,
-            0 0 20px #39ff14;
+            0 0 3px #39ff14,
+            0 0 6px #39ff14;
     }
 
     50% {
         text-shadow:
+            0 0 5px #39ff14,
             0 0 10px #39ff14,
-            0 0 20px #39ff14,
-            0 0 40px #39ff14,
-            0 0 60px rgba(57, 255, 20, 0.5);
+            0 0 15px rgba(57, 255, 20, 0.4);
     }
 }
 
 .logo-he,
 .hero-logo {
-    animation: pulseGlow 3s ease-in-out infinite;
+    animation: pulseGlow 4s ease-in-out infinite;
 }
 
-/* Radioactive Glow for Stats */
+/* Mild Glow for Stats - GREEN ONLY */
 .stat-number,
 .info-value {
     text-shadow:
-        0 0 5px #39ff14,
-        0 0 10px #39ff14,
-        0 0 15px rgba(57, 255, 20, 0.5);
+        0 0 3px #39ff14,
+        0 0 6px rgba(57, 255, 20, 0.5);
 }
 
 /* Dark Shadows for Depth */
@@ -175,7 +170,7 @@ section {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* Atmospheric Vignette */
+/* Atmospheric Vignette - SUBTLE */
 .hero::before {
     content: "";
     position: absolute;
@@ -183,7 +178,7 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
     pointer-events: none;
     z-index: 1;
 }
