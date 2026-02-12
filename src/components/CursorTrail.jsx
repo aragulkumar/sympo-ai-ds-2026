@@ -16,18 +16,18 @@ const CursorTrail = () => {
             // Only create particles in event sections
             if (!inEventSection) return;
 
-            // Throttle particle creation for milder effect
+            // Create particles more frequently for smooth continuous trail
             const now = Date.now();
-            if (now - lastTime < 50) return; // Create particle every 50ms max
+            if (now - lastTime < 20) return; // Create particle every 20ms for smooth trail
             lastTime = now;
 
             const newParticle = {
                 id: particleId++,
                 x: e.clientX,
                 y: e.clientY,
-                size: Math.random() * 30 + 20, // Smaller, milder particles
-                speedX: (Math.random() - 0.5) * 1.5, // Slower, gentler movement
-                speedY: -Math.random() * 1.5 - 0.5, // Gentle upward drift
+                size: Math.random() * 40 + 35, // Larger overlapping particles
+                speedX: (Math.random() - 0.5) * 1,
+                speedY: -Math.random() * 1 - 0.3,
             };
 
             setParticles((prev) => [...prev, newParticle]);
@@ -35,7 +35,7 @@ const CursorTrail = () => {
             // Remove particle after animation
             setTimeout(() => {
                 setParticles((prev) => prev.filter((p) => p.id !== newParticle.id));
-            }, 3000); // Longer, slower fade
+            }, 2000);
         };
 
         window.addEventListener('mousemove', handleMouseMove);
