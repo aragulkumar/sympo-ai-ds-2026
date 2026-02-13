@@ -33,6 +33,7 @@ const FunGames = () => {
             Icon: Dumbbell,
             href: "#",
             cta: "Join Now",
+            prize: "Exciting Rewards!",
             className: "col-span-1 lg:col-span-2",
             background: (
                 <div className="absolute inset-0 opacity-20">
@@ -55,6 +56,7 @@ const FunGames = () => {
             Icon: Droplet,
             href: "#",
             cta: "Join Now",
+            prize: "Exciting Rewards!",
             className: "col-span-1",
             background: (
                 <div className="absolute inset-0 opacity-20">
@@ -77,6 +79,7 @@ const FunGames = () => {
             Icon: Music,
             href: "#",
             cta: "Join Now",
+            prize: "Exciting Rewards!",
             className: "col-span-1",
             background: (
                 <div className="absolute inset-0 opacity-20">
@@ -99,6 +102,7 @@ const FunGames = () => {
             Icon: Film,
             href: "#",
             cta: "Join Now",
+            prize: "Exciting Rewards!",
             className: "col-span-1",
             background: (
                 <div className="absolute inset-0 opacity-20">
