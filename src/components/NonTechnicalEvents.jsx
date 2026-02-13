@@ -10,6 +10,7 @@ const NonTechnicalEvents = () => {
             Icon: Palette,
             href: "#",
             cta: "Register Now",
+            prize: "Winner: ₹500 | Runner-up: ₹400",
             className: "col-span-1",
             background: (
                 <div className="absolute inset-0 opacity-20">
@@ -32,6 +33,7 @@ const NonTechnicalEvents = () => {
             Icon: Gamepad2,
             href: "#",
             cta: "Register Now",
+            prize: "Winner: ₹500 | Runner-up: ₹400",
             className: "col-span-1 lg:col-span-2",
             background: (
                 <div className="absolute inset-0 opacity-20">
@@ -55,6 +57,7 @@ const NonTechnicalEvents = () => {
             Icon: Sparkles,
             href: "#",
             cta: "Register Now",
+            prize: "Winner: ₹500 | Runner-up: ₹400",
             className: "col-span-1 lg:col-span-2",
             background: (
                 <div className="absolute inset-0 opacity-20">
@@ -77,6 +80,7 @@ const NonTechnicalEvents = () => {
             Icon: Megaphone,
             href: "#",
             cta: "Register Now",
+            prize: "Winner: ₹500 | Runner-up: ₹400",
             className: "col-span-1",
             background: (
                 <div className="absolute inset-0 opacity-20">
@@ -99,6 +103,7 @@ const NonTechnicalEvents = () => {
             Icon: Image,
             href: "#",
             cta: "Register Now",
+            prize: "Winner: ₹500 | Runner-up: ₹400",
             className: "col-span-1",
             background: (
                 <div className="absolute inset-0 opacity-20">

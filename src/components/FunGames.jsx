@@ -10,6 +10,7 @@ const FunGames = () => {
             Icon: UtensilsCrossed,
             href: "#",
             cta: "Join Now",
+            prize: "Exciting Rewards!",
             className: "col-span-1",
             background: (
                 <div className="absolute inset-0 opacity-20">
