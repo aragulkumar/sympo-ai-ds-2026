@@ -1,4 +1,4 @@
-import { BentoCard, BentoGrid } from "@/components/ui/BentoGrid";
+import { BentoCard, BentoGrid } from "../ui/BentoGrid";
 import { UtensilsCrossed, Dumbbell, Droplet, Music, Film } from "lucide-react";
 import { motion } from "framer-motion";
 

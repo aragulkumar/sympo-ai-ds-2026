@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { motion } from "framer-motion";
-import { Pointer } from "@/components/ui/Pointer";
-import { MagicCard } from "@/components/ui/MagicCard";
+import { Pointer } from "./Pointer";
+import { MagicCard } from "./MagicCard";
 
 export const BentoGrid = ({ children, className }) => {
     return (

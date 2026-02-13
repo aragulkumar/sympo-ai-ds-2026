@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 export function Pointer({ children, className }) {
     const ref = useRef(null);

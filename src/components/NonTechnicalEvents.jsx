@@ -1,4 +1,4 @@
-import { BentoCard, BentoGrid } from "@/components/ui/BentoGrid";
+import { BentoCard, BentoGrid } from "../ui/BentoGrid";
 import { Palette, Gamepad2, Sparkles, Megaphone, Image } from "lucide-react";
 import { motion } from "framer-motion";
 
