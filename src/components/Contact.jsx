@@ -12,18 +12,25 @@ const Contact = () => {
                     <div className="contact-info">
                         <div className="contact-item card">
                             <div className="contact-icon">📧</div>
-                            <h3>Email</h3>
-                            <p>heisenbyte2026@college.edu</p>
+                            <h3>Email Us</h3>
+                            <p>heisenbyte2026@jec.edu.in</p>
                         </div>
                         <div className="contact-item card">
                             <div className="contact-icon">📱</div>
-                            <h3>Phone</h3>
-                            <p>+91 XXXXX XXXXX</p>
+                            <h3>Call Us</h3>
+                            <div className="contact-person">
+                                <p className="person-name">Gowtham</p>
+                                <p className="person-phone">+91 63858 81949</p>
+                            </div>
+                            <div className="contact-person">
+                                <p className="person-name">Srina</p>
+                                <p className="person-phone">+91 63798 64735</p>
+                            </div>
                         </div>
                         <div className="contact-item card">
                             <div className="contact-icon">📍</div>
-                            <h3>Location</h3>
-                            <p>Your College Name<br />City, State</p>
+                            <h3>Visit Us</h3>
+                            <p>Jeppiaar Engineering College<br />Chennai, Tamil Nadu</p>
                         </div>
                     </div>
                     <div className="social-links">
