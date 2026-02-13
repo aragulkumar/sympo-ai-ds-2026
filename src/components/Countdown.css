@@ -34,12 +34,13 @@
     font-weight: 900;
     color: var(--text-white);
     background: rgba(26, 26, 26, 0.9);
-    border: 2px solid rgba(57, 255, 20, 0.3);
+    border: 2px solid var(--primary-green);
+    border-top: 3px solid var(--primary-green);
     border-radius: 6px;
     padding: 0.8rem 1.2rem;
     min-width: 80px;
     box-shadow:
-        0 0 15px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(57, 255, 20, 0.3),
         inset 0 0 15px rgba(0, 0, 0, 0.3);
     text-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
     transition: all 0.3s ease;
@@ -47,27 +48,12 @@
     overflow: hidden;
 }
 
-/* Colorful top borders for each countdown item */
-.countdown-item:nth-child(1) .countdown-value {
-    border-top: 3px solid #ff6b6b;
-}
 
-.countdown-item:nth-child(3) .countdown-value {
-    border-top: 3px solid #4ecdc4;
-}
-
-.countdown-item:nth-child(5) .countdown-value {
-    border-top: 3px solid #ff9f43;
-}
-
-.countdown-item:nth-child(7) .countdown-value {
-    border-top: 3px solid #5f27cd;
-}
 
 .countdown-value:hover {
     transform: scale(1.03);
     box-shadow:
-        0 0 25px rgba(57, 255, 20, 0.4),
+        0 0 25px rgba(57, 255, 20, 0.5),
         inset 0 0 25px rgba(0, 0, 0, 0.4);
 }
 

@@ -143,13 +143,13 @@ p {
 .btn-explore {
   font-family: 'Orbitron', sans-serif;
   font-weight: 700;
-  font-size: 1.1rem;
-  padding: 16px 40px;
+  font-size: 1rem;
+  padding: 14px 32px;
   border: 3px solid var(--primary-green);
   background: linear-gradient(135deg, rgba(57, 255, 20, 0.1), transparent);
   color: var(--primary-green);
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -186,7 +186,7 @@ p {
     0 0 60px rgba(57, 255, 20, 0.5),
     inset 0 0 30px rgba(0, 0, 0, 0.3);
   transform: translateY(-4px) scale(1.05);
-  letter-spacing: 4px;
+  letter-spacing: 3px;
 }
 
 .btn-explore:active {
