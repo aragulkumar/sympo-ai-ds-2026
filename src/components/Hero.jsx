@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import heisenbyteLogo from '../assets/heisenbyte-logo.png';
+import Countdown from './Countdown';
 import './Hero.css';
 
 const Hero = () => {
@@ -386,6 +387,8 @@ const Hero = () => {
         <img src={heisenbyteLogo} alt="HEISENBYTE" className="hero-title-image" />
         <p className="hero-subtitle">National Level Technical Symposium 2026</p>
         <p className="hero-tagline">Move your cursor and feel the chemistry.</p>
+        <Countdown />
+        <p className="hero-event-date">5TH MARCH 2026</p>
         <div className="hero-buttons">
           <button className="btn btn-explore" onClick={scrollToEvents}>
             Explore Events
@@ -393,8 +396,12 @@ const Hero = () => {
         </div>
         <div className="hero-info">
           <div className="info-item">
-            <span className="info-label">Date</span>
-            <span className="info-value">5th March 2026</span>
+            <span className="info-label">Duration</span>
+            <span className="info-value">1 Day</span>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Total Events</span>
+            <span className="info-value">14 Events</span>
           </div>
           <div className="info-item">
             <span className="info-label">Venue</span>
