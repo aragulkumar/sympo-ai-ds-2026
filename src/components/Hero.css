@@ -112,16 +112,17 @@
 
 .info-label {
     font-size: 0.875rem;
-    color: var(--text-dark-gray);
+    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-weight: 600;
 }
 
 .info-value {
     font-size: 1.1rem;
-    color: #ffffff;
+    color: var(--primary-green);
     font-weight: 700;
-    text-shadow: 0 0 10px rgba(57, 255, 20, 0.8);
+    text-shadow: 0 0 15px rgba(57, 255, 20, 0.8);
 }
 
 /* Mobile Responsive */
