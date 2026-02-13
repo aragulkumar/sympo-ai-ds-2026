@@ -397,11 +397,11 @@ const Hero = () => {
         <div className="hero-info">
           <div className="info-item">
             <span className="info-label">Date</span>
-            <span className="info-value">Coming Soon</span>
+            <span className="info-value">5th March 2026</span>
           </div>
           <div className="info-item">
             <span className="info-label">Venue</span>
-            <span className="info-value">Your College</span>
+            <span className="info-value">AI & DS Block</span>
           </div>
           <div className="info-item">
             <span className="info-label">Theme</span>
