@@ -376,7 +376,7 @@ const Hero = () => {
   }, []);
 
   const scrollToEvents = () => {
-    document.getElementById('events')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('technical-events')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -387,11 +387,8 @@ const Hero = () => {
         <p className="hero-subtitle">National Level Technical Symposium 2026</p>
         <p className="hero-tagline">Move your cursor and feel the chemistry.</p>
         <div className="hero-buttons">
-          <button className="btn" onClick={scrollToEvents}>
+          <button className="btn btn-explore" onClick={scrollToEvents}>
             Explore Events
-          </button>
-          <button className="btn btn-secondary">
-            Register Now
           </button>
         </div>
         <div className="hero-info">
