@@ -202,7 +202,8 @@ p {
   padding: var(--spacing-md);
   transition: all var(--transition-normal);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  z-index: 1;
 }
 
 .card::before {
@@ -214,6 +215,7 @@ p {
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.1), transparent);
   transition: left var(--transition-slow);
+  z-index: -1;
 }
 
 .card:hover {
