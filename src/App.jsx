@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import TechnicalEvents from './components/TechnicalEvents';
 import NonTechnicalEvents from './components/NonTechnicalEvents';
+import FunGames from './components/FunGames';
 import Contact from './components/Contact';
 import CursorTrail from './components/CursorTrail';
 import './styles/global.css';
@@ -19,6 +20,7 @@ function App() {
         <About />
         <TechnicalEvents />
         <NonTechnicalEvents />
+        <FunGames />
         <Contact />
       </main>
     </div>

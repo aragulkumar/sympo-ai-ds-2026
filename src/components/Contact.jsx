@@ -30,9 +30,7 @@ const Contact = () => {
                         <h3>Follow Us</h3>
                         <div className="social-icons">
                             <a href="#" className="social-icon">Instagram</a>
-                            <a href="#" className="social-icon">Twitter</a>
                             <a href="#" className="social-icon">LinkedIn</a>
-                            <a href="#" className="social-icon">Facebook</a>
                         </div>
                     </div>
                 </div>
