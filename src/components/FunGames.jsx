@@ -66,7 +66,9 @@ const FunGames = () => {
                                     </div>
                                 </div>
                                 <div className="card-footer">
-                                    <button className="register-btn">Join Now</button>
+                                    <button className="register-btn">
+                                        <span>Join Now</span>
+                                    </button>
                                 </div>
                             </div>
                         );

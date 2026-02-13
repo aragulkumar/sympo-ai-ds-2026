@@ -66,7 +66,9 @@ const NonTechnicalEvents = () => {
                                     </div>
                                 </div>
                                 <div className="card-footer">
-                                    <button className="register-btn">Register Now</button>
+                                    <button className="register-btn">
+                                        <span>Register Now</span>
+                                    </button>
                                 </div>
                             </div>
                         );
