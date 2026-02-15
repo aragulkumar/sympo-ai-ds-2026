@@ -16,7 +16,7 @@
     font-weight: 900;
     text-align: center;
     margin-bottom: 1rem;
-    color: #00d9ff;
+    color: #39ff14;
     text-transform: uppercase;
     letter-spacing: 3px;
 }
@@ -57,7 +57,7 @@
     bottom: 0;
     border-radius: 16px;
     padding: 2px;
-    background: linear-gradient(135deg, #00d9ff, #7000ff);
+    background: linear-gradient(135deg, #39ff14, #ffd700);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -71,7 +71,7 @@
 
 .event-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 217, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(57, 255, 20, 0.3);
 }
 
 /* Card Image */
@@ -137,7 +137,7 @@
 .info-label {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
-    color: #00d9ff;
+    color: #39ff14;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -151,8 +151,8 @@
 
 /* Prize Badge */
 .prize-badge {
-    background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(112, 0, 255, 0.1) 100%);
-    border: 1px solid rgba(0, 217, 255, 0.3);
+    background: linear-gradient(135deg, rgba(57, 255, 20, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+    border: 1px solid rgba(57, 255, 20, 0.3);
     border-radius: 8px;
     padding: 0.75rem 1rem;
     display: flex;
@@ -167,7 +167,7 @@
 
 .prize-text {
     font-family: 'Orbitron', sans-serif;
-    color: #00d9ff;
+    color: #39ff14;
     font-weight: 600;
     font-size: 0.85rem;
 }
@@ -183,7 +183,7 @@
 .team-label {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
-    color: #00d9ff;
+    color: #39ff14;
     text-transform: uppercase;
 }
 
@@ -202,7 +202,7 @@
 .register-btn {
     flex: 1;
     padding: 0.9rem 1.5rem;
-    background: linear-gradient(135deg, #00d9ff 0%, #7000ff 100%);
+    background: linear-gradient(135deg, #39ff14 0%, #ffd700 100%);
     border: none;
     border-radius: 8px;
     color: #fff;
@@ -234,15 +234,15 @@
 
 .register-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 217, 255, 0.4);
+    box-shadow: 0 10px 25px rgba(57, 255, 20, 0.4);
 }
 
 .rules-btn {
     padding: 0.9rem 1.5rem;
     background: transparent;
-    border: 2px solid #00d9ff;
+    border: 2px solid #ffd700;
     border-radius: 8px;
-    color: #00d9ff;
+    color: #ffd700;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
@@ -252,7 +252,7 @@
 }
 
 .rules-btn:hover {
-    background: rgba(0, 217, 255, 0.1);
+    background: rgba(255, 215, 0, 0.1);
     transform: translateY(-2px);
 }
 

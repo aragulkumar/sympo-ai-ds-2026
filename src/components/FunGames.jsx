@@ -9,6 +9,9 @@ const FunGames = () => {
             description: "Pani Puri Edition - Test your eating speed and capacity in this delicious challenge. Can you handle the heat?",
             icon: UtensilsCrossed,
             prize: "Exciting Rewards!",
+            fee: "₹50 per head",
+            team: "Individual",
+            image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&h=400&fit=crop"
         },
         {
             id: 2,
@@ -16,6 +19,9 @@ const FunGames = () => {
             description: "Push-up challenge to test your physical strength and stamina. Show your endurance and compete for glory!",
             icon: Dumbbell,
             prize: "Exciting Rewards!",
+            fee: "₹50 per head",
+            team: "Individual",
+            image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=400&fit=crop"
         },
         {
             id: 3,
@@ -23,6 +29,9 @@ const FunGames = () => {
             description: "Cup splash water game - Precision, timing, and a bit of luck. Get ready to make a splash!",
             icon: Droplet,
             prize: "Exciting Rewards!",
+            fee: "₹50 per head",
+            team: "Individual",
+            image: "https://images.unsplash.com/photo-1527525443983-6e60c75fff46?w=800&h=400&fit=crop"
         },
         {
             id: 4,
@@ -30,6 +39,9 @@ const FunGames = () => {
             description: "Song identification challenge. Test your music knowledge and identify songs from short clips.",
             icon: Music,
             prize: "Exciting Rewards!",
+            fee: "₹50 per head",
+            team: "Individual or Pair",
+            image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=400&fit=crop"
         },
         {
             id: 5,
@@ -37,6 +49,9 @@ const FunGames = () => {
             description: "Movie identification game. Guess the movie from clues, scenes, or dialogues. Are you a true cinephile?",
             icon: Film,
             prize: "Exciting Rewards!",
+            fee: "₹50 per head",
+            team: "Individual",
+            image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&h=400&fit=crop"
         },
     ];
 
@@ -52,23 +67,36 @@ const FunGames = () => {
                         const Icon = game.icon;
                         return (
                             <div key={game.id} className="event-card">
+                                <div className="card-image">
+                                    <img src={game.image} alt={game.title} />
+                                </div>
                                 <div className="card-header">
-                                    <div className="icon-wrapper">
-                                        <Icon className="event-icon" />
-                                    </div>
                                     <h3 className="event-title">{game.title}</h3>
                                 </div>
                                 <div className="card-content">
                                     <p className="event-description">{game.description}</p>
-                                    <div className="prize-badge">
-                                        <span className="trophy">🎁</span>
-                                        <span className="prize-text">{game.prize}</span>
+
+                                    <div className="info-grid">
+                                        <div className="info-item">
+                                            <span className="info-label">FEE</span>
+                                            <span className="info-value">{game.fee}</span>
+                                        </div>
+                                        <div className="info-item">
+                                            <span className="info-label">PRIZES</span>
+                                            <span className="info-value">{game.prize}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="team-info">
+                                        <span className="team-label">TEAM</span>
+                                        <span className="team-value">{game.team}</span>
                                     </div>
                                 </div>
                                 <div className="card-footer">
                                     <button className="register-btn">
                                         <span>Join Now</span>
                                     </button>
+                                    <button className="rules-btn">Rules</button>
                                 </div>
                             </div>
                         );
