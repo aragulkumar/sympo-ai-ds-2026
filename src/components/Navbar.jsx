@@ -49,10 +49,7 @@ const Navbar = () => {
                         <a onClick={() => scrollToSection('about')}>About</a>
                     </li>
                     <li>
-                        <a onClick={() => scrollToSection('technical-events')}>Technical</a>
-                    </li>
-                    <li>
-                        <a onClick={() => scrollToSection('non-technical-events')}>Non-Technical</a>
+                        <a onClick={() => scrollToSection('events')}>Events</a>
                     </li>
                     <li>
                         <a onClick={() => scrollToSection('contact')}>Contact</a>

@@ -1,8 +1,7 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import TechnicalEvents from './components/TechnicalEvents';
-import NonTechnicalEvents from './components/NonTechnicalEvents';
+import Events from './components/Events';
 import FunGames from './components/FunGames';
 import Contact from './components/Contact';
 import CursorTrail from './components/CursorTrail';
@@ -18,13 +17,13 @@ function App() {
       <main>
         <Hero />
         <About />
-        <TechnicalEvents />
-        <NonTechnicalEvents />
+        <Events />
         <FunGames />
         <Contact />
       </main>
     </div>
   );
 }
+
 
 export default App;
