@@ -1,5 +1,5 @@
 import './Events.css';
-import { Code, Cpu, Brain, Lightbulb, Palette, Gamepad2, Sparkles, Megaphone, Image } from "lucide-react";
+import { FlaskConical, Binary, Atom, Wrench, Ghost, Gamepad2, Pipette, Megaphone, Eye } from "lucide-react";
 
 const Events = () => {
     const technicalEvents = [
@@ -7,41 +7,41 @@ const Events = () => {
             id: 1,
             title: "Visual Paper Expo",
             description: "Showcase your innovative prototypes and engineering marvels in this exciting exhibition.",
-            icon: Code,
+            icon: FlaskConical,
             prize: "₹1500 / ₹1000 / ₹500 + Certification",
             fee: "Free Entry",
             team: "1 to 3 Members",
-            image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=400&fit=crop"
+            image: "https://images.unsplash.com/photo-1544383835-2ce29149b7ee?w=800&q=80"
         },
         {
             id: 2,
             title: "Algo Fest",
             description: "Present your research papers and innovative ideas to expert judges and win exciting prizes.",
-            icon: Cpu,
+            icon: Binary,
             prize: "₹1500 / No refund",
             fee: "₹150",
             team: "1 to 5 Members",
-            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop"
+            image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80"
         },
         {
             id: 3,
             title: "Neural Knockout",
             description: "Test your technical knowledge and quick thinking in this ultimate tech quiz battle.",
-            icon: Brain,
+            icon: Atom,
             prize: "₹1500 / ₹1000 / ₹500 + Certification",
             fee: "Free Entry",
             team: "1 to 2 Members",
-            image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=400&fit=crop"
+            image: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=800&q=80"
         },
         {
             id: 4,
             title: "Technovate",
             description: "Innovate and create breakthrough technical solutions. Present your project ideas and bring your vision to life.",
-            icon: Lightbulb,
+            icon: Wrench,
             prize: "Winner: ₹500",
             fee: "₹100 per team",
             team: "2-4 Members",
-            image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=400&fit=crop"
+            image: "https://images.unsplash.com/photo-1551065823-2475ba5476a6?w=800&q=80"
         },
     ];
 
@@ -50,11 +50,11 @@ const Events = () => {
             id: 5,
             title: "Adapture",
             description: "Showcase your creativity and adaptability. Think on your feet and present innovative solutions to unexpected challenges.",
-            icon: Palette,
+            icon: Ghost,
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
             team: "Individual",
-            image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=400&fit=crop"
+            image: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=800&q=80"
         },
         {
             id: 6,
@@ -64,17 +64,17 @@ const Events = () => {
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
             team: "Squad (4 Members)",
-            image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=400&fit=crop"
+            image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80"
         },
         {
             id: 7,
             title: "Beauty Glitz",
             description: "On-the-spot makeup challenge. Transform your canvas with creativity, skill, and style under time pressure.",
-            icon: Sparkles,
+            icon: Pipette,
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
             team: "Individual or Pair",
-            image: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&h=400&fit=crop"
+            image: "https://images.unsplash.com/photo-1576086213369-97a306dca664?w=800&q=80"
         },
         {
             id: 8,
@@ -84,17 +84,17 @@ const Events = () => {
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
             team: "1-3 Members",
-            image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=400&fit=crop"
+            image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80"
         },
         {
             id: 9,
             title: "Decode the Frame",
             description: "Image identification challenge. Test your visual recognition skills and decode hidden messages in images.",
-            icon: Image,
+            icon: Eye,
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
             team: "Individual",
-            image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop"
+            image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80"
         },
     ];
 
@@ -114,6 +114,9 @@ const Events = () => {
                                 <div key={event.id} className="event-card">
                                     <div className="card-image">
                                         <img src={event.image} alt={event.title} />
+                                        <div className="card-icon-overlay">
+                                            <Icon size={24} />
+                                        </div>
                                     </div>
                                     <div className="card-header">
                                         <h3 className="event-title">{event.title}</h3>
@@ -164,6 +167,9 @@ const Events = () => {
                                 <div key={event.id} className="event-card">
                                     <div className="card-image">
                                         <img src={event.image} alt={event.title} />
+                                        <div className="card-icon-overlay">
+                                            <Icon size={24} />
+                                        </div>
                                     </div>
                                     <div className="card-header">
                                         <h3 className="event-title">{event.title}</h3>
