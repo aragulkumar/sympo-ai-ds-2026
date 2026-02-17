@@ -23,7 +23,7 @@ const About = () => {
                         </p>
                     </div>
                     <div className="about-logo">
-                        <img src="/heisenbyte-logo.png" alt="Heisenbyte Logo" className="about-logo-image" />
+                        <img src="/heisenbyte-logo-blue.png" alt="Heisenbyte Logo" className="about-logo-image" />
                     </div>
                 </div>
             </div>
