@@ -22,8 +22,23 @@ const About = () => {
                             leading tech companies.
                         </p>
                     </div>
-                    <div className="about-logo">
-                        <img src="/heisenbyte-logo.png" alt="Heisenbyte Logo" className="about-logo-image" />
+                    <div className="about-stats">
+                        <div className="stat-card card">
+                            <div className="stat-number">500+</div>
+                            <div className="stat-label">Participants</div>
+                        </div>
+                        <div className="stat-card card">
+                            <div className="stat-number">20+</div>
+                            <div className="stat-label">Events</div>
+                        </div>
+                        <div className="stat-card card">
+                            <div className="stat-number">₹1L+</div>
+                            <div className="stat-label">Prize Pool</div>
+                        </div>
+                        <div className="stat-card card">
+                            <div className="stat-number">3</div>
+                            <div className="stat-label">Days</div>
+                        </div>
                     </div>
                 </div>
             </div>

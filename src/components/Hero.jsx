@@ -384,39 +384,32 @@ const Hero = () => {
     <section className="hero">
       <div ref={canvasRef} className="hero-canvas"></div>
       <div className="hero-content">
-        <div className="hero-layout">
-          <div className="hero-logo-left">
-            <img src="/heisenbyte-logo.png" alt="Heisenbyte Logo" className="hero-side-logo" />
+        <img src={heisenbyteLogo} alt="HEISENBYTE" className="hero-title-image" />
+        <p className="hero-subtitle">National Level Technical Symposium 2026</p>
+        <p className="hero-tagline">Move your cursor and feel the chemistry.</p>
+        <Countdown />
+        <p className="hero-event-date">5TH MARCH 2026</p>
+        <div className="hero-buttons">
+          <button className="btn btn-explore" onClick={scrollToEvents}>
+            Explore Events
+          </button>
+        </div>
+        <div className="hero-info">
+          <div className="info-item">
+            <span className="info-label">Duration</span>
+            <span className="info-value">1 Day</span>
           </div>
-          <div className="hero-main">
-            <img src={heisenbyteLogo} alt="HEISENBYTE" className="hero-title-image" />
-            <p className="hero-subtitle">National Level Technical Symposium 2026</p>
-            <p className="hero-tagline">Move your cursor and feel the chemistry.</p>
-            <Countdown />
-            <p className="hero-event-date">5TH MARCH 2026</p>
-            <div className="hero-buttons">
-              <button className="btn btn-explore" onClick={scrollToEvents}>
-                Explore Events
-              </button>
-            </div>
-            <div className="hero-info">
-              <div className="info-item">
-                <span className="info-label">Duration</span>
-                <span className="info-value">1 Day</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Total Events</span>
-                <span className="info-value">14 Events</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Venue</span>
-                <span className="info-value">AI & DS Block</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Theme</span>
-                <span className="info-value">Breaking Bad</span>
-              </div>
-            </div>
+          <div className="info-item">
+            <span className="info-label">Total Events</span>
+            <span className="info-value">14 Events</span>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Venue</span>
+            <span className="info-value">AI & DS Block</span>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Theme</span>
+            <span className="info-value">Breaking Bad</span>
           </div>
         </div>
       </div>
