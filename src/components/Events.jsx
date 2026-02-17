@@ -1,6 +1,36 @@
 import './Events.css';
 import { FlaskConical, Binary, Atom, Wrench, Ghost, Gamepad2, Pipette, Megaphone, Eye } from "lucide-react";
 
+const BreakingBadTitle = ({ title }) => {
+    // These are common 2-letter elements or first 2 letters for the theme
+    // We'll try to match specific elements for flavor
+    const matches = {
+        "Visual Paper Expo": "Vi",
+        "Algo Fest": "Al",
+        "Neural Knockout": "Ne",
+        "Technovate": "Te",
+        "Adapture": "Ad",
+        "Heisenberg's Last Stand": "He",
+        "Beauty Glitz": "Be",
+        "Heisenpitch": "Hi",
+        "Decode the Frame": "De"
+    };
+
+    const symbol = matches[title] || title.substring(0, 2);
+    const rest = title.startsWith(symbol) ? title.substring(symbol.length) : title;
+
+    return (
+        <h3 className="event-title-bb">
+            <span className="periodic-element">
+                <span className="atomic-number">{Math.floor(Math.random() * 100) + 1}</span>
+                <span className="symbol">{symbol}</span>
+                <span className="element-name">{symbol === 'Vi' ? 'Vision' : symbol === 'Al' ? 'Algorithm' : 'Element'}</span>
+            </span>
+            <span className="title-text">{rest}</span>
+        </h3>
+    );
+};
+
 const Events = () => {
     const technicalEvents = [
         {
@@ -10,8 +40,7 @@ const Events = () => {
             icon: FlaskConical,
             prize: "₹1500 / ₹1000 / ₹500 + Certification",
             fee: "Free Entry",
-            team: "1 to 3 Members",
-            image: "https://images.unsplash.com/photo-1544383835-2ce29149b7ee?w=800&q=80"
+            team: "1 to 3 Members"
         },
         {
             id: 2,
@@ -20,8 +49,7 @@ const Events = () => {
             icon: Binary,
             prize: "₹1500 / No refund",
             fee: "₹150",
-            team: "1 to 5 Members",
-            image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80"
+            team: "1 to 5 Members"
         },
         {
             id: 3,
@@ -30,8 +58,7 @@ const Events = () => {
             icon: Atom,
             prize: "₹1500 / ₹1000 / ₹500 + Certification",
             fee: "Free Entry",
-            team: "1 to 2 Members",
-            image: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=800&q=80"
+            team: "1 to 2 Members"
         },
         {
             id: 4,
@@ -40,8 +67,7 @@ const Events = () => {
             icon: Wrench,
             prize: "Winner: ₹500",
             fee: "₹100 per team",
-            team: "2-4 Members",
-            image: "https://images.unsplash.com/photo-1551065823-2475ba5476a6?w=800&q=80"
+            team: "2-4 Members"
         },
     ];
 
@@ -53,8 +79,7 @@ const Events = () => {
             icon: Ghost,
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
-            team: "Individual",
-            image: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=800&q=80"
+            team: "Individual"
         },
         {
             id: 6,
@@ -63,8 +88,7 @@ const Events = () => {
             icon: Gamepad2,
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
-            team: "Squad (4 Members)",
-            image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80"
+            team: "Squad (4 Members)"
         },
         {
             id: 7,
@@ -73,8 +97,7 @@ const Events = () => {
             icon: Pipette,
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
-            team: "Individual or Pair",
-            image: "https://images.unsplash.com/photo-1576086213369-97a306dca664?w=800&q=80"
+            team: "Individual or Pair"
         },
         {
             id: 8,
@@ -83,8 +106,7 @@ const Events = () => {
             icon: Megaphone,
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
-            team: "1-3 Members",
-            image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80"
+            team: "1-3 Members"
         },
         {
             id: 9,
@@ -93,8 +115,7 @@ const Events = () => {
             icon: Eye,
             prize: "₹500 / ₹400",
             fee: "₹75 per head",
-            team: "Individual",
-            image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80"
+            team: "Individual"
         },
     ];
 
@@ -111,15 +132,14 @@ const Events = () => {
                         {technicalEvents.map((event) => {
                             const Icon = event.icon;
                             return (
-                                <div key={event.id} className="event-card">
-                                    <div className="card-image">
-                                        <img src={event.image} alt={event.title} />
-                                        <div className="card-icon-overlay">
-                                            <Icon size={24} />
-                                        </div>
-                                    </div>
+                                <div key={event.id} className="event-card themed-typography">
                                     <div className="card-header">
-                                        <h3 className="event-title">{event.title}</h3>
+                                        <div className="card-top">
+                                            <BreakingBadTitle title={event.title} />
+                                            <div className="card-icon-styled">
+                                                <Icon size={32} />
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="card-content">
                                         <p className="event-description">{event.description}</p>
@@ -164,15 +184,14 @@ const Events = () => {
                         {nonTechnicalEvents.map((event) => {
                             const Icon = event.icon;
                             return (
-                                <div key={event.id} className="event-card">
-                                    <div className="card-image">
-                                        <img src={event.image} alt={event.title} />
-                                        <div className="card-icon-overlay">
-                                            <Icon size={24} />
-                                        </div>
-                                    </div>
+                                <div key={event.id} className="event-card themed-typography">
                                     <div className="card-header">
-                                        <h3 className="event-title">{event.title}</h3>
+                                        <div className="card-top">
+                                            <BreakingBadTitle title={event.title} />
+                                            <div className="card-icon-styled">
+                                                <Icon size={32} />
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="card-content">
                                         <p className="event-description">{event.description}</p>

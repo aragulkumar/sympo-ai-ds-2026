@@ -91,64 +91,97 @@
     box-shadow: 0 20px 40px rgba(57, 255, 20, 0.3);
 }
 
-/* Card Image */
-.card-image {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
+/* Card Typography Theme */
+.themed-typography {
+    padding-top: 2rem;
+    min-height: 450px;
+    background: linear-gradient(135deg, #121212 0%, #050505 100%) !important;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.event-title-bb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.periodic-element {
+    background: #004d00;
+    border: 2px solid #39ff14;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+    flex-shrink: 0;
 }
 
-.card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.event-card:hover .card-image img {
-    transform: scale(1.1);
-}
-
-.card-icon-overlay {
+.periodic-element .atomic-number {
     position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid #39ff14;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    top: 2px;
+    left: 4px;
+    font-size: 0.6rem;
+    color: #39ff14;
+    font-weight: bold;
+}
+
+.periodic-element .symbol {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+}
+
+.periodic-element .element-name {
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: capitalize;
+    margin-top: -2px;
+}
+
+.title-text {
+    flex: 1;
+}
+
+.card-icon-styled {
+    background: rgba(57, 255, 20, 0.1);
+    color: #39ff14;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(57, 255, 20, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #39ff14;
     transition: all 0.3s ease;
-    backdrop-filter: blur(4px);
-    z-index: 5;
-    box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
 }
 
-.event-card:hover .card-icon-overlay {
+.event-card:hover .card-icon-styled {
     background: #39ff14;
     color: #000;
-    transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(57, 255, 20, 0.8);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
 }
 
-/* Card Content */
-.card-header {
-    padding: 1.5rem 1.5rem 1rem;
-}
+/* Old Image Styles Removed */
 
 .event-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #fff;
-    margin: 0 0 1rem 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    display: none;
+    /* Replaced by event-title-bb */
 }
 
 .card-content {
