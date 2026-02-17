@@ -1,6 +1,31 @@
 import './FunGames.css';
 import { UtensilsCrossed, Dumbbell, Droplet, Music, Film } from "lucide-react";
 
+const BreakingBadTitle = ({ title }) => {
+    // Mapping for game titles to periodic elements for flavor
+    const matches = {
+        "Who Eats More?": "Wh",
+        "Battle of Endurance": "Ba",
+        "Splash Clash": "Sp",
+        "Track the Tune": "Tr",
+        "Heisen Guess": "He"
+    };
+
+    const symbol = matches[title] || title.substring(0, 2);
+    const rest = title.startsWith(symbol) ? title.substring(symbol.length) : title;
+
+    return (
+        <h3 className="event-title-bb">
+            <span className="periodic-element">
+                <span className="atomic-number">{Math.floor(Math.random() * 100) + 1}</span>
+                <span className="symbol">{symbol}</span>
+                <span className="element-name">{symbol === 'Wh' ? 'Weight' : symbol === 'Ba' ? 'Barium' : symbol === 'He' ? 'Helium' : 'Element'}</span>
+            </span>
+            <span className="title-text">{rest}</span>
+        </h3>
+    );
+};
+
 const FunGames = () => {
     const games = [
         {
@@ -10,8 +35,7 @@ const FunGames = () => {
             icon: UtensilsCrossed,
             prize: "Exciting Rewards!",
             fee: "₹50 per head",
-            team: "Individual",
-            image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&h=400&fit=crop"
+            team: "Individual"
         },
         {
             id: 2,
@@ -20,8 +44,7 @@ const FunGames = () => {
             icon: Dumbbell,
             prize: "Exciting Rewards!",
             fee: "₹50 per head",
-            team: "Individual",
-            image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=400&fit=crop"
+            team: "Individual"
         },
         {
             id: 3,
@@ -30,8 +53,7 @@ const FunGames = () => {
             icon: Droplet,
             prize: "Exciting Rewards!",
             fee: "₹50 per head",
-            team: "Individual",
-            image: "https://images.unsplash.com/photo-1527525443983-6e60c75fff46?w=800&h=400&fit=crop"
+            team: "Individual"
         },
         {
             id: 4,
@@ -40,8 +62,7 @@ const FunGames = () => {
             icon: Music,
             prize: "Exciting Rewards!",
             fee: "₹50 per head",
-            team: "Individual or Pair",
-            image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=400&fit=crop"
+            team: "Individual or Pair"
         },
         {
             id: 5,
@@ -50,8 +71,7 @@ const FunGames = () => {
             icon: Film,
             prize: "Exciting Rewards!",
             fee: "₹50 per head",
-            team: "Individual",
-            image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&h=400&fit=crop"
+            team: "Individual"
         },
     ];
 
@@ -66,12 +86,14 @@ const FunGames = () => {
                     {games.map((game) => {
                         const Icon = game.icon;
                         return (
-                            <div key={game.id} className="event-card">
-                                <div className="card-image">
-                                    <img src={game.image} alt={game.title} />
-                                </div>
+                            <div key={game.id} className="event-card themed-typography">
                                 <div className="card-header">
-                                    <h3 className="event-title">{game.title}</h3>
+                                    <div className="card-top">
+                                        <BreakingBadTitle title={game.title} />
+                                        <div className="card-icon-styled">
+                                            <Icon size={32} />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="card-content">
                                     <p className="event-description">{game.description}</p>
