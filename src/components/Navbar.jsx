@@ -26,9 +26,7 @@ const Navbar = () => {
         <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             <div className="navbar-container">
                 <div className="navbar-logo" onClick={() => scrollToSection('hero')}>
-                    <span className="logo-he">He</span>
-                    <span className="logo-number">15</span>
-                    <span className="logo-text">HEISENBYTE</span>
+                    <img src="/heisenbyte-logo.png" alt="Heisenbyte" className="logo-image" />
                 </div>
 
                 <button
