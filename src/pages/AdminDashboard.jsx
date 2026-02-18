@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase/config';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+// onAuthStateChanged removed for local session management
+import { signOut } from 'firebase/auth';
 import { collection, getDocs, deleteDoc, doc, addDoc, serverTimestamp } from 'firebase/firestore';
 import { X, LayoutDashboard, FileText, PlusCircle, LogOut } from 'lucide-react';
 import './AdminDashboard.css';
@@ -11,6 +12,7 @@ const AdminDashboard = () => {
     const [events, setEvents] = useState([]);
     const [registrations, setRegistrations] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [activeTab, setActiveTab] = useState('events');
     const [showAddForm, setShowAddForm] = useState(false);
     const [newEvent, setNewEvent] = useState({
@@ -24,34 +26,53 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (!currentUser) {
-                navigate('/admin/login');
-            } else {
-                setUser(currentUser);
-                fetchData();
-            }
-        });
-        return () => unsubscribe();
+        console.log('Admin Auth Check...');
+        const isAuth = localStorage.getItem('heisenbyte_admin_auth') === 'true';
+        if (!isAuth) {
+            console.log('Not authenticated, redirecting...');
+            navigate('/admin/login');
+        } else {
+            console.log('Authenticated, setting user and fetching data...');
+            setUser({ email: import.meta.env.VITE_ADMIN_EMAIL || 'admin@heisenbyte.com' });
+            fetchData();
+        }
     }, [navigate]);
 
     const fetchData = async () => {
+        console.log('Fetching data started...');
         setLoading(true);
+        setError(null);
+
+        const timeout = setTimeout(() => {
+            if (loading) {
+                console.log('Fetch timeout reached!');
+                setError("CONNECTION TIMEOUT: The system is having trouble reaching the database. Please disable any Ad-Blockers and check your internet connection.");
+                setLoading(false);
+            }
+        }, 5000); // Reduced to 5s for faster feedback
+
         try {
+            console.log('Attempting Firestore query...');
             const eventsSnapshot = await getDocs(collection(db, 'events'));
+            console.log('Events fetched:', eventsSnapshot.size);
             setEvents(eventsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 
             const regSnapshot = await getDocs(collection(db, 'registrations'));
+            console.log('Registrations fetched:', regSnapshot.size);
             setRegistrations(regSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+            clearTimeout(timeout);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Firestore Error:', error);
+            setError("ACCESS DENIED: Firewalls or Ad-Blockers are preventing the Command Center from reaching the database.");
+            clearTimeout(timeout);
         } finally {
+            console.log('Fetching data finished.');
             setLoading(false);
         }
     };
 
-    const handleLogout = async () => {
-        await signOut(auth);
+    const handleLogout = () => {
+        localStorage.removeItem('heisenbyte_admin_auth');
         navigate('/admin/login');
     };
 
@@ -81,7 +102,25 @@ const AdminDashboard = () => {
         }
     };
 
-    if (loading) return <div className="admin-loading">INITIALIZING SYSTEM...</div>;
+    if (loading) return (
+        <div className="admin-loading-container">
+            <div className="admin-loading">INITIALIZING SYSTEM...</div>
+            <p style={{ color: '#39ff14', fontSize: '0.8rem', marginTop: '1rem' }}>Checking Firestore Connectivity...</p>
+        </div>
+    );
+
+    if (error) {
+        return (
+            <div className="admin-dashboard error-state">
+                <div className="error-card">
+                    <h2>SYSTEM MALFUNCTION</h2>
+                    <p>{error}</p>
+                    <button onClick={() => window.location.reload()} className="add-btn">RETRY CONNECTION</button>
+                    <button onClick={handleLogout} className="logout-btn" style={{ marginLeft: '1rem' }}>EXIT SYSTEM</button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="admin-dashboard">
@@ -162,20 +201,28 @@ const AdminDashboard = () => {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>NAME</th>
-                                            <th>EMAIL</th>
+                                            <th>LEADER NAME</th>
+                                            <th>LEADER EMAIL</th>
+                                            <th>TEAM MEMBERS</th>
                                             <th>EVENT</th>
-                                            <th>COLLEGE</th>
                                             <th>DATE</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {registrations.length > 0 ? registrations.map(reg => (
                                             <tr key={reg.id}>
-                                                <td>{reg.name}</td>
-                                                <td className="email-cell">{reg.email}</td>
+                                                <td>{reg.leaderName || reg.name}</td>
+                                                <td className="email-cell">{reg.leaderEmail || reg.email}</td>
+                                                <td>
+                                                    {reg.members && reg.members.length > 0 ? (
+                                                        <div className="members-list">
+                                                            {reg.members.map((m, idx) => (
+                                                                <div key={idx} className="member-item">• {m.name}</div>
+                                                            ))}
+                                                        </div>
+                                                    ) : '-'}
+                                                </td>
                                                 <td className="event-cell">{reg.eventName}</td>
-                                                <td>{reg.college}</td>
                                                 <td className="date-cell">
                                                     {reg.timestamp ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}
                                                 </td>

@@ -269,68 +269,51 @@
 }
 
 /* Card Footer */
-.card-footer {
-    padding: 0 1.5rem 1.5rem;
+.card-footer-explore {
+    padding: 1.5rem;
     display: flex;
-    gap: 1rem;
+    justify-content: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.register-btn {
-    flex: 1;
-    padding: 0.9rem 1.5rem;
-    background: linear-gradient(135deg, #39ff14 0%, #ffd700 100%);
-    border: none;
-    border-radius: 8px;
-    color: #fff;
+.explore-btn {
+    position: relative;
+    padding: 0.8rem 2.5rem;
+    background: #39ff14;
+    color: #000;
+    text-decoration: none;
     font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
     font-size: 0.9rem;
-    font-weight: 700;
+    border-radius: 8px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
     overflow: hidden;
-}
-
-.register-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.5s ease;
-}
-
-.register-btn:hover::before {
-    left: 100%;
-}
-
-.register-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(57, 255, 20, 0.4);
-}
-
-.rules-btn {
-    padding: 0.9rem 1.5rem;
-    background: transparent;
-    border: 2px solid #ffd700;
-    border-radius: 8px;
-    color: #ffd700;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.rules-btn:hover {
-    background: rgba(255, 215, 0, 0.1);
-    transform: translateY(-2px);
+.explore-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(57, 255, 20, 0.4);
 }
+
+.btn-glow-small {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+}
+
+.explore-btn:hover .btn-glow-small {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+
 
 @media (max-width: 768px) {
     .section-title {

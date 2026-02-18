@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
+import { funGames } from '../data/events';
 import './FunGames.css';
-import { UtensilsCrossed, Dumbbell, Droplet, Music, Film } from "lucide-react";
 
 const BreakingBadTitle = ({ title }) => {
     // Mapping for game titles to periodic elements for flavor
@@ -19,7 +20,7 @@ const BreakingBadTitle = ({ title }) => {
             <span className="periodic-element">
                 <span className="atomic-number">{Math.floor(Math.random() * 100) + 1}</span>
                 <span className="symbol">{symbol}</span>
-                <span className="element-name">{symbol === 'Wh' ? 'Weight' : symbol === 'Ba' ? 'Barium' : symbol === 'He' ? 'Helium' : 'Element'}</span>
+                <span className="element-name">Element</span>
             </span>
             <span className="title-text">{rest}</span>
         </h3>
@@ -27,54 +28,6 @@ const BreakingBadTitle = ({ title }) => {
 };
 
 const FunGames = () => {
-    const games = [
-        {
-            id: 1,
-            title: "Who Eats More?",
-            description: "Pani Puri Edition - Test your eating speed and capacity in this delicious challenge. Can you handle the heat?",
-            icon: UtensilsCrossed,
-            prize: "Exciting Rewards!",
-            fee: "₹50 per head",
-            team: "Individual"
-        },
-        {
-            id: 2,
-            title: "Battle of Endurance",
-            description: "Push-up challenge to test your physical strength and stamina. Show your endurance and compete for glory!",
-            icon: Dumbbell,
-            prize: "Exciting Rewards!",
-            fee: "₹50 per head",
-            team: "Individual"
-        },
-        {
-            id: 3,
-            title: "Splash Clash",
-            description: "Cup splash water game - Precision, timing, and a bit of luck. Get ready to make a splash!",
-            icon: Droplet,
-            prize: "Exciting Rewards!",
-            fee: "₹50 per head",
-            team: "Individual"
-        },
-        {
-            id: 4,
-            title: "Track the Tune",
-            description: "Song identification challenge. Test your music knowledge and identify songs from short clips.",
-            icon: Music,
-            prize: "Exciting Rewards!",
-            fee: "₹50 per head",
-            team: "Individual or Pair"
-        },
-        {
-            id: 5,
-            title: "Heisen Guess",
-            description: "Movie identification game. Guess the movie from clues, scenes, or dialogues. Are you a true cinephile?",
-            icon: Film,
-            prize: "Exciting Rewards!",
-            fee: "₹50 per head",
-            team: "Individual"
-        },
-    ];
-
     return (
         <section id="fun-games" className="section events-section">
             <div className="container">
@@ -83,7 +36,7 @@ const FunGames = () => {
                     Entry Fee: ₹50 per head | Winners receive exciting rewards!
                 </p>
                 <div className="events-grid">
-                    {games.map((game) => {
+                    {funGames.map((game) => {
                         const Icon = game.icon;
                         return (
                             <div key={game.id} className="event-card themed-typography">
@@ -114,11 +67,11 @@ const FunGames = () => {
                                         <span className="team-value">{game.team}</span>
                                     </div>
                                 </div>
-                                <div className="card-footer">
-                                    <button className="register-btn">
-                                        <span>Join Now</span>
-                                    </button>
-                                    <button className="rules-btn">Rules</button>
+                                <div className="card-footer-explore">
+                                    <Link to={`/event/${game.id}`} className="explore-btn">
+                                        <span>Explore</span>
+                                        <div className="btn-glow-small"></div>
+                                    </Link>
                                 </div>
                             </div>
                         );

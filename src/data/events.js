@@ -2,56 +2,80 @@ import { FlaskConical, Binary, Atom, Wrench, Ghost, Gamepad2, Pipette, Megaphone
 
 export const technicalEvents = [
     {
-        id: "visual-paper-expo",
-        title: "Visual Paper Expo",
-        description: "Showcase your innovative prototypes and engineering marvels in this exciting exhibition.",
+        id: "paperberg-2026",
+        title: "Paperberg 2026",
+        description: "A premier technical paper presentation event showcasing innovative ideas, research insights, and emerging technological solutions.",
         icon: FlaskConical,
-        prize: "₹1500 / ₹1000 / ₹500 + Certification",
-        fee: "Free Entry",
-        team: "1 to 3 Members",
+        prize: "Cash Prize + Certificate",
+        fee: "₹100 per team",
+        team: "1 to 4 Members",
         rules: [
-            "Presentations should be maximum 10 minutes.",
-            "Bring your own hardware/prototypes if applicable.",
-            "Judges' decision is final."
+            "Time Limit: Maximum 10 Minutes (Presentation + Demo).",
+            "Language: English Only.",
+            "Eligibility: UG / PG / Professional Students.",
+            "Open to All Departments.",
+            "Project must demonstrate Innovation, Technical Skills & Social Impact.",
+            "Participants must bring their own laptop/equipment."
         ],
         guidelines: [
-            "Technical accuracy is paramount.",
-            "Visual aids are encouraged.",
-            "Innovative approach highly valued."
+            "Domains: Generative AI, AI-Powered Cybersecurity, Edge AI, Blockchain, Digital Twins.",
+            "Judging Criteria: Innovation & Originality, Technical Depth, Practical Implementation/Demo, Social Relevance, Presentation & Communication.",
+            "Innovate. Integrate. Impact."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
-        id: "algo-fest",
-        title: "Algo Fest",
-        description: "Present your research papers and innovative ideas to expert judges and win exciting prizes.",
+        id: "crystal-canvas",
+        title: "Crystal Canvas",
+        description: "Poster Presentation: Unleash your creativity and present your AI ideas through a poster using AI TOOLS.",
         icon: Binary,
-        prize: "₹1500 / No refund",
-        fee: "₹150",
-        team: "1 to 5 Members",
+        prize: "Cash Prize + Certificate",
+        fee: "₹75 only/-",
+        team: "Individual or Team of 2",
         rules: [
-            "Abstract submission is required beforehand.",
-            "Max 5 members per team.",
-            "Time limit for presentation is 12 mins."
+            "Not AI generated (The poster design itself).",
+            "Poster size: A4.",
+            "Time: 3-5 mins presentation, 2-3 mins Q&A session.",
+            "Participants must present their AI vision."
         ],
         guidelines: [
-            "Focus on algorithmic efficiency.",
-            "Clarity of problem statement.",
-            "Originality check will be performed."
+            "Showcase research innovation and real world applications in a visual format.",
+            "Judges' decision is final.",
+            "Focus on the future: The Future is now!"
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
-        id: "neural-knockout",
-        title: "Neural Knockout",
-        description: "Test your technical knowledge and quick thinking in this ultimate tech quiz battle.",
-        icon: Atom,
-        prize: "₹1500 / ₹1000 / ₹500 + Certification",
+        id: "tech-titration",
+        title: "Tech Titration",
+        description: "The Lab Bench. Showcase your innovative prototypes, mini-projects, and engineering marvels in this exciting exhibition.",
+        icon: Pipette,
+        prize: "Cash Prize + Certificate",
         fee: "Free Entry",
-        team: "1 to 2 Members",
+        team: "2 to 4 Members",
+        rules: [
+            "Bring your own hardware/prototypes.",
+            "Working models earn significantly higher points.",
+            "Explain the logical flow and synthesis of your project."
+        ],
+        guidelines: [
+            "Focus on real-world problem solving.",
+            "Feasibility is a major judging criteria.",
+            "Effective presentation of the project."
+        ],
+        gformUrl: "https://docs.google.com/forms/d/..."
+    },
+    {
+        id: "better-call-quiz",
+        title: "Better Call Quiz",
+        description: "The Knowledge Lab. Test your technical knowledge and quick thinking in this ultimate tech quiz battle.",
+        icon: Atom,
+        prize: "Cash Prize + Certificate",
+        fee: "Free Entry",
+        team: "2 Members",
         rules: [
             "Preliminary round for shortlisting.",
-            "No electronic gadgets allowed during rounds.",
+            "No electronic gadgets allowed.",
             "Rapid fire round is a knockout phase."
         ],
         guidelines: [
@@ -59,233 +83,225 @@ export const technicalEvents = [
             "Be quick to buzz.",
             "Teamwork is key."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
-    },
-    {
-        id: "technovate",
-        title: "Technovate",
-        description: "Innovate and create breakthrough technical solutions. Present your project ideas and bring your vision to life.",
-        icon: Wrench,
-        prize: "Winner: ₹500",
-        fee: "₹100 per team",
-        team: "2-4 Members",
-        rules: [
-            "Prototype must be working or a logical model.",
-            "Innovation in sustainability is a plus.",
-            "Team must submit a project report."
-        ],
-        guidelines: [
-            "Focus on real-world problem solving.",
-            "Feasibility is a major judging criteria.",
-            "Effective presentation of the project."
-        ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
 ];
 
 export const nonTechnicalEvents = [
     {
-        id: "adapture",
-        title: "Adapture",
-        description: "Showcase your creativity and adaptability. Think on your feet and present innovative solutions to unexpected challenges.",
+        id: "heisen-beats",
+        title: "Heisen Beats (Adaptune)",
+        description: "A spontaneous dance event where you must instantly adapt your moves to unpredictable songs played on the spot.",
         icon: Ghost,
-        prize: "₹500 / ₹400",
-        fee: "₹75 per head",
-        team: "Individual",
+        prize: "Cash Prize + Certificate",
+        fee: "₹75 per team",
+        team: "Solo or upto 4 members",
         rules: [
-            "Scenarios will be given on the spot.",
-            "Maximum time 5 mins per person.",
-            "Creativity and logic are both tested."
+            "Round 1: 1.30 mins will be given to dance and the songs will be changed in between.",
+            "Round 2: Top 5 teams will get into 2nd round and 2 mins will be given to dance and the songs will be changed.",
+            "The team has to dance for the song which the judge plays.",
+            "Teams must remain silent while the clip is playing."
         ],
         guidelines: [
-            "Be prepared for anything.",
-            "Don't hesitate to think outside the box.",
-            "Communication skills are vital."
+            "Judging Criteria: Adaptability, Creativity, Face expression, Performance energy.",
+            "It's a high-energy challenge blending skill with improvisation."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "heisenbergs-last-stand",
         title: "Heisenberg's Last Stand",
-        description: "Squad Battle Royale gaming tournament. Team up, strategize, and be the last squad standing in this intense competition.",
+        description: "The Squad Battle Royale. Team up, strategize, and be the last squad standing in this intense gaming competition.",
         icon: Gamepad2,
-        prize: "₹500 / ₹400",
-        fee: "₹75 per head",
+        prize: "Cash Prize + Certificate",
+        fee: "₹200 per squad",
         team: "Squad (4 Members)",
         rules: [
-            "Bring your own gadgets (phones/tab).",
-            "Internet will be provided (or use own).",
-            "Use of hacks leads to immediate disqualification."
+            "Map: Bermuda | Mode: Battle Royale - Custom Room.",
+            "Each squad must contain 4 players.",
+            "No hacks, cheats, or third-party scripts allowed.",
+            "Only registered & paid squads will receive room details."
         ],
         guidelines: [
-            "Effective communication within the squad.",
-            "Strategic gameplay is more important than raw skills.",
-            "Stay alive at all costs."
+            "Bring your own device & internet connection.",
+            "Squads must report 15-20 minutes before match time.",
+            "Organizer decision is final."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
-        id: "beauty-glitz",
-        title: "Beauty Glitz",
-        description: "On-the-spot makeup challenge. Transform your canvas with creativity, skill, and style under time pressure.",
+        id: "heisen-glam-crew",
+        title: "Heisen Glam Crew",
+        description: "Unleash your creativity and transform your models into stunning looks inspired by a randomly selected theme.",
         icon: Pipette,
-        prize: "₹500 / ₹400",
-        fee: "₹75 per head",
-        team: "Individual or Pair",
+        prize: "Cash Prize + Certificate",
+        fee: "₹75 per team (participant + model)",
+        team: "2 Members (Participant + Model)",
         rules: [
-            "Bring your own makeup kits.",
-            "Time limit 45 minutes.",
-            "Theme will be announced at the start."
+            "Participants must come with one model/friend on whom they will perform the makeup.",
+            "Participants must pick a theme randomly from the bowl at the beginning of the event.",
+            "The makeup look should be created according to the selected theme.",
+            "Participants must bring their own makeup products, tools, and accessories required.",
+            "Time Limit: 35 minutes for makeup creation."
         ],
         guidelines: [
-            "Focus on blending and precision.",
-            "Adherence to the theme.",
-            "Hygienic practices."
+            "Judging Criteria: Creativity & originality, Theme interpretation, Neatness & finishing, Overall presentation.",
+            "Judged on precision and artistic expression."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
-        id: "heisenpitch",
-        title: "Heisenpitch",
-        description: "The Marketing Lab - Present your innovative marketing strategies and pitch your ideas to win over the judges.",
+        id: "heisen-pitch",
+        title: "Heisen Pitch",
+        description: "The Marketing Lab (Adzap). Present your innovative marketing strategies and pitch your ideas to win over the judges.",
         icon: Megaphone,
-        prize: "₹500 / ₹400",
+        prize: "Cash Prize + Certificate",
         fee: "₹75 per head",
-        team: "1-3 Members",
+        team: "1-4 Members",
         rules: [
-            "Product will be provided to pitch.",
-            "3 minutes for prep, 5 minutes for pitching.",
-            "Persuasion is the key goal."
+            "Product/Topic will be provided to pitch.",
+            "Prep time: 3 mins, Pitch time: 5 mins.",
+            "Persuasion and humor are encouraged."
         ],
         guidelines: [
             "Be convincing.",
             "Understand the target audience.",
             "Unique selling propositions should be clear."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
-        id: "decode-the-frame",
-        title: "Decode the Frame",
-        description: "Image identification challenge. Test your visual recognition skills and decode hidden messages in images.",
+        id: "breaking-vision",
+        title: "Breaking Vision",
+        description: "Visible Recognition Lab (Image identification). Test your visual recognition skills and decode hidden messages.",
         icon: Eye,
-        prize: "₹500 / ₹400",
+        prize: "Cash Prize + Certificate",
         fee: "₹75 per head",
         team: "Individual",
         rules: [
-            "Series of rounds with increasing difficulty.",
-            "Fastest finger first for some rounds.",
-            "Points based on accuracy and speed."
+            "Identify the image/frame accurately.",
+            "Time-bound rounds.",
+            "Highest score based on speed and accuracy wins."
         ],
         guidelines: [
             "Observation skills are critical.",
-            "Broad knowledge of cinema/pop culture helps.",
+            "Broad knowledge of media/pop culture helps.",
             "Stay sharp."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
 ];
 
 export const funGames = [
     {
-        id: "who-eats-more",
-        title: "Who Eats More?",
-        description: "Pani Puri Edition - Test your eating speed and capacity in this delicious challenge. Can you handle the heat?",
+        id: "crystal-crunch-challenge",
+        title: "Crystal Crunch Challenge",
+        description: "PANI PURI EDITION: A fun game of speed and strategy. Can you handle the heat and crunch?",
         icon: UtensilsCrossed,
-        prize: "Exciting Rewards!",
-        fee: "₹50 per head",
-        team: "Individual",
+        prize: "Cash Prize + Certificate",
+        fee: "₹30 per team",
+        team: "2 Members",
         rules: [
-            "Time limit of 3 minutes.",
-            "Don't waste the food.",
-            "Cleanliness during eating is noted."
+            "Team Formation: 2 members (1 eater, 1 assistant/server).",
+            "Round 1 - Qualification: Eat 15 pani puris in 30 seconds.",
+            "Round 2 - Final: Eat as many as possible in 25 seconds.",
+            "Only the eating member is allowed to consume. The assistant only feeds.",
+            "Use of hands only (no spoons, forks, or tools).",
+            "Each pani puri must be fully eaten and swallowed to be counted.",
+            "Spilled, dropped, or half-eaten puris will not be counted."
         ],
         guidelines: [
-            "Pace yourself.",
-            "Be prepared for spice.",
-            "Have fun!"
+            "Team roles must be decided before the game starts.",
+            "No change of members or roles once the game begins.",
+            "Participants must stop eating immediately when time ends.",
+            "Innovate. Integrate. Impact."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "battle-of-endurance",
         title: "Battle of Endurance",
-        description: "Push-up challenge to test your physical strength and stamina. Show your endurance and compete for glory!",
+        description: "Push-up Lab. Test your physical strength and stamina within a 1-minute time limit.",
         icon: Dumbbell,
-        prize: "Exciting Rewards!",
-        fee: "₹50 per head",
+        prize: "Cash Prize + Certificate",
+        fee: "₹50 per participant",
         team: "Individual",
         rules: [
-            "Standard form must be maintained.",
-            "Count stops once form breaks.",
-            "Rest time limit between reps."
+            "Maintain proper form (90 deg elbow bend, full extension).",
+            "Time limit: 60 seconds.",
+            "Incomplete push-ups will not be counted.",
+            "Resting allowed only in plank position."
         ],
         guidelines: [
-            "Focus on technique over speed.",
-            "Control your breathing.",
-            "Don't push through injury."
+            "One judge will count repetitions aloud.",
+            "Judgment is final and binding.",
+            "Three warnings for improper form before disqualification."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
-        id: "splash-clash",
-        title: "Splash Clash",
-        description: "Cup splash water game - Precision, precision, and a bit of luck. Get ready to make a splash!",
+        id: "say-my-aim",
+        title: "Say My Aim 2026",
+        description: "The Cup Splash Lab. An exciting target-based game where you must knock down a pyramid of cups using a ball with precision and focus.",
         icon: Droplet,
-        prize: "Exciting Rewards!",
-        fee: "₹50 per head",
-        team: "Individual",
+        prize: "Cash Prize + Certificate",
+        fee: "₹30 per person",
+        team: "Individual Mode (one player at a time)",
         rules: [
-            "Aim for the targets.",
-            "Don't exceed your water quota.",
-            "Fastest time wins."
+            "Each player gets 2 balls (or 2 chances).",
+            "Player must stand behind the marked line.",
+            "To win, the player must knock down all the cups completely.",
+            "If even one cup remains standing after all chances, the player loses.",
+            "Time limit: 20 seconds per player.",
+            "No crossing the line while throwing."
         ],
         guidelines: [
-            "Steady hand wins.",
-            "Calculate your splashes.",
-            "Keep the arena clean."
+            "Open to All Departments.",
+            "This game tests accuracy, focus, and perfect aim in a fun and competitive way.",
+            "Judgment is final."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
-        id: "track-the-tune",
-        title: "Track the Tune",
-        description: "Song identification challenge. Test your music knowledge and identify songs from short clips.",
+        id: "meth-soundfeast",
+        title: "Meth Soundfeast",
+        description: "The BGM Round. Identify the correct song using only the BGM - no lyrics, no clues!",
         icon: Music,
-        prize: "Exciting Rewards!",
-        fee: "₹50 per head",
-        team: "Individual or Pair",
+        prize: "Cash Prize + Certificate",
+        fee: "₹50 per team",
+        team: "2-3 Members",
         rules: [
-            "Identify song title and artist.",
-            "First one to buzz gets the chance.",
-            "Bonus for extra details."
+            "Identify the exact song title from 5-10s clips.",
+            "No mobile phones, smart watches, or Shazam allowed.",
+            "First team to raise placard gets to answer.",
+            "Only one answer per team per question."
         ],
         guidelines: [
-            "Listen closely to the melody.",
-            "Recall lyrics tags.",
-            "Wide music taste is an advantage."
+            "Discussion allowed only between team members.",
+            "Teams must remain silent while clip is playing.",
+            "Focus on the melody and instruments."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "heisen-guess",
         title: "Heisen Guess",
-        description: "Movie identification game. Guess the movie from clues, scenes, or dialogues. Are you a true cinephile?",
+        description: "The Movie Lab. Guess the film from short scenes or signature dialogues. Are you a true cinephile?",
         icon: Film,
-        prize: "Exciting Rewards!",
+        prize: "Cash Prize + Certificate",
         fee: "₹50 per head",
         team: "Individual",
         rules: [
-            "Guessing based on visual/audio clues.",
-            "Limit on number of wrong guesses.",
-            "Round-robin format."
+            "Identify the movie title accurately.",
+            "Visual/Audio clues will be provided.",
+            "Limited time for each guess."
         ],
         guidelines: [
-            "Pay attention to details in scenes.",
-            "Identify lead actors quickly.",
-            "Be fast."
+            "Recall signature actor entries.",
+            "Identify directors' styles.",
+            "Stay alert for subtle hints."
         ],
-        gformUrl: "https://docs.google.com/forms/d/e/1FAIpQLS..."
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
 ];
 

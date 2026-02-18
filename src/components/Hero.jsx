@@ -407,10 +407,7 @@ const Hero = () => {
             <span className="info-label">Venue</span>
             <span className="info-value">AI & DS Block</span>
           </div>
-          <div className="info-item">
-            <span className="info-label">Theme</span>
-            <span className="info-value">Breaking Bad</span>
-          </div>
+
         </div>
       </div>
     </section>

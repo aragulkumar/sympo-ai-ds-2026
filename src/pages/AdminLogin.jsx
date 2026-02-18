@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+// Firebase auth import removed for local login
 import { auth } from '../firebase/config';
 import { useNavigate } from 'react-router-dom';
 import './AdminLogin.css';
@@ -11,17 +11,20 @@ const AdminLogin = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
+
+        const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
+        const adminPass = import.meta.env.VITE_ADMIN_PASSWORD;
+
+        // Local credential check for event purpose using env variables
+        if (email === adminEmail && password === adminPass) {
+            localStorage.setItem('heisenbyte_admin_auth', 'true');
             navigate('/admin/dashboard');
-        } catch (err) {
-            setError('Invalid credentials or authentication error.');
-            console.error(err);
-        } finally {
+        } else {
+            setError('Invalid restricted credentials.');
             setLoading(false);
         }
     };
@@ -45,7 +48,7 @@ const AdminLogin = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            placeholder="mr-white@heisenbyte.com"
+                            placeholder="Enter Email"
                         />
                     </div>
                     <div className="input-group">
@@ -55,7 +58,7 @@ const AdminLogin = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            placeholder="••••••••"
+                            placeholder="Enter Security Key"
                         />
                     </div>
                     {error && <p className="login-error">{error}</p>}
