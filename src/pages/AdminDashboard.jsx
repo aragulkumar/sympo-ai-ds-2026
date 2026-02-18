@@ -14,6 +14,7 @@ const AdminDashboard = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeTab, setActiveTab] = useState('events');
+    const [selectedEvent, setSelectedEvent] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
     const [newEvent, setNewEvent] = useState({
         title: '',
@@ -171,6 +172,7 @@ const AdminDashboard = () => {
                                             <th>CATEGORY</th>
                                             <th>PRIZE</th>
                                             <th>ACTIONS</th>
+                                            <th>DATA</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -181,6 +183,17 @@ const AdminDashboard = () => {
                                                 <td>{event.prize}</td>
                                                 <td>
                                                     <button onClick={() => handleDeleteEvent(event.id)} className="delete-btn">DELETE</button>
+                                                </td>
+                                                <td>
+                                                    <button
+                                                        onClick={() => {
+                                                            setSelectedEvent(event.title);
+                                                            setActiveTab('registrations');
+                                                        }}
+                                                        className="view-btn"
+                                                    >
+                                                        VIEW DATA
+                                                    </button>
                                                 </td>
                                             </tr>
                                         )) : (
@@ -195,7 +208,12 @@ const AdminDashboard = () => {
                     {activeTab === 'registrations' && (
                         <section className="management-section">
                             <div className="section-header">
-                                <h2>REGISTRATION LOGS</h2>
+                                <h2>REGISTRATION LOGS {selectedEvent && <span className="filter-tag">[{selectedEvent.toUpperCase()}]</span>}</h2>
+                                {selectedEvent && (
+                                    <button onClick={() => setSelectedEvent(null)} className="show-all-btn">
+                                        SHOW ALL
+                                    </button>
+                                )}
                             </div>
                             <div className="data-table">
                                 <table>
@@ -209,27 +227,28 @@ const AdminDashboard = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {registrations.length > 0 ? registrations.map(reg => (
-                                            <tr key={reg.id}>
-                                                <td>{reg.leaderName || reg.name}</td>
-                                                <td className="email-cell">{reg.leaderEmail || reg.email}</td>
-                                                <td>
-                                                    {reg.members && reg.members.length > 0 ? (
-                                                        <div className="members-list">
-                                                            {reg.members.map((m, idx) => (
-                                                                <div key={idx} className="member-item">• {m.name}</div>
-                                                            ))}
-                                                        </div>
-                                                    ) : '-'}
-                                                </td>
-                                                <td className="event-cell">{reg.eventName}</td>
-                                                <td className="date-cell">
-                                                    {reg.timestamp ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}
-                                                </td>
-                                            </tr>
-                                        )) : (
-                                            <tr><td colSpan="5" style={{ textAlign: 'center' }}>No registrations found.</td></tr>
-                                        )}
+                                        {registrations.filter(r => !selectedEvent || r.eventName === selectedEvent).length > 0 ?
+                                            registrations.filter(r => !selectedEvent || r.eventName === selectedEvent).map(reg => (
+                                                <tr key={reg.id}>
+                                                    <td>{reg.leaderName || reg.name}</td>
+                                                    <td className="email-cell">{reg.leaderEmail || reg.email}</td>
+                                                    <td>
+                                                        {reg.members && reg.members.length > 0 ? (
+                                                            <div className="members-list">
+                                                                {reg.members.map((m, idx) => (
+                                                                    <div key={idx} className="member-item">• {m.name}</div>
+                                                                ))}
+                                                            </div>
+                                                        ) : '-'}
+                                                    </td>
+                                                    <td className="event-cell">{reg.eventName}</td>
+                                                    <td className="date-cell">
+                                                        {reg.timestamp ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}
+                                                    </td>
+                                                </tr>
+                                            )) : (
+                                                <tr><td colSpan="5" style={{ textAlign: 'center' }}>No registrations found.</td></tr>
+                                            )}
                                     </tbody>
                                 </table>
                             </div>
