@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { initializeFirestore } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -13,8 +13,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-// Use initializeFirestore with long-polling to bypass certain client-side blocks
-export const db = initializeFirestore(app, {
-    experimentalForceLongPolling: true,
-});
+export const db = getFirestore(app);
 export default app;
+

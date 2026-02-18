@@ -43,9 +43,10 @@ const AdminDashboard = () => {
         console.log('Fetching data started...');
         setLoading(true);
         setError(null);
+        let isDataFetched = false;
 
         const timeout = setTimeout(() => {
-            if (loading) {
+            if (!isDataFetched) {
                 console.log('Fetch timeout reached!');
                 setError("CONNECTION TIMEOUT: The system is having trouble reaching the database. Please disable any Ad-Blockers and check your internet connection.");
                 setLoading(false);
@@ -61,10 +62,13 @@ const AdminDashboard = () => {
             const regSnapshot = await getDocs(collection(db, 'registrations'));
             console.log('Registrations fetched:', regSnapshot.size);
             setRegistrations(regSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+            isDataFetched = true;
             clearTimeout(timeout);
         } catch (error) {
             console.error('Firestore Error:', error);
             setError("ACCESS DENIED: Firewalls or Ad-Blockers are preventing the Command Center from reaching the database.");
+            isDataFetched = true;
             clearTimeout(timeout);
         } finally {
             console.log('Fetching data finished.');

@@ -306,6 +306,7 @@ const EventDetails = () => {
                                                 <input
                                                     type="file"
                                                     id="payment-upload"
+                                                    name="paymentScreenshot"
                                                     className="hidden-file-input"
                                                     onChange={handleFileChange}
                                                     accept="image/*,.pdf"
@@ -337,7 +338,11 @@ const EventDetails = () => {
                                             <span>SUBMIT</span>
                                         )}
                                     </button>
-                                    <button type="reset" className="google-clear-btn" onClick={() => setFormData({ name: '', email: '', college: '', phone: '', ign: '', uid: '', transactionId: '', teamMembers: '' })}>Clear form</button>
+                                    <button type="reset" className="google-clear-btn" onClick={() => setFormData({
+                                        leaderName: '', leaderEmail: '', leaderPhone: '',
+                                        members: [{ name: '', email: '' }, { name: '', email: '' }, { name: '', email: '' }],
+                                        college: '', ign: '', uid: '', transactionId: '', paymentScreenshot: null, screenshotName: ''
+                                    })}>Clear form</button>
                                 </div>
                             </form>
                         </div>
