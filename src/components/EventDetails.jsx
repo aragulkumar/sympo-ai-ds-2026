@@ -310,7 +310,6 @@ const EventDetails = () => {
                                                     className="hidden-file-input"
                                                     onChange={handleFileChange}
                                                     accept="image/*,.pdf"
-                                                    required
                                                 />
                                                 <label htmlFor="payment-upload" className="file-upload-label">
                                                     <Send size={18} />
