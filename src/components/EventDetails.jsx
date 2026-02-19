@@ -94,14 +94,19 @@ const EventDetails = () => {
             const maxMembers = getMaxMembers(event.team);
             const activeMembers = formData.members.slice(0, maxMembers - 1);
 
-            // Upload payment screenshot to Cloudinary if provided
+            // Upload payment screenshot to Cloudinary if provided (non-blocking)
             let screenshotUrl = '';
             let screenshotPublicId = '';
             if (formData.paymentScreenshot && event.fee !== 'Free Entry') {
                 setUploadStatus('Uploading payment proof...');
-                const uploaded = await uploadPaymentScreenshot(formData.paymentScreenshot);
-                screenshotUrl = uploaded.url;
-                screenshotPublicId = uploaded.publicId;
+                try {
+                    const uploaded = await uploadPaymentScreenshot(formData.paymentScreenshot);
+                    screenshotUrl = uploaded.url;
+                    screenshotPublicId = uploaded.publicId;
+                } catch (uploadErr) {
+                    console.warn('Cloudinary upload failed (registration will still be saved):', uploadErr.message);
+                    // Continue without screenshot — registration still saves
+                }
                 setUploadStatus('Saving registration...');
             }
 
