@@ -1,67 +1,56 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, db } from '../firebase/config';
+import { db } from '../firebase/config';
 import { signOut } from 'firebase/auth';
-import { collection, getDocs, deleteDoc, doc, addDoc, serverTimestamp } from 'firebase/firestore';
-import { X, LayoutDashboard, FileText, PlusCircle, LogOut, Eye, Phone, Mail, User, CreditCard, Image, QrCode } from 'lucide-react';
-import QRScanner from '../components/QRScanner';
+import { collection, getDocs } from 'firebase/firestore';
+import { X, FileText, LogOut, Eye, Phone, Mail, User, CreditCard, Image, Cpu, PartyPopper, Trophy } from 'lucide-react';
+import { technicalEvents, nonTechnicalEvents, funGames } from '../data/events';
 import './AdminDashboard.css';
+
+// Map event title → category
+const categoryMap = {};
+technicalEvents.forEach(e => { categoryMap[e.title] = 'technical'; });
+nonTechnicalEvents.forEach(e => { categoryMap[e.title] = 'non-technical'; });
+funGames.forEach(e => { categoryMap[e.title] = 'fun'; });
+
+const CATEGORIES = [
+    { key: 'all', label: 'ALL EVENTS', icon: FileText },
+    { key: 'technical', label: 'TECHNICAL', icon: Cpu },
+    { key: 'non-technical', label: 'NON-TECHNICAL', icon: Trophy },
+    { key: 'fun', label: 'FUN GAMES', icon: PartyPopper },
+];
 
 const AdminDashboard = () => {
     const [user, setUser] = useState(null);
-    const [events, setEvents] = useState([]);
     const [registrations, setRegistrations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [activeTab, setActiveTab] = useState('registrations');
-    const [selectedEventFilter, setSelectedEventFilter] = useState('ALL');
-    const [showAddForm, setShowAddForm] = useState(false);
+    const [activeCategory, setActiveCategory] = useState('all');
     const [selectedReg, setSelectedReg] = useState(null);
-    const [showScanner, setShowScanner] = useState(false);
-    const [newEvent, setNewEvent] = useState({
-        title: '', category: 'technical', description: '', prize: '', fee: '', team: ''
-    });
     const navigate = useNavigate();
 
     useEffect(() => {
         const isAuth = localStorage.getItem('heisenbyte_admin_auth') === 'true';
-        if (!isAuth) {
-            navigate('/admin/login');
-        } else {
-            setUser({ email: import.meta.env.VITE_ADMIN_EMAIL || 'admin@heisenbyte.com' });
-            fetchData();
-        }
+        if (!isAuth) { navigate('/admin/login'); return; }
+        setUser({ email: import.meta.env.VITE_ADMIN_EMAIL || 'admin@heisenbyte.com' });
+        fetchData();
     }, [navigate]);
 
     const fetchData = async () => {
         setLoading(true);
         setError(null);
-        let isDataFetched = false;
-
+        let done = false;
         const timeout = setTimeout(() => {
-            if (!isDataFetched) {
-                setError("CONNECTION TIMEOUT: Check your internet connection or Firestore rules.");
-                setLoading(false);
-            }
+            if (!done) { setError('Connection timeout. Check Firestore rules.'); setLoading(false); }
         }, 8000);
-
         try {
-            const eventsSnapshot = await getDocs(collection(db, 'events'));
-            setEvents(eventsSnapshot.docs.map(d => ({ id: d.id, ...d.data() })));
-
-            const regSnapshot = await getDocs(collection(db, 'registrations'));
-            setRegistrations(regSnapshot.docs.map(d => ({ id: d.id, ...d.data() })));
-
-            isDataFetched = true;
-            clearTimeout(timeout);
+            const snap = await getDocs(collection(db, 'registrations'));
+            setRegistrations(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+            done = true; clearTimeout(timeout);
         } catch (err) {
-            console.error('Firestore Error:', err);
-            setError("ACCESS DENIED: Could not reach the database. Check Firestore rules.");
-            isDataFetched = true;
-            clearTimeout(timeout);
-        } finally {
-            setLoading(false);
-        }
+            setError('Could not reach database. Check Firestore rules.');
+            done = true; clearTimeout(timeout);
+        } finally { setLoading(false); }
     };
 
     const handleLogout = () => {
@@ -69,35 +58,10 @@ const AdminDashboard = () => {
         navigate('/admin/login');
     };
 
-    const handleDeleteEvent = async (id) => {
-        if (window.confirm('Delete this event?')) {
-            try {
-                await deleteDoc(doc(db, 'events', id));
-                setEvents(events.filter(e => e.id !== id));
-            } catch (err) {
-                console.error('Error deleting event:', err);
-            }
-        }
-    };
-
-    const handleAddEvent = async (e) => {
-        e.preventDefault();
-        try {
-            await addDoc(collection(db, 'events'), { ...newEvent, timestamp: serverTimestamp() });
-            setNewEvent({ title: '', category: 'technical', description: '', prize: '', fee: '', team: '' });
-            setShowAddForm(false);
-            fetchData();
-        } catch (err) {
-            console.error('Error adding event:', err);
-        }
-    };
-
-    // Get unique event names from registrations data from events.js
-    const allEventNames = ['ALL', ...new Set(registrations.map(r => r.eventName).filter(Boolean))];
-
-    const filteredRegs = selectedEventFilter === 'ALL'
+    // Filter registrations by selected category
+    const filtered = activeCategory === 'all'
         ? registrations
-        : registrations.filter(r => r.eventName === selectedEventFilter);
+        : registrations.filter(r => categoryMap[r.eventName] === activeCategory);
 
     if (loading) return (
         <div className="admin-loading-container">
@@ -127,211 +91,97 @@ const AdminDashboard = () => {
             )}
 
             <div className="dashboard-main">
+                {/* ─── Sidebar: Category Tabs ─── */}
                 <aside className="dashboard-sidebar">
-                    <button
-                        className={activeTab === 'events' ? 'active' : ''}
-                        onClick={() => setActiveTab('events')}
-                    >
-                        <LayoutDashboard size={20} />
-                        <span>EVENTS</span>
-                    </button>
-                    <button
-                        className={activeTab === 'registrations' ? 'active' : ''}
-                        onClick={() => setActiveTab('registrations')}
-                    >
-                        <FileText size={20} />
-                        <span>REGISTRATIONS</span>
-                        {registrations.length > 0 && (
-                            <span className="badge">{registrations.length}</span>
-                        )}
-                    </button>
-                    <button
-                        className={activeTab === 'scanner' ? 'active' : ''}
-                        onClick={() => setActiveTab('scanner')}
-                    >
-                        <QrCode size={20} />
-                        <span>QR SCANNER</span>
-                    </button>
+                    {CATEGORIES.map(cat => {
+                        const count = cat.key === 'all'
+                            ? registrations.length
+                            : registrations.filter(r => categoryMap[r.eventName] === cat.key).length;
+                        return (
+                            <button
+                                key={cat.key}
+                                className={activeCategory === cat.key ? 'active' : ''}
+                                onClick={() => setActiveCategory(cat.key)}
+                            >
+                                <cat.icon size={18} />
+                                <span>{cat.label}</span>
+                                {count > 0 && <span className="badge">{count}</span>}
+                            </button>
+                        );
+                    })}
                 </aside>
 
+                {/* ─── Main content ─── */}
                 <main className="dashboard-content">
-                    {/* ─── QR SCANNER TAB ─── */}
-                    {activeTab === 'scanner' && <QRScanner />}
-                    {activeTab === 'events' && (
-                        <section className="management-section">
-                            <div className="section-header">
-                                <h2>EVENT MANAGEMENT</h2>
-                                <button onClick={() => setShowAddForm(true)} className="add-btn">
-                                    <PlusCircle size={18} />
-                                    <span>ADD NEW ELEMENT</span>
-                                </button>
-                            </div>
-                            <div className="data-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>TITLE</th>
-                                            <th>CATEGORY</th>
-                                            <th>PRIZE</th>
-                                            <th>REGISTRATIONS</th>
-                                            <th>ACTIONS</th>
+                    <section className="management-section">
+                        <div className="section-header">
+                            <h2>
+                                {CATEGORIES.find(c => c.key === activeCategory)?.label} — REGISTRATIONS
+                            </h2>
+                            <span className="total-count">{filtered.length} entries</span>
+                        </div>
+
+                        <div className="data-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>LEADER NAME</th>
+                                        <th>PHONE</th>
+                                        <th>COLLEGE</th>
+                                        <th>EVENT</th>
+                                        <th>PAYMENT</th>
+                                        <th>DATE</th>
+                                        <th>VIEW</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filtered.length > 0 ? filtered.map(reg => (
+                                        <tr
+                                            key={reg.id}
+                                            className="clickable-row"
+                                            onClick={() => setSelectedReg(reg)}
+                                        >
+                                            <td>{reg.leaderName || '—'}</td>
+                                            <td>{reg.leaderPhone || '—'}</td>
+                                            <td>{reg.college || '—'}</td>
+                                            <td className="event-cell">{reg.eventName}</td>
+                                            <td>
+                                                {reg.screenshotUrl
+                                                    ? <span className="payment-badge paid">✓ PAID</span>
+                                                    : reg.transactionId
+                                                        ? <span className="payment-badge pending">⏳ PENDING</span>
+                                                        : <span className="payment-badge free">FREE</span>
+                                                }
+                                            </td>
+                                            <td className="date-cell">
+                                                {reg.timestamp
+                                                    ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString('en-IN')
+                                                    : 'N/A'}
+                                            </td>
+                                            <td>
+                                                <button
+                                                    className="view-btn"
+                                                    onClick={e => { e.stopPropagation(); setSelectedReg(reg); }}
+                                                >
+                                                    <Eye size={14} /> VIEW
+                                                </button>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {events.length > 0 ? events.map(event => (
-                                            <tr key={event.id}>
-                                                <td>{event.title}</td>
-                                                <td className="category-cell">{event.category}</td>
-                                                <td>{event.prize}</td>
-                                                <td>
-                                                    <span className="reg-count-badge">
-                                                        {registrations.filter(r => r.eventName === event.title).length}
-                                                    </span>
-                                                </td>
-                                                <td className="actions-cell">
-                                                    <button
-                                                        onClick={() => {
-                                                            setSelectedEventFilter(event.title);
-                                                            setActiveTab('registrations');
-                                                        }}
-                                                        className="view-btn"
-                                                    >
-                                                        <Eye size={14} /> VIEW
-                                                    </button>
-                                                    <button onClick={() => handleDeleteEvent(event.id)} className="delete-btn">
-                                                        DELETE
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        )) : (
-                                            <tr><td colSpan="5" style={{ textAlign: 'center' }}>No events found.</td></tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
-                    )}
-
-                    {/* ─── REGISTRATIONS TAB ─── */}
-                    {activeTab === 'registrations' && (
-                        <section className="management-section">
-                            <div className="section-header">
-                                <h2>REGISTRATION LOGS</h2>
-                                <span className="total-count">{filteredRegs.length} entries</span>
-                            </div>
-
-                            {/* Per-event filter pills */}
-                            <div className="event-filter-pills">
-                                {allEventNames.map(name => (
-                                    <button
-                                        key={name}
-                                        className={`filter-pill ${selectedEventFilter === name ? 'active' : ''}`}
-                                        onClick={() => setSelectedEventFilter(name)}
-                                    >
-                                        {name === 'ALL' ? 'ALL EVENTS' : name}
-                                        <span className="pill-count">
-                                            {name === 'ALL'
-                                                ? registrations.length
-                                                : registrations.filter(r => r.eventName === name).length}
-                                        </span>
-                                    </button>
-                                ))}
-                            </div>
-
-                            <div className="data-table">
-                                <table>
-                                    <thead>
+                                    )) : (
                                         <tr>
-                                            <th>LEADER NAME</th>
-                                            <th>PHONE</th>
-                                            <th>COLLEGE</th>
-                                            <th>EVENT</th>
-                                            <th>PAYMENT</th>
-                                            <th>DATE</th>
-                                            <th>DETAILS</th>
+                                            <td colSpan="7" style={{ textAlign: 'center', padding: '3rem', color: '#444' }}>
+                                                No registrations found.
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {filteredRegs.length > 0 ? filteredRegs.map(reg => (
-                                            <tr
-                                                key={reg.id}
-                                                className="clickable-row"
-                                                onClick={() => setSelectedReg(reg)}
-                                            >
-                                                <td>{reg.leaderName || reg.name || '—'}</td>
-                                                <td>{reg.leaderPhone || '—'}</td>
-                                                <td>{reg.college || '—'}</td>
-                                                <td className="event-cell">{reg.eventName}</td>
-                                                <td>
-                                                    {reg.screenshotUrl
-                                                        ? <span className="payment-badge paid">✓ PAID</span>
-                                                        : reg.transactionId
-                                                            ? <span className="payment-badge pending">⏳ PENDING</span>
-                                                            : <span className="payment-badge free">FREE</span>
-                                                    }
-                                                </td>
-                                                <td className="date-cell">
-                                                    {reg.timestamp ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString('en-IN') : 'N/A'}
-                                                </td>
-                                                <td>
-                                                    <button className="view-btn" onClick={e => { e.stopPropagation(); setSelectedReg(reg); }}>
-                                                        <Eye size={14} /> VIEW
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        )) : (
-                                            <tr><td colSpan="7" style={{ textAlign: 'center', padding: '2rem' }}>No registrations found for this event.</td></tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
-                    )}
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </main>
             </div>
 
-            {/* ─── ADD EVENT MODAL ─── */}
-            {showAddForm && (
-                <div className="registration-overlay">
-                    <div className="registration-modal admin-modal">
-                        <button className="close-btn" onClick={() => setShowAddForm(false)}><X size={24} /></button>
-                        <h2>SYNTHESIZE NEW EVENT</h2>
-                        <form onSubmit={handleAddEvent} className="admin-form">
-                            <div className="form-group">
-                                <label>Event Title</label>
-                                <input type="text" value={newEvent.title} onChange={e => setNewEvent({ ...newEvent, title: e.target.value })} required />
-                            </div>
-                            <div className="form-group">
-                                <label>Category</label>
-                                <select value={newEvent.category} onChange={e => setNewEvent({ ...newEvent, category: e.target.value })}>
-                                    <option value="technical">Technical</option>
-                                    <option value="non-technical">Non-Technical</option>
-                                    <option value="fun">Fun Games</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label>Prize</label>
-                                <input type="text" value={newEvent.prize} onChange={e => setNewEvent({ ...newEvent, prize: e.target.value })} />
-                            </div>
-                            <div className="form-group">
-                                <label>Entry Fee</label>
-                                <input type="text" value={newEvent.fee} onChange={e => setNewEvent({ ...newEvent, fee: e.target.value })} />
-                            </div>
-                            <div className="form-group">
-                                <label>Team Size</label>
-                                <input type="text" value={newEvent.team} onChange={e => setNewEvent({ ...newEvent, team: e.target.value })} />
-                            </div>
-                            <div className="form-group">
-                                <label>Description</label>
-                                <textarea value={newEvent.description} onChange={e => setNewEvent({ ...newEvent, description: e.target.value })} />
-                            </div>
-                            <button type="submit" className="submit-reg-btn">CREATE ELEMENT</button>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            {/* ─── PAYMENT DETAILS MODAL ─── */}
+            {/* ─── Payment Details Modal ─── */}
             {selectedReg && (
                 <div className="registration-overlay" onClick={() => setSelectedReg(null)}>
                     <div className="payment-details-modal" onClick={e => e.stopPropagation()}>
@@ -344,28 +194,28 @@ const AdminDashboard = () => {
                             <div className="detail-item">
                                 <User size={16} />
                                 <div>
-                                    <span className="detail-label">Leader</span>
+                                    <span className="detail-label">LEADER</span>
                                     <span className="detail-value">{selectedReg.leaderName || '—'}</span>
                                 </div>
                             </div>
                             <div className="detail-item">
                                 <Mail size={16} />
                                 <div>
-                                    <span className="detail-label">Email</span>
+                                    <span className="detail-label">EMAIL</span>
                                     <span className="detail-value">{selectedReg.leaderEmail || '—'}</span>
                                 </div>
                             </div>
                             <div className="detail-item">
                                 <Phone size={16} />
                                 <div>
-                                    <span className="detail-label">Phone</span>
+                                    <span className="detail-label">PHONE</span>
                                     <span className="detail-value">{selectedReg.leaderPhone || '—'}</span>
                                 </div>
                             </div>
                             <div className="detail-item">
                                 <User size={16} />
                                 <div>
-                                    <span className="detail-label">College</span>
+                                    <span className="detail-label">COLLEGE</span>
                                     <span className="detail-value">{selectedReg.college || '—'}</span>
                                 </div>
                             </div>
@@ -373,14 +223,14 @@ const AdminDashboard = () => {
                                 <div className="detail-item">
                                     <CreditCard size={16} />
                                     <div>
-                                        <span className="detail-label">Transaction ID</span>
+                                        <span className="detail-label">TRANSACTION ID</span>
                                         <span className="detail-value txn-id">{selectedReg.transactionId}</span>
                                     </div>
                                 </div>
                             )}
                         </div>
 
-                        {selectedReg.members && selectedReg.members.length > 0 && (
+                        {selectedReg.members?.filter(m => m.name).length > 0 && (
                             <div className="members-section">
                                 <h3>TEAM MEMBERS</h3>
                                 <div className="members-grid">
@@ -397,6 +247,7 @@ const AdminDashboard = () => {
                             </div>
                         )}
 
+                        {/* ─── Payment Screenshot ─── */}
                         <div className="payment-proof-section">
                             <h3><Image size={16} /> PAYMENT PROOF</h3>
                             {selectedReg.screenshotUrl ? (
@@ -407,13 +258,13 @@ const AdminDashboard = () => {
                                         className="payment-screenshot"
                                         onClick={() => window.open(selectedReg.screenshotUrl, '_blank')}
                                     />
-                                    <p className="screenshot-hint">Click image to open full size</p>
+                                    <p className="screenshot-hint">Click image to open full size ↗</p>
                                 </div>
                             ) : (
                                 <div className="no-screenshot">
                                     {selectedReg.screenshotName
-                                        ? <p>📎 File uploaded: <strong>{selectedReg.screenshotName}</strong><br /><small>(Cloudinary not configured — image not stored)</small></p>
-                                        : <p>No payment screenshot uploaded.</p>
+                                        ? <>📎 <strong>{selectedReg.screenshotName}</strong><br /><small>Cloudinary not set up — image not stored.</small></>
+                                        : 'No payment screenshot uploaded.'
                                     }
                                 </div>
                             )}
