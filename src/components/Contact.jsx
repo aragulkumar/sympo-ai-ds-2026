@@ -13,7 +13,7 @@ const Contact = () => {
                         <div className="contact-item card">
                             <div className="contact-icon">📧</div>
                             <h3>Email Us</h3>
-                            <p>heisenbyte2026@jec.edu.in</p>
+                            <p>jec.aids.dept@gmail.com</p>
                         </div>
                         <div className="contact-item card">
                             <div className="contact-icon">📱</div>

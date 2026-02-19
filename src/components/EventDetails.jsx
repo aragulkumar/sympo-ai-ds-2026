@@ -310,19 +310,15 @@ const EventDetails = () => {
                                     <>
                                         <div className="form-question-card payment-qr-card">
                                             <label className="question-label">Scan to Pay <span className="required-star">*</span></label>
-                                            <p className="question-help">UPI ID: your-id@upi (Placeholder)</p>
+                                            <p className="question-help upi-id-text">UPI ID: <strong>rithi73392@okaxis</strong></p>
                                             <div className="qr-container-bb">
-                                                <div className="qr-placeholder">
-                                                    {/* We can use a real QR image if provided, for now a styled placeholder */}
-                                                    <div className="qr-mock">
-                                                        <div className="qr-inner-eye"></div>
-                                                        <div className="qr-inner-eye top-right"></div>
-                                                        <div className="qr-inner-eye bottom-left"></div>
-                                                        <div className="qr-pattern"></div>
-                                                    </div>
-                                                </div>
+                                                <img
+                                                    src="/upi-qr.png"
+                                                    alt="Scan to Pay - UPI QR Code"
+                                                    className="upi-qr-image"
+                                                />
                                             </div>
-                                            <p className="qr-instruction">Scan this QR code using any UPI app (GPay, PhonePe, Paytm) to complete the payment of <strong>{event.fee}</strong>.</p>
+                                            <p className="qr-instruction">Scan using GPay, PhonePe, Paytm or any UPI app to pay <strong>{event.fee}</strong>.</p>
                                         </div>
 
                                         <div className="form-question-card">
