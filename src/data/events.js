@@ -114,7 +114,7 @@ export const nonTechnicalEvents = [
         description: "The Squad Battle Royale. Team up, strategize, and be the last squad standing in this intense gaming competition.",
         icon: Gamepad2,
         prize: "Cash Prize + Certificate",
-        fee: "₹75 per head",
+        fee: "₹200 per squad",
         team: "Squad (4 Members)",
         rules: [
             "Map: Bermuda | Mode: Battle Royale - Custom Room.",
