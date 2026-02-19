@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase/config';
 import { signOut } from 'firebase/auth';
 import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
-import { X, FileText, LogOut, Eye, Phone, Mail, User, CreditCard, Image, Cpu, PartyPopper, Trophy, Download, ArrowUpDown } from 'lucide-react';
+import { X, FileText, LogOut, Eye, Phone, Mail, User, CreditCard, Image, Cpu, PartyPopper, Trophy, Download, ArrowUpDown, Filter } from 'lucide-react';
 import { technicalEvents, nonTechnicalEvents, funGames } from '../data/events';
 import './AdminDashboard.css';
 
@@ -27,7 +27,8 @@ const AdminDashboard = () => {
     const [error, setError] = useState(null);
     const [activeCategory, setActiveCategory] = useState('all');
     const [selectedReg, setSelectedReg] = useState(null);
-    const [sortBy, setSortBy] = useState('event-asc'); // default: grouped by event name
+    const [sortBy, setSortBy] = useState('event-asc');
+    const [eventFilter, setEventFilter] = useState('all');
     const [paymentUpdating, setPaymentUpdating] = useState(false);
     const navigate = useNavigate();
 
@@ -81,14 +82,22 @@ const AdminDashboard = () => {
         ? registrations
         : registrations.filter(r => categoryMap[r.eventName] === activeCategory);
 
+    // Unique event names present in current category (for event filter dropdown)
+    const uniqueEvents = [...new Set(filtered.map(r => r.eventName).filter(Boolean))].sort();
+
+    // Filter by specific event name
+    const eventFiltered = eventFilter === 'all'
+        ? filtered
+        : filtered.filter(r => r.eventName === eventFilter);
+
     // Event registration count map (for sorting by popularity)
     const eventCountMap = {};
     registrations.forEach(r => {
         if (r.eventName) eventCountMap[r.eventName] = (eventCountMap[r.eventName] || 0) + 1;
     });
 
-    // Sort
-    const sortedFiltered = [...filtered].sort((a, b) => {
+    // Sort (on eventFiltered, not filtered)
+    const sortedFiltered = [...eventFiltered].sort((a, b) => {
         if (sortBy === 'date-desc') return (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0);
         if (sortBy === 'date-asc') return (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0);
         if (sortBy === 'event-asc') return (a.eventName || '').localeCompare(b.eventName || '');
@@ -163,7 +172,7 @@ const AdminDashboard = () => {
                             <button
                                 key={cat.key}
                                 className={activeCategory === cat.key ? 'active' : ''}
-                                onClick={() => setActiveCategory(cat.key)}
+                                onClick={() => { setActiveCategory(cat.key); setEventFilter('all'); }}
                             >
                                 <cat.icon size={18} />
                                 <span>{cat.label}</span>
@@ -182,6 +191,25 @@ const AdminDashboard = () => {
                             </h2>
                             <div className="header-actions">
                                 <span className="total-count">{sortedFiltered.length} entries</span>
+
+                                {/* Event Name Filter */}
+                                <div className="sort-control">
+                                    <Filter size={14} />
+                                    <select
+                                        value={eventFilter}
+                                        onChange={e => setEventFilter(e.target.value)}
+                                        className="sort-select"
+                                    >
+                                        <option value="all">All Events ({filtered.length})</option>
+                                        {uniqueEvents.map(evName => (
+                                            <option key={evName} value={evName}>
+                                                {evName} ({filtered.filter(r => r.eventName === evName).length})
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                {/* Sort Control */}
                                 <div className="sort-control">
                                     <ArrowUpDown size={14} />
                                     <select
@@ -203,6 +231,7 @@ const AdminDashboard = () => {
                                         </optgroup>
                                     </select>
                                 </div>
+
                                 <button className="export-csv-btn" onClick={exportCSV} title="Export to CSV">
                                     <Download size={14} />
                                     <span>EXPORT CSV</span>
@@ -290,136 +319,138 @@ const AdminDashboard = () => {
             </div>
 
             {/* ─── Payment Details Modal ─── */}
-            {selectedReg && (
-                <div className="registration-overlay" onClick={() => setSelectedReg(null)}>
-                    <div className="payment-details-modal" onClick={e => e.stopPropagation()}>
-                        <button className="close-btn" onClick={() => setSelectedReg(null)}><X size={24} /></button>
-                        <div className="modal-header-strip"></div>
-                        <h2 className="modal-title">REGISTRATION DETAILS</h2>
-                        <p className="modal-event-name">{selectedReg.eventName}</p>
+            {
+                selectedReg && (
+                    <div className="registration-overlay" onClick={() => setSelectedReg(null)}>
+                        <div className="payment-details-modal" onClick={e => e.stopPropagation()}>
+                            <button className="close-btn" onClick={() => setSelectedReg(null)}><X size={24} /></button>
+                            <div className="modal-header-strip"></div>
+                            <h2 className="modal-title">REGISTRATION DETAILS</h2>
+                            <p className="modal-event-name">{selectedReg.eventName}</p>
 
-                        <div className="details-grid">
-                            <div className="detail-item">
-                                <User size={16} />
-                                <div>
-                                    <span className="detail-label">LEADER</span>
-                                    <span className="detail-value">{selectedReg.leaderName || '—'}</span>
-                                </div>
-                            </div>
-                            <div className="detail-item">
-                                <Mail size={16} />
-                                <div>
-                                    <span className="detail-label">EMAIL</span>
-                                    <span className="detail-value">{selectedReg.leaderEmail || '—'}</span>
-                                </div>
-                            </div>
-                            <div className="detail-item">
-                                <Phone size={16} />
-                                <div>
-                                    <span className="detail-label">PHONE</span>
-                                    <span className="detail-value">{selectedReg.leaderPhone || '—'}</span>
-                                </div>
-                            </div>
-                            <div className="detail-item">
-                                <User size={16} />
-                                <div>
-                                    <span className="detail-label">COLLEGE</span>
-                                    <span className="detail-value">{selectedReg.college || '—'}</span>
-                                </div>
-                            </div>
-                            {selectedReg.transactionId && (
+                            <div className="details-grid">
                                 <div className="detail-item">
-                                    <CreditCard size={16} />
+                                    <User size={16} />
                                     <div>
-                                        <span className="detail-label">TRANSACTION ID</span>
-                                        <span className="detail-value txn-id">{selectedReg.transactionId}</span>
+                                        <span className="detail-label">LEADER</span>
+                                        <span className="detail-value">{selectedReg.leaderName || '—'}</span>
+                                    </div>
+                                </div>
+                                <div className="detail-item">
+                                    <Mail size={16} />
+                                    <div>
+                                        <span className="detail-label">EMAIL</span>
+                                        <span className="detail-value">{selectedReg.leaderEmail || '—'}</span>
+                                    </div>
+                                </div>
+                                <div className="detail-item">
+                                    <Phone size={16} />
+                                    <div>
+                                        <span className="detail-label">PHONE</span>
+                                        <span className="detail-value">{selectedReg.leaderPhone || '—'}</span>
+                                    </div>
+                                </div>
+                                <div className="detail-item">
+                                    <User size={16} />
+                                    <div>
+                                        <span className="detail-label">COLLEGE</span>
+                                        <span className="detail-value">{selectedReg.college || '—'}</span>
+                                    </div>
+                                </div>
+                                {selectedReg.transactionId && (
+                                    <div className="detail-item">
+                                        <CreditCard size={16} />
+                                        <div>
+                                            <span className="detail-label">TRANSACTION ID</span>
+                                            <span className="detail-value txn-id">{selectedReg.transactionId}</span>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {selectedReg.members?.filter(m => m.name).length > 0 && (
+                                <div className="members-section">
+                                    <h3>TEAM MEMBERS</h3>
+                                    <div className="members-grid">
+                                        {selectedReg.members.filter(m => m.name).map((m, i) => (
+                                            <div key={i} className="member-card">
+                                                <span className="member-num">{i + 2}</span>
+                                                <div>
+                                                    <div className="member-name">{m.name}</div>
+                                                    <div className="member-email">{m.email}</div>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             )}
-                        </div>
 
-                        {selectedReg.members?.filter(m => m.name).length > 0 && (
-                            <div className="members-section">
-                                <h3>TEAM MEMBERS</h3>
-                                <div className="members-grid">
-                                    {selectedReg.members.filter(m => m.name).map((m, i) => (
-                                        <div key={i} className="member-card">
-                                            <span className="member-num">{i + 2}</span>
-                                            <div>
-                                                <div className="member-name">{m.name}</div>
-                                                <div className="member-email">{m.email}</div>
-                                            </div>
-                                        </div>
-                                    ))}
+                            {/* ─── Payment Verification Panel ─── */}
+                            <div className="payment-proof-section">
+                                <div className="payment-proof-header">
+                                    <h3><Image size={16} /> PAYMENT PROOF</h3>
+                                    {/* Current status badge */}
+                                    <span className={`payment-status-badge ${selectedReg.paymentStatus || 'pending'}`}>
+                                        {selectedReg.paymentStatus === 'verified' ? '✓ VERIFIED'
+                                            : selectedReg.paymentStatus === 'rejected' ? '✗ REJECTED'
+                                                : '⏳ PENDING'}
+                                    </span>
                                 </div>
-                            </div>
-                        )}
 
-                        {/* ─── Payment Verification Panel ─── */}
-                        <div className="payment-proof-section">
-                            <div className="payment-proof-header">
-                                <h3><Image size={16} /> PAYMENT PROOF</h3>
-                                {/* Current status badge */}
-                                <span className={`payment-status-badge ${selectedReg.paymentStatus || 'pending'}`}>
-                                    {selectedReg.paymentStatus === 'verified' ? '✓ VERIFIED'
-                                        : selectedReg.paymentStatus === 'rejected' ? '✗ REJECTED'
-                                            : '⏳ PENDING'}
-                                </span>
-                            </div>
+                                {/* Screenshot */}
+                                {selectedReg.screenshotUrl ? (
+                                    <div className="screenshot-wrapper">
+                                        <img
+                                            src={selectedReg.screenshotUrl}
+                                            alt="Payment Screenshot"
+                                            className="payment-screenshot"
+                                            onClick={() => window.open(selectedReg.screenshotUrl, '_blank')}
+                                        />
+                                        <p className="screenshot-hint">Click image to open full size ↗</p>
+                                    </div>
+                                ) : (
+                                    <div className="no-screenshot">
+                                        {selectedReg.screenshotName
+                                            ? <><CreditCard size={14} /> <strong>{selectedReg.screenshotName}</strong><br /><small>Cloudinary not configured — image not stored.</small></>
+                                            : 'No payment screenshot uploaded.'
+                                        }
+                                    </div>
+                                )}
 
-                            {/* Screenshot */}
-                            {selectedReg.screenshotUrl ? (
-                                <div className="screenshot-wrapper">
-                                    <img
-                                        src={selectedReg.screenshotUrl}
-                                        alt="Payment Screenshot"
-                                        className="payment-screenshot"
-                                        onClick={() => window.open(selectedReg.screenshotUrl, '_blank')}
-                                    />
-                                    <p className="screenshot-hint">Click image to open full size ↗</p>
+                                {/* Manual Status Change */}
+                                <div className="payment-action-bar">
+                                    <p className="action-bar-label">MANUALLY UPDATE STATUS:</p>
+                                    <div className="payment-status-btns">
+                                        <button
+                                            className={`status-btn pending ${selectedReg.paymentStatus === 'pending' || !selectedReg.paymentStatus ? 'active' : ''}`}
+                                            disabled={paymentUpdating || selectedReg.paymentStatus === 'pending' || !selectedReg.paymentStatus}
+                                            onClick={() => updatePaymentStatus(selectedReg.id, 'pending')}
+                                        >
+                                            ⏳ PENDING
+                                        </button>
+                                        <button
+                                            className={`status-btn verified ${selectedReg.paymentStatus === 'verified' ? 'active' : ''}`}
+                                            disabled={paymentUpdating || selectedReg.paymentStatus === 'verified'}
+                                            onClick={() => updatePaymentStatus(selectedReg.id, 'verified')}
+                                        >
+                                            ✓ VERIFIED
+                                        </button>
+                                        <button
+                                            className={`status-btn rejected ${selectedReg.paymentStatus === 'rejected' ? 'active' : ''}`}
+                                            disabled={paymentUpdating || selectedReg.paymentStatus === 'rejected'}
+                                            onClick={() => updatePaymentStatus(selectedReg.id, 'rejected')}
+                                        >
+                                            ✗ REJECTED
+                                        </button>
+                                    </div>
+                                    {paymentUpdating && <p className="updating-text">Updating...</p>}
                                 </div>
-                            ) : (
-                                <div className="no-screenshot">
-                                    {selectedReg.screenshotName
-                                        ? <><CreditCard size={14} /> <strong>{selectedReg.screenshotName}</strong><br /><small>Cloudinary not configured — image not stored.</small></>
-                                        : 'No payment screenshot uploaded.'
-                                    }
-                                </div>
-                            )}
-
-                            {/* Manual Status Change */}
-                            <div className="payment-action-bar">
-                                <p className="action-bar-label">MANUALLY UPDATE STATUS:</p>
-                                <div className="payment-status-btns">
-                                    <button
-                                        className={`status-btn pending ${selectedReg.paymentStatus === 'pending' || !selectedReg.paymentStatus ? 'active' : ''}`}
-                                        disabled={paymentUpdating || selectedReg.paymentStatus === 'pending' || !selectedReg.paymentStatus}
-                                        onClick={() => updatePaymentStatus(selectedReg.id, 'pending')}
-                                    >
-                                        ⏳ PENDING
-                                    </button>
-                                    <button
-                                        className={`status-btn verified ${selectedReg.paymentStatus === 'verified' ? 'active' : ''}`}
-                                        disabled={paymentUpdating || selectedReg.paymentStatus === 'verified'}
-                                        onClick={() => updatePaymentStatus(selectedReg.id, 'verified')}
-                                    >
-                                        ✓ VERIFIED
-                                    </button>
-                                    <button
-                                        className={`status-btn rejected ${selectedReg.paymentStatus === 'rejected' ? 'active' : ''}`}
-                                        disabled={paymentUpdating || selectedReg.paymentStatus === 'rejected'}
-                                        onClick={() => updatePaymentStatus(selectedReg.id, 'rejected')}
-                                    >
-                                        ✗ REJECTED
-                                    </button>
-                                </div>
-                                {paymentUpdating && <p className="updating-text">Updating...</p>}
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 };
 
