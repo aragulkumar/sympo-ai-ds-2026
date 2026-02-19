@@ -633,3 +633,194 @@ td {
     font-size: 0.8rem;
     line-height: 1.8;
 }
+
+/* ─── QR Scanner ─── */
+.qr-scanner-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.scanner-viewport {
+    width: 100%;
+    min-height: 280px;
+    border: 2px solid #39ff14;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.scanner-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: #333;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    padding: 3rem;
+}
+
+.scanner-controls {
+    display: flex;
+    gap: 1rem;
+}
+
+.scan-start-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #39ff14;
+    color: #000;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.scan-start-btn:hover {
+    background: #2dd60f;
+}
+
+.scan-stop-btn {
+    background: transparent;
+    color: #ff4444;
+    border: 1px solid #ff4444;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.scan-stop-btn:hover {
+    background: #ff4444;
+    color: #fff;
+}
+
+.scan-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #39ff14;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+/* Result Cards */
+.scan-result-card {
+    width: 100%;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.scan-result-card.success {
+    background: rgba(57, 255, 20, 0.05);
+    border: 2px solid #39ff14;
+}
+
+.scan-result-card.already {
+    background: rgba(255, 165, 0, 0.05);
+    border: 2px solid #ffa500;
+}
+
+.scan-result-card.error {
+    background: rgba(255, 68, 68, 0.05);
+    border: 2px solid #ff4444;
+}
+
+.scan-status-text {
+    font-size: 1rem;
+    letter-spacing: 3px;
+    margin: 1rem 0;
+}
+
+.scan-result-card.success .scan-status-text {
+    color: #39ff14;
+}
+
+.scan-result-card.already .scan-status-text {
+    color: #ffa500;
+}
+
+.scan-result-card.error .scan-status-text {
+    color: #ff4444;
+}
+
+.scan-details {
+    text-align: left;
+    margin: 1.2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.scan-detail-row {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0.5rem 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+}
+
+.sd-label {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: #888;
+    width: 60px;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+}
+
+.sd-value {
+    font-size: 0.85rem;
+    color: #fff;
+}
+
+.scan-again-btn {
+    background: transparent;
+    border: 1px solid #39ff14;
+    color: #39ff14;
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.scan-again-btn:hover {
+    background: #39ff14;
+    color: #000;
+}
+
+.scan-error-msg {
+    color: #ffa500;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(255, 165, 0, 0.3);
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+}

@@ -7,6 +7,7 @@ import { db } from '../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { sendInvitationEmail } from '../services/emailService';
 import { uploadPaymentScreenshot } from '../services/cloudinaryService';
+import { QRCodeSVG } from 'qrcode.react';
 
 // Helper to parse max members from team string
 const getMaxMembers = (teamStr) => {
@@ -44,6 +45,7 @@ const EventDetails = () => {
     const [submitting, setSubmitting] = useState(false);
     const [uploadStatus, setUploadStatus] = useState('');
     const [success, setSuccess] = useState(false);
+    const [registrationId, setRegistrationId] = useState('');
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -103,7 +105,7 @@ const EventDetails = () => {
                 setUploadStatus('Saving registration...');
             }
 
-            await addDoc(collection(db, 'registrations'), {
+            const docRef = await addDoc(collection(db, 'registrations'), {
                 leaderName: formData.leaderName,
                 leaderEmail: formData.leaderEmail,
                 leaderPhone: formData.leaderPhone,
@@ -117,8 +119,10 @@ const EventDetails = () => {
                 screenshotPublicId,
                 eventId: event.id,
                 eventName: event.title,
+                checkedIn: false,
                 timestamp: serverTimestamp()
             });
+            setRegistrationId(docRef.id);
 
             setUploadStatus('');
             // Send invitation to leader
@@ -365,10 +369,39 @@ const EventDetails = () => {
                     ) : (
                         <div className="success-google-card">
                             <div className="header-color-strip success"></div>
-                            <h2 className="success-title-bb">REGISTRATION SUBMITTED</h2>
-                            <p className="success-text-bb">Your response for <strong>{event.title}</strong> has been recorded.</p>
-                            <p className="success-subtext-bb">A protocol confirmation has been sent to {formData.email}.</p>
-                            <button className="submit-another-btn" onClick={() => setSuccess(false)}>Submit another response</button>
+                            <div className="success-check">✓</div>
+                            <h2 className="success-title-bb">REGISTRATION CONFIRMED</h2>
+                            <p className="success-text-bb">
+                                Your entry for <strong>{event.title}</strong> has been recorded.
+                            </p>
+
+                            <div className="qr-ticket-box">
+                                <p className="qr-label-text">YOUR ENTRY PASS</p>
+                                <div className="qr-code-display" id="reg-qr-code">
+                                    <QRCodeSVG
+                                        value={JSON.stringify({
+                                            regId: registrationId,
+                                            event: event.title,
+                                            name: formData.leaderName,
+                                        })}
+                                        size={180}
+                                        bgColor="#000000"
+                                        fgColor="#39ff14"
+                                        level="H"
+                                        includeMargin={true}
+                                    />
+                                </div>
+                                <p className="qr-reg-id">ID: {registrationId}</p>
+                                <p className="qr-name-display">{formData.leaderName}</p>
+                                <p className="qr-event-display">{event.title}</p>
+                                <p className="qr-instruction-final">
+                                    📱 Screenshot this QR code. Show it at the venue for check-in.
+                                </p>
+                            </div>
+
+                            <button className="submit-another-btn" onClick={() => { setSuccess(false); setRegistrationId(''); }}>
+                                Register Another Person
+                            </button>
                         </div>
                     )}
                 </div>

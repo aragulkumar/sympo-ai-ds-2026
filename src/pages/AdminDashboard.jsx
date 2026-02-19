@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase/config';
 import { signOut } from 'firebase/auth';
 import { collection, getDocs, deleteDoc, doc, addDoc, serverTimestamp } from 'firebase/firestore';
-import { X, LayoutDashboard, FileText, PlusCircle, LogOut, Eye, Phone, Mail, User, CreditCard, Image } from 'lucide-react';
+import { X, LayoutDashboard, FileText, PlusCircle, LogOut, Eye, Phone, Mail, User, CreditCard, Image, QrCode } from 'lucide-react';
+import QRScanner from '../components/QRScanner';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -15,7 +16,8 @@ const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('registrations');
     const [selectedEventFilter, setSelectedEventFilter] = useState('ALL');
     const [showAddForm, setShowAddForm] = useState(false);
-    const [selectedReg, setSelectedReg] = useState(null); // for payment details modal
+    const [selectedReg, setSelectedReg] = useState(null);
+    const [showScanner, setShowScanner] = useState(false);
     const [newEvent, setNewEvent] = useState({
         title: '', category: 'technical', description: '', prize: '', fee: '', team: ''
     });
@@ -143,10 +145,18 @@ const AdminDashboard = () => {
                             <span className="badge">{registrations.length}</span>
                         )}
                     </button>
+                    <button
+                        className={activeTab === 'scanner' ? 'active' : ''}
+                        onClick={() => setActiveTab('scanner')}
+                    >
+                        <QrCode size={20} />
+                        <span>QR SCANNER</span>
+                    </button>
                 </aside>
 
                 <main className="dashboard-content">
-                    {/* ─── EVENTS TAB ─── */}
+                    {/* ─── QR SCANNER TAB ─── */}
+                    {activeTab === 'scanner' && <QRScanner />}
                     {activeTab === 'events' && (
                         <section className="management-section">
                             <div className="section-header">
