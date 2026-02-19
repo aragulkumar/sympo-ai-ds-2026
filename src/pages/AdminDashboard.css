@@ -453,6 +453,20 @@ td {
     align-items: center;
 }
 
+/* ─── Modal Overlay (fullscreen centered popup) ─── */
+.registration-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1rem;
+    animation: fadeIn 0.15s ease;
+}
+
 /* ─── Payment Details Modal ─── */
 .payment-details-modal {
     background: #111;
