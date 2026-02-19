@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase/config';
 import { signOut } from 'firebase/auth';
-import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { X, FileText, LogOut, Eye, Phone, Mail, User, CreditCard, Image, Cpu, PartyPopper, Trophy, Download, ArrowUpDown, Filter } from 'lucide-react';
 import { technicalEvents, nonTechnicalEvents, funGames } from '../data/events';
 import './AdminDashboard.css';
@@ -74,6 +74,17 @@ const AdminDashboard = () => {
             alert('Failed to update payment status: ' + err.message);
         } finally {
             setPaymentUpdating(false);
+        }
+    };
+
+    const deleteRegistration = async (regId) => {
+        if (!window.confirm('Are you sure you want to DELETE this registration? This cannot be undone.')) return;
+        try {
+            await deleteDoc(doc(db, 'registrations', regId));
+            setRegistrations(prev => prev.filter(r => r.id !== regId));
+            setSelectedReg(null);
+        } catch (err) {
+            alert('Failed to delete registration: ' + err.message);
         }
     };
 
@@ -444,6 +455,16 @@ const AdminDashboard = () => {
                                         </button>
                                     </div>
                                     {paymentUpdating && <p className="updating-text">Updating...</p>}
+                                </div>
+
+                                {/* ─── Delete Registration ─── */}
+                                <div className="delete-action-bar">
+                                    <button
+                                        className="delete-reg-btn"
+                                        onClick={() => deleteRegistration(selectedReg.id)}
+                                    >
+                                        🗑 DELETE REGISTRATION
+                                    </button>
                                 </div>
                             </div>
                         </div>

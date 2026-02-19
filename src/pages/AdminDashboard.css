@@ -1089,3 +1089,34 @@ td {
         opacity: 0.4
     }
 }
+
+/* ─── Delete Registration ─── */
+.delete-action-bar {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 68, 68, 0.2);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-reg-btn {
+    background: rgba(255, 68, 68, 0.08);
+    color: #ff4444;
+    border: 1px solid rgba(255, 68, 68, 0.35);
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.delete-reg-btn:hover {
+    background: rgba(255, 68, 68, 0.18);
+    border-color: #ff4444;
+    box-shadow: 0 0 12px rgba(255, 68, 68, 0.25);
+}
