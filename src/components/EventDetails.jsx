@@ -313,7 +313,7 @@ const EventDetails = () => {
                                             <p className="question-help upi-id-text">UPI ID: <strong>rithi73392@okaxis</strong></p>
                                             <div className="qr-container-bb">
                                                 <img
-                                                    src="/upi-qr.png"
+                                                    src="/upi-qr.jpeg"
                                                     alt="Scan to Pay - UPI QR Code"
                                                     className="upi-qr-image"
                                                 />
