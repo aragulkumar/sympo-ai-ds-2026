@@ -30,7 +30,7 @@ export const technicalEvents = [
         description: "Poster Presentation: Unleash your creativity and present your AI ideas through a poster using AI TOOLS.",
         icon: Binary,
         prize: "Cash Prize + Certificate",
-        fee: "₹75 only/-",
+        fee: "₹100 per team",
         team: "Individual or Team of 2",
         rules: [
             "Not AI generated (The poster design itself).",
@@ -51,7 +51,7 @@ export const technicalEvents = [
         description: "The Lab Bench. Showcase your innovative prototypes, mini-projects, and engineering marvels in this exciting exhibition.",
         icon: Pipette,
         prize: "Cash Prize + Certificate",
-        fee: "Free Entry",
+        fee: "₹100 per team",
         team: "2 to 4 Members",
         rules: [
             "Bring your own hardware/prototypes.",
@@ -71,7 +71,7 @@ export const technicalEvents = [
         description: "The Knowledge Lab. Test your technical knowledge and quick thinking in this ultimate tech quiz battle.",
         icon: Atom,
         prize: "Cash Prize + Certificate",
-        fee: "Free Entry",
+        fee: "₹100 per team",
         team: "2 Members",
         rules: [
             "Preliminary round for shortlisting.",
@@ -94,7 +94,7 @@ export const nonTechnicalEvents = [
         description: "A spontaneous dance event where you must instantly adapt your moves to unpredictable songs played on the spot.",
         icon: Ghost,
         prize: "Cash Prize + Certificate",
-        fee: "₹75 per team",
+        fee: "₹75 per head",
         team: "Solo or upto 4 members",
         rules: [
             "Round 1: 1.30 mins will be given to dance and the songs will be changed in between.",
@@ -114,7 +114,7 @@ export const nonTechnicalEvents = [
         description: "The Squad Battle Royale. Team up, strategize, and be the last squad standing in this intense gaming competition.",
         icon: Gamepad2,
         prize: "Cash Prize + Certificate",
-        fee: "₹200 per squad",
+        fee: "₹75 per head",
         team: "Squad (4 Members)",
         rules: [
             "Map: Bermuda | Mode: Battle Royale - Custom Room.",
@@ -135,7 +135,7 @@ export const nonTechnicalEvents = [
         description: "Unleash your creativity and transform your models into stunning looks inspired by a randomly selected theme.",
         icon: Pipette,
         prize: "Cash Prize + Certificate",
-        fee: "₹75 per team (participant + model)",
+        fee: "₹75 per head",
         team: "2 Members (Participant + Model)",
         rules: [
             "Participants must come with one model/friend on whom they will perform the makeup.",
@@ -199,7 +199,7 @@ export const funGames = [
         description: "PANI PURI EDITION: A fun game of speed and strategy. Can you handle the heat and crunch?",
         icon: UtensilsCrossed,
         prize: "Cash Prize + Certificate",
-        fee: "₹30 per team",
+        fee: "₹50 per team",
         team: "2 Members",
         rules: [
             "Team Formation: 2 members (1 eater, 1 assistant/server).",
@@ -245,7 +245,7 @@ export const funGames = [
         description: "The Cup Splash Lab. An exciting target-based game where you must knock down a pyramid of cups using a ball with precision and focus.",
         icon: Droplet,
         prize: "Cash Prize + Certificate",
-        fee: "₹30 per person",
+        fee: "₹50 per person",
         team: "Individual Mode (one player at a time)",
         rules: [
             "Each player gets 2 balls (or 2 chances).",
