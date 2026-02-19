@@ -60,15 +60,18 @@ const EventDetails = () => {
     const [success, setSuccess] = useState(false);
     const [registrationId, setRegistrationId] = useState('');
     const [countdown, setCountdown] = useState(20);
+    const countdownRef = useRef(null);
 
-    // Auto-reset form after 20 seconds on success
+    // Auto-reset after 20 seconds — uses ref to avoid StrictMode double-interval bug
     useEffect(() => {
         if (!success) return;
         setCountdown(20);
-        const interval = setInterval(() => {
+        if (countdownRef.current) clearInterval(countdownRef.current);
+        countdownRef.current = setInterval(() => {
             setCountdown(prev => {
                 if (prev <= 1) {
-                    clearInterval(interval);
+                    clearInterval(countdownRef.current);
+                    countdownRef.current = null;
                     setSuccess(false);
                     setRegistrationId('');
                     return 20;
@@ -76,7 +79,12 @@ const EventDetails = () => {
                 return prev - 1;
             });
         }, 1000);
-        return () => clearInterval(interval);
+        return () => {
+            if (countdownRef.current) {
+                clearInterval(countdownRef.current);
+                countdownRef.current = null;
+            }
+        };
     }, [success]);
 
     useEffect(() => {
