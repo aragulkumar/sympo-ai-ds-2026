@@ -19,6 +19,20 @@ const getMaxMembers = (teamStr) => {
     return 1;
 };
 
+// Helper to parse minimum required members from team string
+const getMinMembers = (teamStr) => {
+    if (!teamStr) return 1;
+    const s = teamStr.toLowerCase();
+    // Exact fixed sizes
+    if (s.includes('squad (4') || s === '4 members') return 4;
+    if (s === '3 members') return 3;
+    if (s === '2 members' || s.includes('team of 2')) return 2;
+    // Ranges like "2 to 4", "2-3" → min is 2
+    if (s.includes('2 to') || s.includes('2-3')) return 2;
+    // "1 to 4", "solo", "individual", "upto 4" → solo is valid
+    return 1;
+};
+
 const EventDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -253,33 +267,40 @@ const EventDetails = () => {
                                     </div>
                                 </div>
 
-                                {getMaxMembers(event.team) > 1 && Array.from({ length: getMaxMembers(event.team) - 1 }).map((_, i) => (
-                                    <div key={i} className="form-question-card">
-                                        <div className="section-header-pill member">TEAM MEMBER {i + 2}</div>
-                                        <div className="form-field-group">
-                                            <label className="question-label">Full Name <span className="required-star">*</span></label>
-                                            <input
-                                                type="text"
-                                                name={`member-${i}-name`}
-                                                value={formData.members[i].name}
-                                                onChange={handleInputChange}
-                                                placeholder="Your answer"
-                                                required
-                                            />
+                                {getMaxMembers(event.team) > 1 && Array.from({ length: getMaxMembers(event.team) - 1 }).map((_, i) => {
+                                    // Member slot i corresponds to member number (i+2)
+                                    // Required if this slot is within the minimum team size
+                                    const isRequired = (i + 2) <= getMinMembers(event.team);
+                                    return (
+                                        <div key={i} className="form-question-card">
+                                            <div className="section-header-pill member">
+                                                TEAM MEMBER {i + 2} {!isRequired && <span style={{ fontWeight: 'normal', opacity: 0.6, fontSize: '0.7rem' }}>(Optional)</span>}
+                                            </div>
+                                            <div className="form-field-group">
+                                                <label className="question-label">Full Name {isRequired && <span className="required-star">*</span>}</label>
+                                                <input
+                                                    type="text"
+                                                    name={`member-${i}-name`}
+                                                    value={formData.members[i].name}
+                                                    onChange={handleInputChange}
+                                                    placeholder={isRequired ? 'Your answer' : 'Your answer (optional)'}
+                                                    required={isRequired}
+                                                />
+                                            </div>
+                                            <div className="form-field-group">
+                                                <label className="question-label">Gmail Address {isRequired && <span className="required-star">*</span>}</label>
+                                                <input
+                                                    type="email"
+                                                    name={`member-${i}-email`}
+                                                    value={formData.members[i].email}
+                                                    onChange={handleInputChange}
+                                                    placeholder={isRequired ? 'Your answer' : 'Your answer (optional)'}
+                                                    required={isRequired}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="form-field-group">
-                                            <label className="question-label">Gmail Address <span className="required-star">*</span></label>
-                                            <input
-                                                type="email"
-                                                name={`member-${i}-email`}
-                                                value={formData.members[i].email}
-                                                onChange={handleInputChange}
-                                                placeholder="Your answer"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
 
                                 <div className="form-question-card">
                                     <label className="question-label">College / Department <span className="required-star">*</span></label>
