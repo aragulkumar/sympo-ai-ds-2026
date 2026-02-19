@@ -198,8 +198,8 @@ export const funGames = [
         title: "Crystal Crunch Challenge",
         description: "PANI PURI EDITION: A fun game of speed and strategy. Can you handle the heat and crunch?",
         icon: UtensilsCrossed,
-        prize: "Cash Prize + Certificate",
-        fee: "₹50 per team",
+        prize: "Exciting gifts",
+        fee: "₹50 per participant",
         team: "2 Members",
         rules: [
             "Team Formation: 2 members (1 eater, 1 assistant/server).",
@@ -223,7 +223,7 @@ export const funGames = [
         title: "Battle of Endurance",
         description: "Push-up Lab. Test your physical strength and stamina within a 1-minute time limit.",
         icon: Dumbbell,
-        prize: "Cash Prize + Certificate",
+        prize: "Exciting gifts",
         fee: "₹50 per participant",
         team: "Individual",
         rules: [
@@ -244,8 +244,8 @@ export const funGames = [
         title: "Say My Aim 2026",
         description: "The Cup Splash Lab. An exciting target-based game where you must knock down a pyramid of cups using a ball with precision and focus.",
         icon: Droplet,
-        prize: "Cash Prize + Certificate",
-        fee: "₹50 per person",
+        prize: "Exciting gifts",
+        fee: "₹50 per participant",
         team: "Individual Mode (one player at a time)",
         rules: [
             "Each player gets 2 balls (or 2 chances).",
@@ -267,8 +267,8 @@ export const funGames = [
         title: "Meth Soundfeast",
         description: "The BGM Round. Identify the correct song using only the BGM - no lyrics, no clues!",
         icon: Music,
-        prize: "Cash Prize + Certificate",
-        fee: "₹50 per team",
+        prize: "Exciting gifts",
+        fee: "₹50 per participant",
         team: "2-3 Members",
         rules: [
             "Identify the exact song title from 5-10s clips.",
@@ -288,8 +288,8 @@ export const funGames = [
         title: "Heisen Guess",
         description: "The Movie Lab. Guess the film from short scenes or signature dialogues. Are you a true cinephile?",
         icon: Film,
-        prize: "Cash Prize + Certificate",
-        fee: "₹50 per head",
+        prize: "Exciting gifts",
+        fee: "₹50 per participant",
         team: "Individual",
         rules: [
             "Identify the movie title accurately.",
