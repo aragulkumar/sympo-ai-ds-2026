@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase/config';
-// onAuthStateChanged removed for local session management
 import { signOut } from 'firebase/auth';
 import { collection, getDocs, deleteDoc, doc, addDoc, serverTimestamp } from 'firebase/firestore';
-import { X, LayoutDashboard, FileText, PlusCircle, LogOut } from 'lucide-react';
+import { X, LayoutDashboard, FileText, PlusCircle, LogOut, Eye, Phone, Mail, User, CreditCard, Image } from 'lucide-react';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -13,65 +12,52 @@ const AdminDashboard = () => {
     const [registrations, setRegistrations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [activeTab, setActiveTab] = useState('events');
-    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [activeTab, setActiveTab] = useState('registrations');
+    const [selectedEventFilter, setSelectedEventFilter] = useState('ALL');
     const [showAddForm, setShowAddForm] = useState(false);
+    const [selectedReg, setSelectedReg] = useState(null); // for payment details modal
     const [newEvent, setNewEvent] = useState({
-        title: '',
-        category: 'technical',
-        description: '',
-        prize: '',
-        fee: '',
-        team: ''
+        title: '', category: 'technical', description: '', prize: '', fee: '', team: ''
     });
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('Admin Auth Check...');
         const isAuth = localStorage.getItem('heisenbyte_admin_auth') === 'true';
         if (!isAuth) {
-            console.log('Not authenticated, redirecting...');
             navigate('/admin/login');
         } else {
-            console.log('Authenticated, setting user and fetching data...');
             setUser({ email: import.meta.env.VITE_ADMIN_EMAIL || 'admin@heisenbyte.com' });
             fetchData();
         }
     }, [navigate]);
 
     const fetchData = async () => {
-        console.log('Fetching data started...');
         setLoading(true);
         setError(null);
         let isDataFetched = false;
 
         const timeout = setTimeout(() => {
             if (!isDataFetched) {
-                console.log('Fetch timeout reached!');
-                setError("CONNECTION TIMEOUT: The system is having trouble reaching the database. Please disable any Ad-Blockers and check your internet connection.");
+                setError("CONNECTION TIMEOUT: Check your internet connection or Firestore rules.");
                 setLoading(false);
             }
-        }, 5000); // Reduced to 5s for faster feedback
+        }, 8000);
 
         try {
-            console.log('Attempting Firestore query...');
             const eventsSnapshot = await getDocs(collection(db, 'events'));
-            console.log('Events fetched:', eventsSnapshot.size);
-            setEvents(eventsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+            setEvents(eventsSnapshot.docs.map(d => ({ id: d.id, ...d.data() })));
 
             const regSnapshot = await getDocs(collection(db, 'registrations'));
-            console.log('Registrations fetched:', regSnapshot.size);
-            setRegistrations(regSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+            setRegistrations(regSnapshot.docs.map(d => ({ id: d.id, ...d.data() })));
 
             isDataFetched = true;
             clearTimeout(timeout);
-        } catch (error) {
-            console.error('Firestore Error:', error);
-            setError("ACCESS DENIED: Firewalls or Ad-Blockers are preventing the Command Center from reaching the database.");
+        } catch (err) {
+            console.error('Firestore Error:', err);
+            setError("ACCESS DENIED: Could not reach the database. Check Firestore rules.");
             isDataFetched = true;
             clearTimeout(timeout);
         } finally {
-            console.log('Fetching data finished.');
             setLoading(false);
         }
     };
@@ -82,12 +68,12 @@ const AdminDashboard = () => {
     };
 
     const handleDeleteEvent = async (id) => {
-        if (window.confirm('Are you sure you want to delete this event?')) {
+        if (window.confirm('Delete this event?')) {
             try {
                 await deleteDoc(doc(db, 'events', id));
                 setEvents(events.filter(e => e.id !== id));
-            } catch (error) {
-                console.error('Error deleting event:', error);
+            } catch (err) {
+                console.error('Error deleting event:', err);
             }
         }
     };
@@ -95,37 +81,28 @@ const AdminDashboard = () => {
     const handleAddEvent = async (e) => {
         e.preventDefault();
         try {
-            await addDoc(collection(db, 'events'), {
-                ...newEvent,
-                timestamp: serverTimestamp()
-            });
+            await addDoc(collection(db, 'events'), { ...newEvent, timestamp: serverTimestamp() });
             setNewEvent({ title: '', category: 'technical', description: '', prize: '', fee: '', team: '' });
             setShowAddForm(false);
             fetchData();
-        } catch (error) {
-            console.error('Error adding event:', error);
+        } catch (err) {
+            console.error('Error adding event:', err);
         }
     };
+
+    // Get unique event names from registrations data from events.js
+    const allEventNames = ['ALL', ...new Set(registrations.map(r => r.eventName).filter(Boolean))];
+
+    const filteredRegs = selectedEventFilter === 'ALL'
+        ? registrations
+        : registrations.filter(r => r.eventName === selectedEventFilter);
 
     if (loading) return (
         <div className="admin-loading-container">
             <div className="admin-loading">INITIALIZING SYSTEM...</div>
-            <p style={{ color: '#39ff14', fontSize: '0.8rem', marginTop: '1rem' }}>Checking Firestore Connectivity...</p>
+            <p style={{ color: '#39ff14', fontSize: '0.8rem', marginTop: '1rem' }}>Connecting to Firestore...</p>
         </div>
     );
-
-    if (error) {
-        return (
-            <div className="admin-dashboard error-state">
-                <div className="error-card">
-                    <h2>SYSTEM MALFUNCTION</h2>
-                    <p>{error}</p>
-                    <button onClick={() => window.location.reload()} className="add-btn">RETRY CONNECTION</button>
-                    <button onClick={handleLogout} className="logout-btn" style={{ marginLeft: '1rem' }}>EXIT SYSTEM</button>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="admin-dashboard">
@@ -139,6 +116,13 @@ const AdminDashboard = () => {
                     <span>TERMINATE SESSION</span>
                 </button>
             </header>
+
+            {error && (
+                <div className="connection-warning">
+                    <span>⚠️ {error}</span>
+                    <button onClick={fetchData} className="retry-inline-btn">RETRY</button>
+                </div>
+            )}
 
             <div className="dashboard-main">
                 <aside className="dashboard-sidebar">
@@ -155,10 +139,14 @@ const AdminDashboard = () => {
                     >
                         <FileText size={20} />
                         <span>REGISTRATIONS</span>
+                        {registrations.length > 0 && (
+                            <span className="badge">{registrations.length}</span>
+                        )}
                     </button>
                 </aside>
 
                 <main className="dashboard-content">
+                    {/* ─── EVENTS TAB ─── */}
                     {activeTab === 'events' && (
                         <section className="management-section">
                             <div className="section-header">
@@ -175,8 +163,8 @@ const AdminDashboard = () => {
                                             <th>TITLE</th>
                                             <th>CATEGORY</th>
                                             <th>PRIZE</th>
+                                            <th>REGISTRATIONS</th>
                                             <th>ACTIONS</th>
-                                            <th>DATA</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -186,22 +174,27 @@ const AdminDashboard = () => {
                                                 <td className="category-cell">{event.category}</td>
                                                 <td>{event.prize}</td>
                                                 <td>
-                                                    <button onClick={() => handleDeleteEvent(event.id)} className="delete-btn">DELETE</button>
+                                                    <span className="reg-count-badge">
+                                                        {registrations.filter(r => r.eventName === event.title).length}
+                                                    </span>
                                                 </td>
-                                                <td>
+                                                <td className="actions-cell">
                                                     <button
                                                         onClick={() => {
-                                                            setSelectedEvent(event.title);
+                                                            setSelectedEventFilter(event.title);
                                                             setActiveTab('registrations');
                                                         }}
                                                         className="view-btn"
                                                     >
-                                                        VIEW DATA
+                                                        <Eye size={14} /> VIEW
+                                                    </button>
+                                                    <button onClick={() => handleDeleteEvent(event.id)} className="delete-btn">
+                                                        DELETE
                                                     </button>
                                                 </td>
                                             </tr>
                                         )) : (
-                                            <tr><td colSpan="4" style={{ textAlign: 'center' }}>No events found.</td></tr>
+                                            <tr><td colSpan="5" style={{ textAlign: 'center' }}>No events found.</td></tr>
                                         )}
                                     </tbody>
                                 </table>
@@ -209,50 +202,76 @@ const AdminDashboard = () => {
                         </section>
                     )}
 
+                    {/* ─── REGISTRATIONS TAB ─── */}
                     {activeTab === 'registrations' && (
                         <section className="management-section">
                             <div className="section-header">
-                                <h2>REGISTRATION LOGS {selectedEvent && <span className="filter-tag">[{selectedEvent.toUpperCase()}]</span>}</h2>
-                                {selectedEvent && (
-                                    <button onClick={() => setSelectedEvent(null)} className="show-all-btn">
-                                        SHOW ALL
-                                    </button>
-                                )}
+                                <h2>REGISTRATION LOGS</h2>
+                                <span className="total-count">{filteredRegs.length} entries</span>
                             </div>
+
+                            {/* Per-event filter pills */}
+                            <div className="event-filter-pills">
+                                {allEventNames.map(name => (
+                                    <button
+                                        key={name}
+                                        className={`filter-pill ${selectedEventFilter === name ? 'active' : ''}`}
+                                        onClick={() => setSelectedEventFilter(name)}
+                                    >
+                                        {name === 'ALL' ? 'ALL EVENTS' : name}
+                                        <span className="pill-count">
+                                            {name === 'ALL'
+                                                ? registrations.length
+                                                : registrations.filter(r => r.eventName === name).length}
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+
                             <div className="data-table">
                                 <table>
                                     <thead>
                                         <tr>
                                             <th>LEADER NAME</th>
-                                            <th>LEADER EMAIL</th>
-                                            <th>TEAM MEMBERS</th>
+                                            <th>PHONE</th>
+                                            <th>COLLEGE</th>
                                             <th>EVENT</th>
+                                            <th>PAYMENT</th>
                                             <th>DATE</th>
+                                            <th>DETAILS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {registrations.filter(r => !selectedEvent || r.eventName === selectedEvent).length > 0 ?
-                                            registrations.filter(r => !selectedEvent || r.eventName === selectedEvent).map(reg => (
-                                                <tr key={reg.id}>
-                                                    <td>{reg.leaderName || reg.name}</td>
-                                                    <td className="email-cell">{reg.leaderEmail || reg.email}</td>
-                                                    <td>
-                                                        {reg.members && reg.members.length > 0 ? (
-                                                            <div className="members-list">
-                                                                {reg.members.map((m, idx) => (
-                                                                    <div key={idx} className="member-item">• {m.name}</div>
-                                                                ))}
-                                                            </div>
-                                                        ) : '-'}
-                                                    </td>
-                                                    <td className="event-cell">{reg.eventName}</td>
-                                                    <td className="date-cell">
-                                                        {reg.timestamp ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}
-                                                    </td>
-                                                </tr>
-                                            )) : (
-                                                <tr><td colSpan="5" style={{ textAlign: 'center' }}>No registrations found.</td></tr>
-                                            )}
+                                        {filteredRegs.length > 0 ? filteredRegs.map(reg => (
+                                            <tr
+                                                key={reg.id}
+                                                className="clickable-row"
+                                                onClick={() => setSelectedReg(reg)}
+                                            >
+                                                <td>{reg.leaderName || reg.name || '—'}</td>
+                                                <td>{reg.leaderPhone || '—'}</td>
+                                                <td>{reg.college || '—'}</td>
+                                                <td className="event-cell">{reg.eventName}</td>
+                                                <td>
+                                                    {reg.screenshotUrl
+                                                        ? <span className="payment-badge paid">✓ PAID</span>
+                                                        : reg.transactionId
+                                                            ? <span className="payment-badge pending">⏳ PENDING</span>
+                                                            : <span className="payment-badge free">FREE</span>
+                                                    }
+                                                </td>
+                                                <td className="date-cell">
+                                                    {reg.timestamp ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString('en-IN') : 'N/A'}
+                                                </td>
+                                                <td>
+                                                    <button className="view-btn" onClick={e => { e.stopPropagation(); setSelectedReg(reg); }}>
+                                                        <Eye size={14} /> VIEW
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        )) : (
+                                            <tr><td colSpan="7" style={{ textAlign: 'center', padding: '2rem' }}>No registrations found for this event.</td></tr>
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
@@ -261,7 +280,7 @@ const AdminDashboard = () => {
                 </main>
             </div>
 
-            {/* Add Event Modal */}
+            {/* ─── ADD EVENT MODAL ─── */}
             {showAddForm && (
                 <div className="registration-overlay">
                     <div className="registration-modal admin-modal">
@@ -270,11 +289,11 @@ const AdminDashboard = () => {
                         <form onSubmit={handleAddEvent} className="admin-form">
                             <div className="form-group">
                                 <label>Event Title</label>
-                                <input type="text" value={newEvent.title} onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })} required />
+                                <input type="text" value={newEvent.title} onChange={e => setNewEvent({ ...newEvent, title: e.target.value })} required />
                             </div>
                             <div className="form-group">
                                 <label>Category</label>
-                                <select value={newEvent.category} onChange={(e) => setNewEvent({ ...newEvent, category: e.target.value })}>
+                                <select value={newEvent.category} onChange={e => setNewEvent({ ...newEvent, category: e.target.value })}>
                                     <option value="technical">Technical</option>
                                     <option value="non-technical">Non-Technical</option>
                                     <option value="fun">Fun Games</option>
@@ -282,22 +301,113 @@ const AdminDashboard = () => {
                             </div>
                             <div className="form-group">
                                 <label>Prize</label>
-                                <input type="text" value={newEvent.prize} onChange={(e) => setNewEvent({ ...newEvent, prize: e.target.value })} />
+                                <input type="text" value={newEvent.prize} onChange={e => setNewEvent({ ...newEvent, prize: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <label>Entry Fee</label>
-                                <input type="text" value={newEvent.fee} onChange={(e) => setNewEvent({ ...newEvent, fee: e.target.value })} />
+                                <input type="text" value={newEvent.fee} onChange={e => setNewEvent({ ...newEvent, fee: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <label>Team Size</label>
-                                <input type="text" value={newEvent.team} onChange={(e) => setNewEvent({ ...newEvent, team: e.target.value })} />
+                                <input type="text" value={newEvent.team} onChange={e => setNewEvent({ ...newEvent, team: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                <textarea value={newEvent.description} onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })} />
+                                <textarea value={newEvent.description} onChange={e => setNewEvent({ ...newEvent, description: e.target.value })} />
                             </div>
                             <button type="submit" className="submit-reg-btn">CREATE ELEMENT</button>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* ─── PAYMENT DETAILS MODAL ─── */}
+            {selectedReg && (
+                <div className="registration-overlay" onClick={() => setSelectedReg(null)}>
+                    <div className="payment-details-modal" onClick={e => e.stopPropagation()}>
+                        <button className="close-btn" onClick={() => setSelectedReg(null)}><X size={24} /></button>
+                        <div className="modal-header-strip"></div>
+                        <h2 className="modal-title">REGISTRATION DETAILS</h2>
+                        <p className="modal-event-name">{selectedReg.eventName}</p>
+
+                        <div className="details-grid">
+                            <div className="detail-item">
+                                <User size={16} />
+                                <div>
+                                    <span className="detail-label">Leader</span>
+                                    <span className="detail-value">{selectedReg.leaderName || '—'}</span>
+                                </div>
+                            </div>
+                            <div className="detail-item">
+                                <Mail size={16} />
+                                <div>
+                                    <span className="detail-label">Email</span>
+                                    <span className="detail-value">{selectedReg.leaderEmail || '—'}</span>
+                                </div>
+                            </div>
+                            <div className="detail-item">
+                                <Phone size={16} />
+                                <div>
+                                    <span className="detail-label">Phone</span>
+                                    <span className="detail-value">{selectedReg.leaderPhone || '—'}</span>
+                                </div>
+                            </div>
+                            <div className="detail-item">
+                                <User size={16} />
+                                <div>
+                                    <span className="detail-label">College</span>
+                                    <span className="detail-value">{selectedReg.college || '—'}</span>
+                                </div>
+                            </div>
+                            {selectedReg.transactionId && (
+                                <div className="detail-item">
+                                    <CreditCard size={16} />
+                                    <div>
+                                        <span className="detail-label">Transaction ID</span>
+                                        <span className="detail-value txn-id">{selectedReg.transactionId}</span>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {selectedReg.members && selectedReg.members.length > 0 && (
+                            <div className="members-section">
+                                <h3>TEAM MEMBERS</h3>
+                                <div className="members-grid">
+                                    {selectedReg.members.filter(m => m.name).map((m, i) => (
+                                        <div key={i} className="member-card">
+                                            <span className="member-num">{i + 2}</span>
+                                            <div>
+                                                <div className="member-name">{m.name}</div>
+                                                <div className="member-email">{m.email}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="payment-proof-section">
+                            <h3><Image size={16} /> PAYMENT PROOF</h3>
+                            {selectedReg.screenshotUrl ? (
+                                <div className="screenshot-wrapper">
+                                    <img
+                                        src={selectedReg.screenshotUrl}
+                                        alt="Payment Screenshot"
+                                        className="payment-screenshot"
+                                        onClick={() => window.open(selectedReg.screenshotUrl, '_blank')}
+                                    />
+                                    <p className="screenshot-hint">Click image to open full size</p>
+                                </div>
+                            ) : (
+                                <div className="no-screenshot">
+                                    {selectedReg.screenshotName
+                                        ? <p>📎 File uploaded: <strong>{selectedReg.screenshotName}</strong><br /><small>(Cloudinary not configured — image not stored)</small></p>
+                                        : <p>No payment screenshot uploaded.</p>
+                                    }
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}

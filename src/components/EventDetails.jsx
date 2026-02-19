@@ -6,6 +6,7 @@ import { ChevronLeft, Info, ScrollText, Trophy, Users, BadgeIndianRupee, X, Send
 import { db } from '../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { sendInvitationEmail } from '../services/emailService';
+import { uploadPaymentScreenshot } from '../services/cloudinaryService';
 
 // Helper to parse max members from team string
 const getMaxMembers = (teamStr) => {
@@ -41,6 +42,7 @@ const EventDetails = () => {
         screenshotName: ''
     });
     const [submitting, setSubmitting] = useState(false);
+    const [uploadStatus, setUploadStatus] = useState('');
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
@@ -90,6 +92,17 @@ const EventDetails = () => {
             const maxMembers = getMaxMembers(event.team);
             const activeMembers = formData.members.slice(0, maxMembers - 1);
 
+            // Upload payment screenshot to Cloudinary if provided
+            let screenshotUrl = '';
+            let screenshotPublicId = '';
+            if (formData.paymentScreenshot && event.fee !== 'Free Entry') {
+                setUploadStatus('Uploading payment proof...');
+                const uploaded = await uploadPaymentScreenshot(formData.paymentScreenshot);
+                screenshotUrl = uploaded.url;
+                screenshotPublicId = uploaded.publicId;
+                setUploadStatus('Saving registration...');
+            }
+
             await addDoc(collection(db, 'registrations'), {
                 leaderName: formData.leaderName,
                 leaderEmail: formData.leaderEmail,
@@ -100,11 +113,14 @@ const EventDetails = () => {
                 uid: formData.uid,
                 transactionId: formData.transactionId,
                 screenshotName: formData.screenshotName,
+                screenshotUrl,
+                screenshotPublicId,
                 eventId: event.id,
                 eventName: event.title,
                 timestamp: serverTimestamp()
             });
 
+            setUploadStatus('');
             // Send invitation to leader
             await sendInvitationEmail(formData.leaderEmail, formData.leaderName, event.title);
 
@@ -126,7 +142,8 @@ const EventDetails = () => {
             }, 8000);
         } catch (error) {
             console.error('Error submitting registration:', error);
-            alert('SYSTEM ERROR: Could not synthesize registration.');
+            setUploadStatus('');
+            alert('SYSTEM ERROR: Could not synthesize registration. ' + error.message);
         } finally {
             setSubmitting(false);
         }
@@ -331,7 +348,7 @@ const EventDetails = () => {
                                         {submitting ? (
                                             <div className="btn-loading">
                                                 <div className="spinner-bb"></div>
-                                                <span>SUBMITTING...</span>
+                                                <span>{uploadStatus || 'SUBMITTING...'}</span>
                                             </div>
                                         ) : (
                                             <span>SUBMIT</span>
