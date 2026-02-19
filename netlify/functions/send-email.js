@@ -44,7 +44,7 @@ exports.handler = async (event) => {
     const emailPayload = {
         // Using Resend's shared sender — works without domain verification
         // Switch to your own domain once verified in Resend dashboard
-        from: 'HeisenByte 2026 <onboarding@resend.dev>',
+        from: 'HeisenByte 2026 <noreply@updates.jecaids.in>',
         to: [to],
         subject: `Registration Confirmed – ${eventName} | HeisenByte 2026`,
         html: `
