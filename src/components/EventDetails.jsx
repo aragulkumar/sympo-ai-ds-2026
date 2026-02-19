@@ -23,13 +23,15 @@ const getMaxMembers = (teamStr) => {
 const getMinMembers = (teamStr) => {
     if (!teamStr) return 1;
     const s = teamStr.toLowerCase();
-    // Exact fixed sizes
+    // If 'individual' or 'solo' is mentioned, solo registration is always valid → min = 1
+    if (s.includes('individual') || s.includes('solo')) return 1;
+    // Exact fixed sizes (all members required)
     if (s.includes('squad (4') || s === '4 members') return 4;
     if (s === '3 members') return 3;
-    if (s === '2 members' || s.includes('team of 2')) return 2;
+    if (s === '2 members' || s === 'team of 2') return 2;
     // Ranges like "2 to 4", "2-3" → min is 2
     if (s.includes('2 to') || s.includes('2-3')) return 2;
-    // "1 to 4", "solo", "individual", "upto 4" → solo is valid
+    // Default: solo valid
     return 1;
 };
 
