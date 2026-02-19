@@ -824,3 +824,254 @@ td {
     width: 100%;
     text-align: center;
 }
+
+/* ─── Section Header Actions Row ─── */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ─── Sort Control ─── */
+.sort-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #888;
+}
+
+.sort-select {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    color: #ccc;
+    padding: 0.4rem 0.7rem;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.sort-select:hover,
+.sort-select:focus {
+    border-color: #39ff14;
+    color: #fff;
+}
+
+.sort-select optgroup {
+    color: #888;
+    font-size: 0.65rem;
+}
+
+/* ─── Export CSV Button ─── */
+.export-csv-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(57, 255, 20, 0.08);
+    border: 1px solid #39ff14;
+    color: #39ff14;
+    padding: 0.4rem 0.9rem;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.export-csv-btn:hover {
+    background: #39ff14;
+    color: #000;
+}
+
+/* ─── Event Group Row (sub-header) ─── */
+.event-group-row td {
+    background: rgba(57, 255, 20, 0.04);
+    border-top: 1px solid rgba(57, 255, 20, 0.15);
+    border-bottom: 1px solid rgba(57, 255, 20, 0.08);
+    padding: 0.6rem 1rem;
+}
+
+.event-group-name {
+    color: #39ff14;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-right: 0.8rem;
+}
+
+.event-group-count {
+    color: #888;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+.event-reg-count {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-size: 0.6rem;
+    color: #39ff14;
+    background: rgba(57, 255, 20, 0.1);
+    border: 1px solid rgba(57, 255, 20, 0.3);
+    border-radius: 10px;
+    padding: 0.1rem 0.4rem;
+    letter-spacing: 1px;
+}
+
+/* ─── Payment Proof Header in Modal ─── */
+.payment-proof-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.payment-proof-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    color: #888;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+.payment-status-badge {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.payment-status-badge.pending {
+    background: rgba(255, 165, 0, 0.1);
+    color: #ffa500;
+    border: 1px solid #ffa500;
+}
+
+.payment-status-badge.verified {
+    background: rgba(57, 255, 20, 0.1);
+    color: #39ff14;
+    border: 1px solid #39ff14;
+}
+
+.payment-status-badge.rejected {
+    background: rgba(255, 68, 68, 0.1);
+    color: #ff4444;
+    border: 1px solid #ff4444;
+}
+
+/* ─── Payment Action Bar ─── */
+.payment-action-bar {
+    margin-top: 1.5rem;
+    border-top: 1px solid #1a1a1a;
+    padding-top: 1.2rem;
+}
+
+.action-bar-label {
+    font-size: 0.6rem;
+    color: #555;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+}
+
+.payment-status-btns {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.status-btn {
+    flex: 1;
+    min-width: 90px;
+    padding: 0.6rem 0.5rem;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: 1px solid;
+    transition: all 0.2s ease;
+    font-weight: 600;
+}
+
+.status-btn.pending {
+    background: transparent;
+    color: #ffa500;
+    border-color: #ffa500;
+}
+
+.status-btn.verified {
+    background: transparent;
+    color: #39ff14;
+    border-color: #39ff14;
+}
+
+.status-btn.rejected {
+    background: transparent;
+    color: #ff4444;
+    border-color: #ff4444;
+}
+
+.status-btn.pending.active {
+    background: rgba(255, 165, 0, 0.2);
+}
+
+.status-btn.verified.active {
+    background: rgba(57, 255, 20, 0.2);
+}
+
+.status-btn.rejected.active {
+    background: rgba(255, 68, 68, 0.2);
+}
+
+.status-btn:hover:not(:disabled).pending {
+    background: rgba(255, 165, 0, 0.15);
+}
+
+.status-btn:hover:not(:disabled).verified {
+    background: rgba(57, 255, 20, 0.15);
+}
+
+.status-btn:hover:not(:disabled).rejected {
+    background: rgba(255, 68, 68, 0.15);
+}
+
+.status-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.updating-text {
+    font-size: 0.7rem;
+    color: #39ff14;
+    letter-spacing: 2px;
+    margin-top: 0.6rem;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1
+    }
+
+    50% {
+        opacity: 0.4
+    }
+}

@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase/config';
 import { signOut } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
-import { X, FileText, LogOut, Eye, Phone, Mail, User, CreditCard, Image, Cpu, PartyPopper, Trophy } from 'lucide-react';
+import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { X, FileText, LogOut, Eye, Phone, Mail, User, CreditCard, Image, Cpu, PartyPopper, Trophy, Download, ArrowUpDown } from 'lucide-react';
 import { technicalEvents, nonTechnicalEvents, funGames } from '../data/events';
 import './AdminDashboard.css';
 
@@ -27,6 +27,8 @@ const AdminDashboard = () => {
     const [error, setError] = useState(null);
     const [activeCategory, setActiveCategory] = useState('all');
     const [selectedReg, setSelectedReg] = useState(null);
+    const [sortBy, setSortBy] = useState('event-asc'); // default: grouped by event name
+    const [paymentUpdating, setPaymentUpdating] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -58,10 +60,70 @@ const AdminDashboard = () => {
         navigate('/admin/login');
     };
 
-    // Filter registrations by selected category
+    const updatePaymentStatus = async (regId, newStatus) => {
+        setPaymentUpdating(true);
+        try {
+            await updateDoc(doc(db, 'registrations', regId), { paymentStatus: newStatus });
+            // Patch local state immediately so table reflects the change
+            setRegistrations(prev => prev.map(r =>
+                r.id === regId ? { ...r, paymentStatus: newStatus } : r
+            ));
+            setSelectedReg(prev => ({ ...prev, paymentStatus: newStatus }));
+        } catch (err) {
+            alert('Failed to update payment status: ' + err.message);
+        } finally {
+            setPaymentUpdating(false);
+        }
+    };
+
+    // Filter by category
     const filtered = activeCategory === 'all'
         ? registrations
         : registrations.filter(r => categoryMap[r.eventName] === activeCategory);
+
+    // Event registration count map (for sorting by popularity)
+    const eventCountMap = {};
+    registrations.forEach(r => {
+        if (r.eventName) eventCountMap[r.eventName] = (eventCountMap[r.eventName] || 0) + 1;
+    });
+
+    // Sort
+    const sortedFiltered = [...filtered].sort((a, b) => {
+        if (sortBy === 'date-desc') return (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0);
+        if (sortBy === 'date-asc') return (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0);
+        if (sortBy === 'event-asc') return (a.eventName || '').localeCompare(b.eventName || '');
+        if (sortBy === 'event-desc') return (b.eventName || '').localeCompare(a.eventName || '');
+        if (sortBy === 'count-desc') return (eventCountMap[b.eventName] || 0) - (eventCountMap[a.eventName] || 0);
+        if (sortBy === 'count-asc') return (eventCountMap[a.eventName] || 0) - (eventCountMap[b.eventName] || 0);
+        return 0;
+    });
+
+    // CSV Export
+    const exportCSV = () => {
+        const headers = ['Leader Name', 'Leader Email', 'Phone', 'College', 'Event', 'Category', 'Transaction ID', 'Payment Status', 'Date', 'Members'];
+        const rows = sortedFiltered.map(r => [
+            r.leaderName || '',
+            r.leaderEmail || '',
+            r.leaderPhone || '',
+            r.college || '',
+            r.eventName || '',
+            categoryMap[r.eventName] || '',
+            r.transactionId || '',
+            r.screenshotUrl ? 'PAID' : r.transactionId ? 'PENDING' : 'FREE',
+            r.timestamp ? new Date(r.timestamp.seconds * 1000).toLocaleDateString('en-IN') : '',
+            (r.members || []).filter(m => m.name).map(m => m.name).join(' | ')
+        ]);
+        const csvContent = [headers, ...rows]
+            .map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+            .join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `heisenbyte-registrations-${activeCategory}-${Date.now()}.csv`;
+        link.click();
+        URL.revokeObjectURL(url);
+    };
 
     if (loading) return (
         <div className="admin-loading-container">
@@ -118,7 +180,34 @@ const AdminDashboard = () => {
                             <h2>
                                 {CATEGORIES.find(c => c.key === activeCategory)?.label} — REGISTRATIONS
                             </h2>
-                            <span className="total-count">{filtered.length} entries</span>
+                            <div className="header-actions">
+                                <span className="total-count">{sortedFiltered.length} entries</span>
+                                <div className="sort-control">
+                                    <ArrowUpDown size={14} />
+                                    <select
+                                        value={sortBy}
+                                        onChange={e => setSortBy(e.target.value)}
+                                        className="sort-select"
+                                    >
+                                        <optgroup label="DATE">
+                                            <option value="date-desc">Newest First</option>
+                                            <option value="date-asc">Oldest First</option>
+                                        </optgroup>
+                                        <optgroup label="EVENT">
+                                            <option value="event-asc">Event A → Z</option>
+                                            <option value="event-desc">Event Z → A</option>
+                                        </optgroup>
+                                        <optgroup label="POPULARITY">
+                                            <option value="count-desc">Most Registrations</option>
+                                            <option value="count-asc">Least Registrations</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <button className="export-csv-btn" onClick={exportCSV} title="Export to CSV">
+                                    <Download size={14} />
+                                    <span>EXPORT CSV</span>
+                                </button>
+                            </div>
                         </div>
 
                         <div className="data-table">
@@ -135,39 +224,58 @@ const AdminDashboard = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filtered.length > 0 ? filtered.map(reg => (
-                                        <tr
-                                            key={reg.id}
-                                            className="clickable-row"
-                                            onClick={() => setSelectedReg(reg)}
-                                        >
-                                            <td>{reg.leaderName || '—'}</td>
-                                            <td>{reg.leaderPhone || '—'}</td>
-                                            <td>{reg.college || '—'}</td>
-                                            <td className="event-cell">{reg.eventName}</td>
-                                            <td>
-                                                {reg.screenshotUrl
-                                                    ? <span className="payment-badge paid">✓ PAID</span>
-                                                    : reg.transactionId
-                                                        ? <span className="payment-badge pending">⏳ PENDING</span>
-                                                        : <span className="payment-badge free">FREE</span>
-                                                }
-                                            </td>
-                                            <td className="date-cell">
-                                                {reg.timestamp
-                                                    ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString('en-IN')
-                                                    : 'N/A'}
-                                            </td>
-                                            <td>
-                                                <button
-                                                    className="view-btn"
-                                                    onClick={e => { e.stopPropagation(); setSelectedReg(reg); }}
-                                                >
-                                                    <Eye size={14} /> VIEW
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    )) : (
+                                    {sortedFiltered.length > 0 ? (() => {
+                                        let lastEvent = null;
+                                        return sortedFiltered.map(reg => {
+                                            const showGroup = (sortBy === 'event-asc' || sortBy === 'event-desc' || sortBy === 'count-desc' || sortBy === 'count-asc') && reg.eventName !== lastEvent;
+                                            lastEvent = reg.eventName;
+                                            return (
+                                                <>
+                                                    {showGroup && (
+                                                        <tr key={`group-${reg.eventName}`} className="event-group-row">
+                                                            <td colSpan="7">
+                                                                <span className="event-group-name">{reg.eventName}</span>
+                                                                <span className="event-group-count">{eventCountMap[reg.eventName] || 0} registration{eventCountMap[reg.eventName] !== 1 ? 's' : ''}</span>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+                                                    <tr
+                                                        key={reg.id}
+                                                        className="clickable-row"
+                                                        onClick={() => setSelectedReg(reg)}
+                                                    >
+                                                        <td>{reg.leaderName || '—'}</td>
+                                                        <td>{reg.leaderPhone || '—'}</td>
+                                                        <td>{reg.college || '—'}</td>
+                                                        <td className="event-cell">{reg.eventName}</td>
+                                                        <td>
+                                                            {reg.paymentStatus === 'verified'
+                                                                ? <span className="payment-badge paid">✓ VERIFIED</span>
+                                                                : reg.paymentStatus === 'rejected'
+                                                                    ? <span className="payment-badge" style={{ background: 'rgba(255,68,68,0.1)', color: '#ff4444', borderColor: '#ff4444' }}>✗ REJECTED</span>
+                                                                    : reg.screenshotUrl || reg.transactionId
+                                                                        ? <span className="payment-badge pending">⏳ PENDING</span>
+                                                                        : <span className="payment-badge free">FREE</span>
+                                                            }
+                                                        </td>
+                                                        <td className="date-cell">
+                                                            {reg.timestamp
+                                                                ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString('en-IN')
+                                                                : 'N/A'}
+                                                        </td>
+                                                        <td>
+                                                            <button
+                                                                className="view-btn"
+                                                                onClick={e => { e.stopPropagation(); setSelectedReg(reg); }}
+                                                            >
+                                                                <Eye size={14} /> VIEW
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </>
+                                            );
+                                        });
+                                    })() : (
                                         <tr>
                                             <td colSpan="7" style={{ textAlign: 'center', padding: '3rem', color: '#444' }}>
                                                 No registrations found.
@@ -247,9 +355,19 @@ const AdminDashboard = () => {
                             </div>
                         )}
 
-                        {/* ─── Payment Screenshot ─── */}
+                        {/* ─── Payment Verification Panel ─── */}
                         <div className="payment-proof-section">
-                            <h3><Image size={16} /> PAYMENT PROOF</h3>
+                            <div className="payment-proof-header">
+                                <h3><Image size={16} /> PAYMENT PROOF</h3>
+                                {/* Current status badge */}
+                                <span className={`payment-status-badge ${selectedReg.paymentStatus || 'pending'}`}>
+                                    {selectedReg.paymentStatus === 'verified' ? '✓ VERIFIED'
+                                        : selectedReg.paymentStatus === 'rejected' ? '✗ REJECTED'
+                                            : '⏳ PENDING'}
+                                </span>
+                            </div>
+
+                            {/* Screenshot */}
                             {selectedReg.screenshotUrl ? (
                                 <div className="screenshot-wrapper">
                                     <img
@@ -263,11 +381,40 @@ const AdminDashboard = () => {
                             ) : (
                                 <div className="no-screenshot">
                                     {selectedReg.screenshotName
-                                        ? <>📎 <strong>{selectedReg.screenshotName}</strong><br /><small>Cloudinary not set up — image not stored.</small></>
+                                        ? <><CreditCard size={14} /> <strong>{selectedReg.screenshotName}</strong><br /><small>Cloudinary not configured — image not stored.</small></>
                                         : 'No payment screenshot uploaded.'
                                     }
                                 </div>
                             )}
+
+                            {/* Manual Status Change */}
+                            <div className="payment-action-bar">
+                                <p className="action-bar-label">MANUALLY UPDATE STATUS:</p>
+                                <div className="payment-status-btns">
+                                    <button
+                                        className={`status-btn pending ${selectedReg.paymentStatus === 'pending' || !selectedReg.paymentStatus ? 'active' : ''}`}
+                                        disabled={paymentUpdating || selectedReg.paymentStatus === 'pending' || !selectedReg.paymentStatus}
+                                        onClick={() => updatePaymentStatus(selectedReg.id, 'pending')}
+                                    >
+                                        ⏳ PENDING
+                                    </button>
+                                    <button
+                                        className={`status-btn verified ${selectedReg.paymentStatus === 'verified' ? 'active' : ''}`}
+                                        disabled={paymentUpdating || selectedReg.paymentStatus === 'verified'}
+                                        onClick={() => updatePaymentStatus(selectedReg.id, 'verified')}
+                                    >
+                                        ✓ VERIFIED
+                                    </button>
+                                    <button
+                                        className={`status-btn rejected ${selectedReg.paymentStatus === 'rejected' ? 'active' : ''}`}
+                                        disabled={paymentUpdating || selectedReg.paymentStatus === 'rejected'}
+                                        onClick={() => updatePaymentStatus(selectedReg.id, 'rejected')}
+                                    >
+                                        ✗ REJECTED
+                                    </button>
+                                </div>
+                                {paymentUpdating && <p className="updating-text">Updating...</p>}
+                            </div>
                         </div>
                     </div>
                 </div>
