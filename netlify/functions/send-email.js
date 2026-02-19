@@ -70,16 +70,14 @@ exports.handler = async (event) => {
           <tr>
             <td align="center" style="padding:32px 32px 16px;">
               <h1 style="margin:0;font-size:28px;color:#39ff14;letter-spacing:4px;font-weight:900;">HEISENBYTE</h1>
-              <p style="margin:4px 0 0;color:#555;font-size:11px;letter-spacing:3px;">2026 · JEC AI&DS DEPARTMENT</p>
+              <p style="margin:4px 0 0;color:#bbb;font-size:11px;letter-spacing:3px;">2026 &middot; JEC AI&amp;DS DEPARTMENT</p>
             </td>
           </tr>
 
-          <!-- Success Icon -->
+          <!-- Logo Image -->
           <tr>
             <td align="center" style="padding:8px 32px;">
-              <div style="width:60px;height:60px;background:rgba(57,255,20,0.1);border:2px solid #39ff14;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">
-                <span style="font-size:28px;line-height:60px;">✓</span>
-              </div>
+              <img src="https://heisenbyte.jecaids.in/heisenbyte-logo.png" alt="HeisenByte" width="70" height="70" style="border-radius:50%;border:2px solid #39ff14;background:#000;padding:4px;" />
             </td>
           </tr>
 
@@ -87,7 +85,7 @@ exports.handler = async (event) => {
           <tr>
             <td align="center" style="padding:16px 40px 8px;">
               <h2 style="margin:0;color:#fff;font-size:20px;letter-spacing:2px;">REGISTRATION CONFIRMED</h2>
-              <p style="color:#aaa;margin:12px 0 0;font-size:15px;line-height:1.6;">
+              <p style="color:#ddd;margin:12px 0 0;font-size:15px;line-height:1.6;">
                 Hi <strong style="color:#fff;">${name}</strong>, you're officially registered for
               </p>
               <p style="margin:8px 0 0;font-size:22px;font-weight:bold;color:#39ff14;letter-spacing:1px;">${eventName}</p>
@@ -107,22 +105,29 @@ exports.handler = async (event) => {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="padding:10px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;">
-                    <p style="margin:0 0 6px;color:#555;font-size:10px;letter-spacing:2px;">📅 EVENT DAY</p>
-                    <p style="margin:0;color:#fff;font-size:14px;">Check heisenbyte.jecaids.in for schedule updates</p>
+                    <p style="margin:0 0 6px;color:#39ff14;font-size:10px;letter-spacing:2px;">📅 EVENT DAY</p>
+                    <p style="margin:0;color:#fff;font-size:14px;"><strong>5th March 2026</strong></p>
                   </td>
                 </tr>
                 <tr><td style="height:10px;"></td></tr>
                 <tr>
                   <td style="padding:10px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;">
-                    <p style="margin:0 0 6px;color:#555;font-size:10px;letter-spacing:2px;">📍 VENUE</p>
+                    <p style="margin:0 0 6px;color:#39ff14;font-size:10px;letter-spacing:2px;">📍 VENUE</p>
                     <p style="margin:0;color:#fff;font-size:14px;">Jeppiaar Engineering College, AI &amp; DS Dept — Event Block</p>
                   </td>
                 </tr>
                 <tr><td style="height:10px;"></td></tr>
                 <tr>
                   <td style="padding:10px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;">
-                    <p style="margin:0 0 6px;color:#555;font-size:10px;letter-spacing:2px;">📌 REMINDER</p>
-                    <p style="margin:0;color:#aaa;font-size:13px;">Carry your college ID card. Arrive 15 minutes before your event starts.</p>
+                    <p style="margin:0 0 6px;color:#39ff14;font-size:10px;letter-spacing:2px;">📌 REMINDER</p>
+                    <p style="margin:0;color:#ddd;font-size:13px;">Carry your college ID card. Arrive 15 minutes before your event starts.</p>
+                  </td>
+                </tr>
+                <tr><td style="height:10px;"></td></tr>
+                <tr>
+                  <td style="padding:10px;background:#0d2208;border:1px solid rgba(37,211,102,0.3);border-radius:8px;">
+                    <p style="margin:0 0 6px;color:#25D366;font-size:10px;letter-spacing:2px;">💬 WHATSAPP</p>
+                    <p style="margin:0;color:#ddd;font-size:13px;">Our event members will contact you through <strong style="color:#25D366;">WhatsApp</strong> with further details.</p>
                   </td>
                 </tr>
               </table>
@@ -132,8 +137,8 @@ exports.handler = async (event) => {
           <!-- Footer -->
           <tr>
             <td style="background:#0d0d0d;padding:20px 40px;border-top:1px solid #1a1a1a;">
-              <p style="margin:0;color:#444;font-size:11px;text-align:center;">
-                HeisenByte 2026 &bull; JEC AI&DS Department<br/>
+              <p style="margin:0;color:#aaa;font-size:11px;text-align:center;">
+                HeisenByte 2026 &bull; JEC AI&amp;DS Department<br/>
                 <a href="mailto:jec.aids.dept@gmail.com" style="color:#39ff14;text-decoration:none;">jec.aids.dept@gmail.com</a>
                 &bull;
                 <a href="https://heisenbyte.jecaids.in" style="color:#39ff14;text-decoration:none;">heisenbyte.jecaids.in</a>
