@@ -62,23 +62,32 @@ const EventDetails = () => {
     const [countdown, setCountdown] = useState(20);
     const countdownRef = useRef(null);
 
-    // Auto-reset after 20 seconds — uses ref to avoid StrictMode double-interval bug
+    // Auto-reset after exactly 20 seconds
+    // Uses a local `secs` closure variable — NOT React state — to track time
+    // This avoids any state batching / StrictMode / async update issues
     useEffect(() => {
         if (!success) return;
+
+        // Clear any previous interval first
+        if (countdownRef.current) {
+            clearInterval(countdownRef.current);
+            countdownRef.current = null;
+        }
+
+        let secs = 20;
         setCountdown(20);
-        if (countdownRef.current) clearInterval(countdownRef.current);
+
         countdownRef.current = setInterval(() => {
-            setCountdown(prev => {
-                if (prev <= 1) {
-                    clearInterval(countdownRef.current);
-                    countdownRef.current = null;
-                    setSuccess(false);
-                    setRegistrationId('');
-                    return 20;
-                }
-                return prev - 1;
-            });
+            secs -= 1;
+            setCountdown(secs);
+            if (secs <= 0) {
+                clearInterval(countdownRef.current);
+                countdownRef.current = null;
+                setSuccess(false);
+                setRegistrationId('');
+            }
         }, 1000);
+
         return () => {
             if (countdownRef.current) {
                 clearInterval(countdownRef.current);
@@ -86,6 +95,7 @@ const EventDetails = () => {
             }
         };
     }, [success]);
+
 
     useEffect(() => {
         window.scrollTo(0, 0);

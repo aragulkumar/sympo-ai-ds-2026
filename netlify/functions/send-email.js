@@ -74,10 +74,10 @@ exports.handler = async (event) => {
             </td>
           </tr>
 
-          <!-- Logo Image -->
+          <!-- Logo Lettermark (inline — works in all email clients) -->
           <tr>
             <td align="center" style="padding:8px 32px;">
-              <img src="https://heisenbyte.jecaids.in/heisenbyte-logo.png" alt="HeisenByte" width="70" height="70" style="border-radius:50%;border:2px solid #39ff14;background:#000;padding:4px;" />
+              <div style="width:70px;height:70px;border-radius:50%;border:2px solid #39ff14;background:#000;display:inline-block;line-height:70px;text-align:center;font-family:Arial,sans-serif;font-size:22px;font-weight:900;color:#39ff14;letter-spacing:2px;">HB</div>
             </td>
           </tr>
 
