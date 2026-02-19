@@ -7,7 +7,6 @@ import { db } from '../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { sendInvitationEmail } from '../services/emailService';
 import { uploadPaymentScreenshot } from '../services/cloudinaryService';
-import { QRCodeSVG } from 'qrcode.react';
 
 // Helper to parse max members from team string
 const getMaxMembers = (teamStr) => {
@@ -373,32 +372,11 @@ const EventDetails = () => {
                             <div className="success-check">✓</div>
                             <h2 className="success-title-bb">REGISTRATION CONFIRMED</h2>
                             <p className="success-text-bb">
-                                Your entry for <strong>{event.title}</strong> has been recorded.
+                                Your entry for <strong>{event.title}</strong> has been recorded successfully.
                             </p>
-
-                            <div className="qr-ticket-box">
-                                <p className="qr-label-text">YOUR ENTRY PASS</p>
-                                <div className="qr-code-display" id="reg-qr-code">
-                                    <QRCodeSVG
-                                        value={JSON.stringify({
-                                            regId: registrationId,
-                                            event: event.title,
-                                            name: formData.leaderName,
-                                        })}
-                                        size={180}
-                                        bgColor="#000000"
-                                        fgColor="#39ff14"
-                                        level="H"
-                                        includeMargin={true}
-                                    />
-                                </div>
-                                <p className="qr-reg-id">ID: {registrationId}</p>
-                                <p className="qr-name-display">{formData.leaderName}</p>
-                                <p className="qr-event-display">{event.title}</p>
-                                <p className="qr-instruction-final">
-                                    📱 Screenshot this QR code. Show it at the venue for check-in.
-                                </p>
-                            </div>
+                            <p className="success-text-bb" style={{ fontSize: '0.8rem', color: '#888', marginTop: '0.5rem' }}>
+                                Registration ID: <strong style={{ color: '#39ff14' }}>{registrationId}</strong>
+                            </p>
 
                             <button className="submit-another-btn" onClick={() => { setSuccess(false); setRegistrationId(''); }}>
                                 Register Another Person

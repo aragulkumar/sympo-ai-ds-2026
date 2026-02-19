@@ -1,13 +1,24 @@
 /**
- * Service to handle automated registration emails via Resend.
- * NOTE: Resend API blocks direct browser calls (CORS policy).
- * Email sending is currently disabled. To enable it, proxy through a
- * backend serverless function (e.g. Netlify / Vercel / Firebase Function).
+ * Sends a registration confirmation email via the Netlify serverless proxy.
+ * The Netlify function at /.netlify/functions/send-email handles the Resend API call,
+ * bypassing the browser CORS restriction.
  */
 export const sendInvitationEmail = async (userEmail, userName, eventName) => {
-    // Silently skip — Resend cannot be called from a browser due to CORS restriction.
-    // Re-enable this when a backend proxy is set up.
-    console.log(`[Email skipped - CORS] Would send to ${userEmail} for ${eventName}`);
-    return;
-};
+    try {
+        const response = await fetch('/.netlify/functions/send-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ to: userEmail, name: userName, eventName }),
+        });
 
+        if (!response.ok) {
+            const err = await response.json();
+            console.error('[Email] Failed:', err);
+        } else {
+            console.log(`[Email] Sent to ${userEmail} for ${eventName}`);
+        }
+    } catch (err) {
+        // Non-blocking — registration already saved, just log the error
+        console.error('[Email] Network error:', err.message);
+    }
+};
