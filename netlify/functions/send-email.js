@@ -115,7 +115,7 @@ exports.handler = async (event) => {
                 <tr>
                   <td style="padding:10px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;">
                     <p style="margin:0 0 6px;color:#555;font-size:10px;letter-spacing:2px;">📍 VENUE</p>
-                    <p style="margin:0;color:#fff;font-size:14px;">Jei Collegium of Engineering, Dharmapuri</p>
+                    <p style="margin:0;color:#fff;font-size:14px;">Jeppiaar Engineering College, AI &amp; DS Dept — Event Block</p>
                   </td>
                 </tr>
                 <tr><td style="height:10px;"></td></tr>
