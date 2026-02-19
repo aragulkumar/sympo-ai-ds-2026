@@ -59,6 +59,25 @@ const EventDetails = () => {
     const [uploadStatus, setUploadStatus] = useState('');
     const [success, setSuccess] = useState(false);
     const [registrationId, setRegistrationId] = useState('');
+    const [countdown, setCountdown] = useState(20);
+
+    // Auto-reset form after 20 seconds on success
+    useEffect(() => {
+        if (!success) return;
+        setCountdown(20);
+        const interval = setInterval(() => {
+            setCountdown(prev => {
+                if (prev <= 1) {
+                    clearInterval(interval);
+                    setSuccess(false);
+                    setRegistrationId('');
+                    return 20;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [success]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -395,8 +414,28 @@ const EventDetails = () => {
                             <p className="success-text-bb">
                                 Your entry for <strong>{event.title}</strong> has been recorded successfully.
                             </p>
-                            <p className="success-text-bb" style={{ fontSize: '0.8rem', color: '#888', marginTop: '0.5rem' }}>
-                                Registration ID: <strong style={{ color: '#39ff14' }}>{registrationId}</strong>
+
+                            {/* Email & WhatsApp notice */}
+                            <div style={{
+                                background: 'rgba(57,255,20,0.05)',
+                                border: '1px solid rgba(57,255,20,0.2)',
+                                borderRadius: '10px',
+                                padding: '1rem 1.2rem',
+                                margin: '1rem 0',
+                                textAlign: 'left'
+                            }}>
+                                <p style={{ margin: '0 0 0.5rem', color: '#39ff14', fontSize: '0.78rem', letterSpacing: '1px', fontWeight: 'bold' }}>📧 CONFIRMATION SENT</p>
+                                <p style={{ margin: '0 0 0.6rem', color: '#ccc', fontSize: '0.82rem', lineHeight: 1.6 }}>
+                                    A confirmation mail has been sent to your Gmail. Our event members will contact you through <strong style={{ color: '#25D366' }}>WhatsApp</strong> with further details.
+                                </p>
+                                <p style={{ margin: 0, color: '#555', fontSize: '0.72rem' }}>
+                                    Registration ID: <strong style={{ color: '#39ff14' }}>{registrationId}</strong>
+                                </p>
+                            </div>
+
+                            {/* Countdown */}
+                            <p style={{ fontSize: '0.7rem', color: '#444', marginTop: '0.8rem', textAlign: 'center' }}>
+                                This page resets in <strong style={{ color: '#39ff14' }}>{countdown}s</strong>
                             </p>
 
                             <button className="submit-another-btn" onClick={() => { setSuccess(false); setRegistrationId(''); }}>
