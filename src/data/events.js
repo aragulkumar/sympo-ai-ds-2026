@@ -4,7 +4,7 @@ export const technicalEvents = [
     {
         id: "paperberg-2026",
         title: "Paperberg 2026",
-        description: "A premier technical paper presentation event showcasing innovative ideas, research insights, and emerging technological solutions.",
+        description: "A premier technical paper presentation event designed to provide students a dynamic platform to showcase innovative ideas, research insights, and emerging technological solutions. Encourages interdisciplinary collaboration, creativity, technical excellence, and real-world problem solving.",
         icon: FlaskConical,
         prize: "Cash Prize + Certificate",
         fee: "₹100 per team",
@@ -15,25 +15,25 @@ export const technicalEvents = [
             "Eligibility: UG / PG / Professional Students.",
             "Open to All Departments.",
             "Project must demonstrate Innovation, Technical Skills & Social Impact.",
-            "Participants must bring their own laptop/equipment."
+            "Participants must bring their own laptop/equipment (Projector will be provided)."
         ],
         guidelines: [
-            "Domains: Generative AI, AI-Powered Cybersecurity, Edge AI, Blockchain, Digital Twins.",
-            "Judging Criteria: Innovation & Originality, Technical Depth, Practical Implementation/Demo, Social Relevance, Presentation & Communication.",
+            "Domains: Generative AI in Real-World Applications, AI-Powered Cybersecurity Threat Detection, Edge AI for Smart Devices, Blockchain Beyond Cryptocurrency, Digital Twins in Smart Cities.",
+            "Judging Criteria: Innovation & Originality, Technical Depth, Practical Implementation/Demo, Social Relevance, Presentation & Communication Skills.",
             "Innovate. Integrate. Impact."
         ],
         coordinators: [
-            { name: "Shalini (Head)", phone: "+91 63811 31400" }
+            { name: "Shalini", phone: "+91 63811 31400" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "crystal-canvas",
         title: "Crystal Canvas",
-        description: "Poster Presentation: Unleash your creativity and present your AI ideas through a poster using AI TOOLS.",
+        description: "Poster Presentation: Unleash your creativity and present your AI ideas through a poster using AI TOOLS. Showcase research innovation and real-world applications in a visual format.",
         icon: Binary,
         prize: "Cash Prize + Certificate",
-        fee: "₹100 per team",
+        fee: "₹75 per team",
         team: "Individual or Team of 2",
         rules: [
             "Not AI generated (The poster design itself).",
@@ -54,19 +54,25 @@ export const technicalEvents = [
     {
         id: "tech-titration",
         title: "Tech Titration",
-        description: "The Lab Bench. Showcase your innovative prototypes, mini-projects, and engineering marvels in this exciting exhibition.",
+        description: "The AI & Data Science Mini Project Event — a platform for students to showcase innovative projects developed using Artificial Intelligence, Machine Learning, Big Data, and Data Warehousing.",
         icon: Pipette,
         prize: "Cash Prize + Certificate",
         fee: "₹100 per team",
-        team: "2 to 4 Members",
+        team: "1 to 3 Members",
         rules: [
-            "Bring your own hardware/prototypes.",
-            "Working models earn significantly higher points.",
-            "Explain the logical flow and synthesis of your project."
+            "Team consists of 1–3 members.",
+            "Topic must be based on AI, Machine Learning, Deep Learning, Big Data, Data Warehousing, or IoT.",
+            "Presentation time: 3–5 minutes. Q&A session: 3 minutes.",
+            "Participants must be on time.",
+            "Participants must bring their own laptop.",
+            "Judge's decision is final.",
+            "E-certificate will be given to all participants.",
+            "Winners will be rewarded with cash prizes.",
+            "Winner certificates will be given at the end of the day."
         ],
         guidelines: [
-            "Focus on real-world problem solving.",
-            "Feasibility is a major judging criteria.",
+            "Focus on real-world problem solving using AI/ML.",
+            "Feasibility and innovation are major judging criteria.",
             "Effective presentation of the project."
         ],
         coordinators: [
@@ -77,13 +83,14 @@ export const technicalEvents = [
     {
         id: "better-call-quiz",
         title: "Better Call Quiz",
-        description: "The Knowledge Lab. Test your technical knowledge and quick thinking in this ultimate tech quiz battle.",
+        description: "The Knowledge Lab. Test your technical knowledge on Python, AI, ML, and Deep Learning in this ultimate tech quiz battle.",
         icon: Atom,
         prize: "Cash Prize + Certificate",
         fee: "₹100 per team",
-        team: "2 Members",
+        team: "1 to 2 Members",
         rules: [
-            "No electronic gadgets allowed.",
+            "Questions will be from Python, AI, ML, and Deep Learning.",
+            "Using AI Tools are not allowed.",
             "Rapid fire round is a knockout phase."
         ],
         guidelines: [
@@ -102,15 +109,17 @@ export const nonTechnicalEvents = [
     {
         id: "heisen-beats",
         title: "Heisen Beats",
-        description: "A spontaneous dance event where you must instantly adapt your moves to unpredictable songs played on the spot.",
+        description: "A spontaneous dance event where judges play an unpredictable song on the spot. Contestants must instantly adapt their moves to the beat, genre and vibe — testing rhythm, creativity and quick thinking. A high-energy challenge blending skill with improvisation, thrilling audiences with freestyle flair under pressure.",
         icon: Ghost,
         prize: "Cash Prize + Certificate",
         fee: "₹75 per head",
-        team: "1 to 2 Members",
+        team: "Solo or up to 4 Members",
         rules: [
+            "Each team will get 1.30 - 2 mins to dance.",
             "Round 1: 1.30 mins will be given to dance and the songs will be changed in between.",
             "Round 2: Top 5 teams will get into 2nd round and 2 mins will be given to dance and the songs will be changed.",
             "The team has to dance for the song which the judge plays.",
+            "Solo dancer or up to 4 members will be allowed to be in a team.",
             "Teams must remain silent while the clip is playing."
         ],
         guidelines: [
@@ -127,18 +136,26 @@ export const nonTechnicalEvents = [
         title: "Heisenberg's Last Stand",
         description: "The Squad Battle Royale. Team up, strategize, and be the last squad standing in this intense gaming competition.",
         icon: Gamepad2,
-        prize: "Cash Prize + Certificate",
-        fee: "₹75 per head",
+        prize: "Winner: ₹800 | Runner-up: ₹400",
+        fee: "₹200 per squad",
         team: "Squad (4 Members)",
         rules: [
-            "Map: Bermuda | Mode: Battle Royale - Custom Room.",
-            "Each squad must contain 4 players.",
-            "No hacks, cheats, or third-party scripts allowed.",
-            "Only registered & paid squads will receive room details."
+            "Mode: Battle Royale – Custom Room | Map: Bermuda | Type: Squad.",
+            "Each squad must contain exactly 4 players.",
+            "Every team must have a Squad Leader for communication.",
+            "All members must join on time. If any member is missing, team plays with available players.",
+            "Bring your own device & internet connection.",
+            "Organizers are not responsible for lag, high ping, battery, or disconnections.",
+            "No hacks, cheats, scripts, or illegal tools allowed — any unfair play leads to immediate disqualification.",
+            "Misconduct or abusive behavior results in disqualification.",
+            "Squads must report 15–20 minutes before match time. Late teams may lose their slot.",
+            "Only registered & paid squads will receive room details.",
+            "Match begins only if at least 10 squads have joined.",
+            "Winners decided based on in-game results. Organizer decision is final in case of disputes."
         ],
         guidelines: [
-            "Bring your own device & internet connection.",
-            "Squads must report 15-20 minutes before match time.",
+            "Open to symposium participants and other college students.",
+            "Prizes distributed after result verification.",
             "Organizer decision is final."
         ],
         coordinators: [
@@ -152,7 +169,7 @@ export const nonTechnicalEvents = [
         description: "Unleash your creativity and transform your models into stunning looks inspired by a randomly selected theme.",
         icon: Pipette,
         prize: "Cash Prize + Certificate",
-        fee: "₹75 per head",
+        fee: "₹75 per team",
         team: "2 Members (Participant + Model)",
         rules: [
             "Participants must come with one model/friend on whom they will perform the makeup.",
@@ -173,20 +190,26 @@ export const nonTechnicalEvents = [
     {
         id: "heisen-pitch",
         title: "Heisen Pitch",
-        description: "The Marketing Lab (Adzap). Present your innovative marketing strategies and pitch your ideas to win over the judges.",
+        description: "The Marketing Lab. Teams receive a random product and must market & sell it using creative strategy — pitch the branding, audience, USP, and sales strategy in 5 minutes.",
         icon: Megaphone,
         prize: "Cash Prize + Certificate",
         fee: "₹75 per head",
-        team: "1-4 Members",
+        team: "2 to 4 Members",
         rules: [
-            "Product/Topic will be provided to pitch.",
-            "Prep time: 3 mins, Pitch time: 5 mins.",
-            "Persuasion and humor are encouraged."
+            "Each team will be given a random product to pitch.",
+            "Preparation time: 5–10 minutes. Presentation time: 5 minutes maximum.",
+            "Teams must present: Product branding idea, Marketing strategy, Target audience, USP, and Sales pitch.",
+            "Props are allowed (if arranged by participants).",
+            "Mobile phone allowed only for basic preparation — no external help.",
+            "Team members cannot switch teams after registration.",
+            "Disqualification: offensive content, exceeding time limit, outside help during presentation, or misbehavior.",
+            "Highest overall score wins. Tie-breaker: rapid-fire selling round.",
+            "Judge's decision is final and binding."
         ],
         guidelines: [
-            "Be convincing.",
-            "Understand the target audience.",
-            "Unique selling propositions should be clear."
+            "Judging (100 pts): Creativity & Innovation (25), Marketing Strategy (25), Confidence & Communication (20), Selling Skills & Persuasion (20), Overall Impact (10).",
+            "Understand your target audience.",
+            "Unique selling propositions should be clear and convincing."
         ],
         coordinators: [
             { name: "Sanjay B", phone: "+91 89399 62893" }
@@ -196,20 +219,25 @@ export const nonTechnicalEvents = [
     {
         id: "breaking-vision",
         title: "Break the Clues",
-        description: "Visible Recognition Lab (Image identification). Test your visual recognition skills and decode hidden messages.",
+        description: "A 4-round visual recognition challenge — identify blurred, cropped, zoomed, or shadowed images against the clock. Speed, observation, and pop-culture knowledge are your weapons!",
         icon: Eye,
         prize: "Cash Prize + Certificate",
         fee: "₹75 per head",
-        team: "Individual",
+        team: "2 Members",
         rules: [
-            "Identify the image/frame accurately.",
-            "Time-bound rounds.",
-            "Highest score based on speed and accuracy wins."
+            "2 members per team. No mobile phones allowed.",
+            "2 or 3 teams play simultaneously — highest points team wins.",
+            "Round 1 – Movies (Blurred Image): Identify the movie from a blurred image. 10 seconds. Winning team gets 10 points.",
+            "Round 2 – Zoom In: Identify a movie actor or celebrity from a zoomed-in image of their eyes. 10 points.",
+            "Round 3 – Original or Duplicate: Two images shown — identify which is the original (e.g. car logos, brand logos). 10 points.",
+            "Round 4 – Rapid Fire Final: 5 fast clue images shown (cricketers, celebrities). 5 seconds per image.",
+            "Tie-breaker: If points are tied, Round 4 repeats with only 3 seconds per image.",
+            "Judge's decision is final."
         ],
         guidelines: [
-            "Observation skills are critical.",
-            "Broad knowledge of media/pop culture helps.",
-            "Stay sharp."
+            "Observation skills and quick thinking are critical.",
+            "Broad knowledge of movies, celebrities, and brands helps.",
+            "Stay sharp — every second counts!"
         ],
         coordinators: [
             { name: "Adithya", phone: "+91 70107 73497" }
@@ -229,18 +257,19 @@ export const funGames = [
         team: "2 Members",
         rules: [
             "Team Formation: 2 members (1 eater, 1 assistant/server).",
-            "Round 1 - Qualification: Eat 15 pani puris in 30 seconds.",
-            "Round 2 - Final: Eat as many as possible in 25 seconds.",
-            "Only the eating member is allowed to consume. The assistant only feeds.",
+            "Round 1 – Qualification: Each team must eat 15 pani puris in 30 seconds to qualify for Round 2.",
+            "Round 2 – Final: Eat as many pani puris as possible in 25 seconds. Highest count wins.",
+            "Only the eating member is allowed to consume. The assisting member can only serve or help feed.",
             "Use of hands only (no spoons, forks, or tools).",
+            "Only pani puris provided by the organizers must be used.",
             "Each pani puri must be fully eaten and swallowed to be counted.",
-            "Spilled, dropped, or half-eaten puris will not be counted."
+            "Spilled, dropped, or half-eaten puris will not be counted.",
+            "Participants must stop eating immediately when time ends."
         ],
         guidelines: [
             "Team roles must be decided before the game starts.",
             "No change of members or roles once the game begins.",
-            "Participants must stop eating immediately when time ends.",
-            "Innovate. Integrate. Impact."
+            "A timer will be used for both rounds."
         ],
         coordinators: [
             { name: "Sindhiya", phone: "+91 73394 57276" }
@@ -250,21 +279,28 @@ export const funGames = [
     {
         id: "battle-of-endurance",
         title: "Battle of Endurance",
-        description: "Push-up Lab. Test your physical strength and stamina within a 1-minute time limit.",
+        description: "The official Push-Up Challenge. Test your physical strength and stamina — individual competition with a 60-second time limit. Highest number of valid push-ups wins.",
         icon: Dumbbell,
         prize: "Exciting gifts",
         fee: "₹50 per participant",
         team: "Individual",
         rules: [
-            "Maintain proper form (90 deg elbow bend, full extension).",
-            "Time limit: 60 seconds.",
+            "Individual participation only.",
+            "Chest must come close to the ground (minimum 90° elbow bend).",
+            "Full arm extension is required at the top position.",
             "Incomplete push-ups will not be counted.",
-            "Resting allowed only in plank position."
+            "Resting allowed only in plank position (no sitting, kneeling, or lying down).",
+            "If a participant breaks proper form more than 3 times, they will be disqualified.",
+            "Time limit: 60 seconds.",
+            "Participant with the highest number of valid push-ups wins.",
+            "The decision of the judges will be final and binding."
         ],
         guidelines: [
             "One judge will count repetitions aloud.",
-            "Judgment is final and binding.",
-            "Three warnings for improper form before disqualification."
+            "One judge will monitor proper form and elbow angle.",
+            "Only clearly visible and properly executed push-ups will be counted.",
+            "Three warnings will be given for improper form before disqualification.",
+            "Final score will be recorded immediately after completion."
         ],
         coordinators: [
             { name: "Joshua", phone: "+91 94445 92662" }
@@ -274,7 +310,7 @@ export const funGames = [
     {
         id: "say-my-aim",
         title: "Say My Aim 2026",
-        description: "The Cup Splash Lab. An exciting target-based game where you must knock down a pyramid of cups using a ball with precision and focus.",
+        description: "Cups are arranged in a pyramid shape and participants must hit them using a ball. Each player gets a fixed number of chances to knock down all the cups — if even one cup is left standing, the participant is out. Tests accuracy, focus, and perfect aim in a fun and competitive way.",
         icon: Droplet,
         prize: "Exciting gifts",
         fee: "₹50 per participant",
@@ -300,21 +336,27 @@ export const funGames = [
     {
         id: "meth-soundfeast",
         title: "Crack the Track",
-        description: "The BGM Round. Identify the correct song using only the BGM - no lyrics, no clues!",
+        description: "Identify the correct song using only the BGM — no lyrics, no clues! A battle of music memory and sharp ears.",
         icon: Music,
         prize: "Exciting gifts",
         fee: "₹50 per participant",
         team: "2-3 Members",
         rules: [
-            "Identify the exact song title from 5-10s clips.",
-            "No mobile phones, smart watches, or Shazam allowed.",
-            "First team to raise placard gets to answer.",
-            "Only one answer per team per question."
+            "Each team will hear a BGM clip (5–10 seconds) — no lyrics will be played.",
+            "Teams must identify the exact song name.",
+            "Only one answer per team for each question.",
+            "Discussion is allowed only between team members.",
+            "No use of mobile phones, smart watches, Shazam, or internet.",
+            "Teams must remain silent while the clip is playing.",
+            "Teams must raise their team placard to answer — priority given to the first team to raise it.",
+            "Round 1: All participants take an easy-level test.",
+            "Round 2: Top 5 teams selected for a harder-level round.",
+            "Tie-breaker (if needed): Sudden death BGM — first correct team wins."
         ],
         guidelines: [
-            "Discussion allowed only between team members.",
-            "Teams must remain silent while clip is playing.",
-            "Focus on the melody and instruments."
+            "Focus on the melody and instruments.",
+            "Broad knowledge of songs across genres helps.",
+            "Judges' decision is final."
         ],
         coordinators: [
             { name: "Sanjana", phone: "+91 90426 46740" }
@@ -324,20 +366,23 @@ export const funGames = [
     {
         id: "heisen-guess",
         title: "Heisen Guess",
-        description: "The Movie Lab. Guess the film from short scenes or signature dialogues. Are you a true cinephile?",
+        description: "The Movie Challenge. Two teams of 2 compete to identify movies from image clues — 4 images per movie, just 10 seconds to guess. The team with the most correct answers wins!",
         icon: Film,
         prize: "Exciting gifts",
         fee: "₹50 per participant",
-        team: "Individual",
+        team: "2 Members",
         rules: [
-            "Identify the movie title accurately.",
-            "Visual/Audio clues will be provided.",
-            "Limited time for each guess."
+            "Two teams compete, each consisting of 2 members.",
+            "Each team will be given references to 5 different movies.",
+            "For each movie, 4 images will be shown as clues.",
+            "Each team has only 10 seconds to identify the movie from the images.",
+            "The team that correctly identifies the most movies out of 5 wins.",
+            "Judge's decision is final."
         ],
         guidelines: [
-            "Recall signature actor entries.",
-            "Identify directors' styles.",
-            "Stay alert for subtle hints."
+            "Stay alert — 10 seconds goes fast!",
+            "Recall actors, scenes, and signature movie visuals.",
+            "Teamwork and quick decisions are key."
         ],
         coordinators: [
             { name: "Adithyan", phone: "+91 98944 92951" }
