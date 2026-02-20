@@ -27,15 +27,6 @@ const Contact = () => {
                                 <p className="person-name">Rithika</p>
                                 <p className="person-phone">+91 73392 92203</p>
                             </div>
-                            <p className="contact-role-label" style={{ marginTop: '0.8rem' }}>Student Coordinators</p>
-                            <div className="contact-person">
-                                <p className="person-name">Gowtham</p>
-                                <p className="person-phone">+91 63858 81949</p>
-                            </div>
-                            <div className="contact-person">
-                                <p className="person-name">Srina</p>
-                                <p className="person-phone">+91 63798 64735</p>
-                            </div>
                         </div>
                         <div className="contact-item card">
                             <div className="contact-icon">📍</div>
