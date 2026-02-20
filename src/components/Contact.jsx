@@ -18,6 +18,16 @@ const Contact = () => {
                         <div className="contact-item card">
                             <div className="contact-icon">📱</div>
                             <h3>Call Us</h3>
+                            <p className="contact-role-label">Event Coordinators</p>
+                            <div className="contact-person">
+                                <p className="person-name">Sanjay Raj</p>
+                                <p className="person-phone">+91 77088 66917</p>
+                            </div>
+                            <div className="contact-person">
+                                <p className="person-name">Rithika</p>
+                                <p className="person-phone">+91 73392 92203</p>
+                            </div>
+                            <p className="contact-role-label" style={{ marginTop: '0.8rem' }}>Student Coordinators</p>
                             <div className="contact-person">
                                 <p className="person-name">Gowtham</p>
                                 <p className="person-phone">+91 63858 81949</p>
