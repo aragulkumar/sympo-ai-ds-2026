@@ -38,7 +38,6 @@ const Contact = () => {
                         <h3>Follow Us</h3>
                         <div className="social-icons">
                             <a href="https://www.instagram.com/byte_of_heisen_26?igsh=MWN6bjE1ZDZ0MWRnaw==" target="_blank" rel="noopener noreferrer" className="social-icon">Instagram</a>
-                            <a href="#" className="social-icon">LinkedIn</a>
                         </div>
                     </div>
                 </div>

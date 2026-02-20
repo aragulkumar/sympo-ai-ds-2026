@@ -168,6 +168,8 @@
 .card-content {
     padding: 0 1.5rem 1.5rem;
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .event-description {
@@ -175,6 +177,11 @@
     font-size: 0.9rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: calc(0.9rem * 1.6 * 4);
 }
 
 /* Info Grid */
