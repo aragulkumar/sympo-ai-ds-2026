@@ -10,44 +10,44 @@
  *   Then replace the `from` field below with: 'HeisenByte 2026 <noreply@jecaids.in>'
  */
 exports.handler = async (event) => {
-    // Handle preflight CORS
-    if (event.httpMethod === 'OPTIONS') {
-        return {
-            statusCode: 200,
-            headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type' },
-            body: '',
-        };
-    }
+  // Handle preflight CORS
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type' },
+      body: '',
+    };
+  }
 
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
-    }
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
 
-    const RESEND_API_KEY = process.env.RESEND_API_KEY;
-    if (!RESEND_API_KEY) {
-        console.error('RESEND_API_KEY not set in Netlify environment variables');
-        return { statusCode: 200, body: JSON.stringify({ error: 'Email service not configured' }) };
-    }
+  const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  if (!RESEND_API_KEY) {
+    console.error('RESEND_API_KEY not set in Netlify environment variables');
+    return { statusCode: 200, body: JSON.stringify({ error: 'Email service not configured' }) };
+  }
 
-    let body;
-    try {
-        body = JSON.parse(event.body);
-    } catch {
-        return { statusCode: 400, body: JSON.stringify({ error: 'Invalid request body' }) };
-    }
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch {
+    return { statusCode: 400, body: JSON.stringify({ error: 'Invalid request body' }) };
+  }
 
-    const { to, name, eventName } = body;
-    if (!to || !name || !eventName) {
-        return { statusCode: 400, body: JSON.stringify({ error: 'Missing required fields: to, name, eventName' }) };
-    }
+  const { to, name, eventName } = body;
+  if (!to || !name || !eventName) {
+    return { statusCode: 400, body: JSON.stringify({ error: 'Missing required fields: to, name, eventName' }) };
+  }
 
-    const emailPayload = {
-        // Using Resend's shared sender — works without domain verification
-        // Switch to your own domain once verified in Resend dashboard
-        from: 'HeisenByte 2026 <noreply@updates.jecaids.in>',
-        to: [to],
-        subject: `Registration Confirmed – ${eventName} | HeisenByte 2026`,
-        html: `
+  const emailPayload = {
+    // Using Resend's shared sender — works without domain verification
+    // Switch to your own domain once verified in Resend dashboard
+    from: 'HeisenByte 2026 <noreply@updates.jecaids.in>',
+    to: [to],
+    subject: `Registration Confirmed – ${eventName} | HeisenByte 2026`,
+    html: `
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +77,7 @@ exports.handler = async (event) => {
           <!-- Logo Lettermark (inline — works in all email clients) -->
           <tr>
             <td align="center" style="padding:8px 32px;">
-              <div style="width:70px;height:70px;border-radius:50%;border:2px solid #39ff14;background:#000;display:inline-block;line-height:70px;text-align:center;font-family:Arial,sans-serif;font-size:22px;font-weight:900;color:#39ff14;letter-spacing:2px;">HB</div>
+              <div style="width:70px;height:70px;border-radius:50%;border:2px solid #39ff14;background:#000;display:block;margin:0 auto;line-height:70px;text-align:center;font-family:Arial,sans-serif;font-size:22px;font-weight:900;color:#39ff14;letter-spacing:2px;">HB</div>
             </td>
           </tr>
 
@@ -158,36 +158,36 @@ exports.handler = async (event) => {
 </body>
 </html>
         `,
-    };
+  };
 
-    try {
-        const response = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${RESEND_API_KEY}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(emailPayload),
-        });
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(emailPayload),
+    });
 
-        const text = await response.text();
-        let data = {};
-        try { data = JSON.parse(text); } catch { data = { raw: text }; }
+    const text = await response.text();
+    let data = {};
+    try { data = JSON.parse(text); } catch { data = { raw: text }; }
 
-        if (!response.ok) {
-            console.error('Resend API error:', response.status, data);
-            // Always return 200 to browser so registration isn't affected
-            return {
-                statusCode: 200,
-                body: JSON.stringify({ error: `Resend error ${response.status}`, detail: data }),
-            };
-        }
-
-        console.log('Email sent successfully:', data.id);
-        return { statusCode: 200, body: JSON.stringify({ success: true, id: data.id }) };
-
-    } catch (err) {
-        console.error('Function error:', err);
-        return { statusCode: 200, body: JSON.stringify({ error: err.message }) };
+    if (!response.ok) {
+      console.error('Resend API error:', response.status, data);
+      // Always return 200 to browser so registration isn't affected
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ error: `Resend error ${response.status}`, detail: data }),
+      };
     }
+
+    console.log('Email sent successfully:', data.id);
+    return { statusCode: 200, body: JSON.stringify({ success: true, id: data.id }) };
+
+  } catch (err) {
+    console.error('Function error:', err);
+    return { statusCode: 200, body: JSON.stringify({ error: err.message }) };
+  }
 };

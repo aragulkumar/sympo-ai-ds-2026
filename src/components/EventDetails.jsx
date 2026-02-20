@@ -268,16 +268,16 @@ const EventDetails = () => {
                         </div>
 
                         {event.coordinators && event.coordinators.length > 0 && (
-                            <div className="guidelines-section">
-                                <h3 className="section-label">📞 EVENT COORDINATORS</h3>
-                                <ul>
+                            <div className="coordinator-section">
+                                <h3 className="section-label coordinator-label">📞 Event Co-Coordinator</h3>
+                                <div className="coordinator-list">
                                     {event.coordinators.map((c, i) => (
-                                        <li key={i} style={{ listStyle: 'none', marginBottom: '0.4rem' }}>
-                                            <span style={{ color: '#39ff14', fontWeight: '700' }}>{c.name}</span>
-                                            <span style={{ color: '#aaa', fontFamily: 'Courier New, monospace', letterSpacing: '1px' }}> — {c.phone}</span>
-                                        </li>
+                                        <div key={i} className="coordinator-card">
+                                            <span className="coordinator-name">{c.name}</span>
+                                            <span className="coordinator-phone">{c.phone}</span>
+                                        </div>
                                     ))}
-                                </ul>
+                                </div>
                             </div>
                         )}
                     </div>
@@ -296,7 +296,6 @@ const EventDetails = () => {
                         <div className="google-form-wrapper">
                             <div className="google-form-header">
                                 <div className="header-color-strip"></div>
-                                <div className="periodic-sm">{event.title.substring(0, 1)}</div>
                                 <div className="header-text-bb">
                                     <h2>{event.title} REGISTRATION</h2>
                                     <p>Please fill out the form below to secure your spot.</p>

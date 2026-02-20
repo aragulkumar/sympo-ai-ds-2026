@@ -814,3 +814,51 @@
     margin-top: 0.5rem;
     line-height: 1.6;
 }
+
+/* ─── Event Co-Coordinator Section ─── */
+.coordinator-section {
+    grid-column: 1 / -1;
+    /* span full width across both columns */
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.coordinator-label {
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.coordinator-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    justify-content: center;
+}
+
+.coordinator-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(57, 255, 20, 0.04);
+    border: 1px solid rgba(57, 255, 20, 0.18);
+    border-radius: 12px;
+    padding: 1rem 2rem;
+    min-width: 180px;
+}
+
+.coordinator-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.coordinator-phone {
+    font-size: 0.95rem;
+    color: #39ff14;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 1.5px;
+}

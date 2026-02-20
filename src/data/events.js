@@ -23,10 +23,7 @@ export const technicalEvents = [
             "Innovate. Integrate. Impact."
         ],
         coordinators: [
-            { name: "Shalini (Head)", phone: "+91 63811 31400" },
-            { name: "Hemasri B", phone: "+91 78458 57559" },
-            { name: "Hemasri A", phone: "+91 63826 36290" },
-            { name: "Dhanyasri", phone: "+91 75300 17937" }
+            { name: "Shalini (Head)", phone: "+91 63811 31400" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -49,6 +46,9 @@ export const technicalEvents = [
             "Judges' decision is final.",
             "Focus on the future: The Future is now!"
         ],
+        coordinators: [
+            { name: "Aruna", phone: "+91 77084 28561" }
+        ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
@@ -69,6 +69,9 @@ export const technicalEvents = [
             "Feasibility is a major judging criteria.",
             "Effective presentation of the project."
         ],
+        coordinators: [
+            { name: "Moni Jaise", phone: "+91 89031 78726" }
+        ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
@@ -87,6 +90,9 @@ export const technicalEvents = [
             "General technical awareness required.",
             "Be quick to buzz.",
             "Teamwork is key."
+        ],
+        coordinators: [
+            { name: "Antony", phone: "+91 93617 66186" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -111,6 +117,9 @@ export const nonTechnicalEvents = [
             "Judging Criteria: Adaptability, Creativity, Face expression, Performance energy.",
             "It's a high-energy challenge blending skill with improvisation."
         ],
+        coordinators: [
+            { name: "Asmitha", phone: "+91 99627 46111" }
+        ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
@@ -131,6 +140,9 @@ export const nonTechnicalEvents = [
             "Bring your own device & internet connection.",
             "Squads must report 15-20 minutes before match time.",
             "Organizer decision is final."
+        ],
+        coordinators: [
+            { name: "Divine", phone: "+91 63744 06012" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -153,6 +165,9 @@ export const nonTechnicalEvents = [
             "Judging Criteria: Creativity & originality, Theme interpretation, Neatness & finishing, Overall presentation.",
             "Judged on precision and artistic expression."
         ],
+        coordinators: [
+            { name: "Divya", phone: "+91 80728 34225" }
+        ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
@@ -173,6 +188,9 @@ export const nonTechnicalEvents = [
             "Understand the target audience.",
             "Unique selling propositions should be clear."
         ],
+        coordinators: [
+            { name: "Sanjay B", phone: "+91 89399 62893" }
+        ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
@@ -192,6 +210,9 @@ export const nonTechnicalEvents = [
             "Observation skills are critical.",
             "Broad knowledge of media/pop culture helps.",
             "Stay sharp."
+        ],
+        coordinators: [
+            { name: "Adithya", phone: "+91 70107 73497" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -221,6 +242,9 @@ export const funGames = [
             "Participants must stop eating immediately when time ends.",
             "Innovate. Integrate. Impact."
         ],
+        coordinators: [
+            { name: "Sindhiya", phone: "+91 73394 57276" }
+        ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
@@ -241,6 +265,9 @@ export const funGames = [
             "One judge will count repetitions aloud.",
             "Judgment is final and binding.",
             "Three warnings for improper form before disqualification."
+        ],
+        coordinators: [
+            { name: "Joshua", phone: "+91 94445 92662" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -265,6 +292,9 @@ export const funGames = [
             "This game tests accuracy, focus, and perfect aim in a fun and competitive way.",
             "Judgment is final."
         ],
+        coordinators: [
+            { name: "Harini", phone: "+91 93610 69277" }
+        ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
@@ -286,6 +316,9 @@ export const funGames = [
             "Teams must remain silent while clip is playing.",
             "Focus on the melody and instruments."
         ],
+        coordinators: [
+            { name: "Sanjana", phone: "+91 90426 46740" }
+        ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
@@ -305,6 +338,9 @@ export const funGames = [
             "Recall signature actor entries.",
             "Identify directors' styles.",
             "Stay alert for subtle hints."
+        ],
+        coordinators: [
+            { name: "Adithyan", phone: "+91 98944 92951" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
