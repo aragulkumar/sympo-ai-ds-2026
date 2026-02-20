@@ -339,7 +339,7 @@ export const funGames = [
         description: "Identify the correct song using only the BGM — no lyrics, no clues! A battle of music memory and sharp ears.",
         icon: Music,
         prize: "Exciting gifts",
-        fee: "₹50 per participant",
+        fee: "₹50 per team",
         team: "2-3 Members",
         rules: [
             "Each team will hear a BGM clip (5–10 seconds) — no lyrics will be played.",
@@ -369,7 +369,7 @@ export const funGames = [
         description: "The Movie Challenge. Two teams of 2 compete to identify movies from image clues — 4 images per movie, just 10 seconds to guess. The team with the most correct answers wins!",
         icon: Film,
         prize: "Exciting gifts",
-        fee: "₹50 per participant",
+        fee: "₹50 per team",
         team: "2 Members",
         rules: [
             "Two teams compete, each consisting of 2 members.",
