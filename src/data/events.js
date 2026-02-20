@@ -253,7 +253,7 @@ export const funGames = [
         description: "PANI PURI EDITION: A fun game of speed and strategy. Can you handle the heat and crunch?",
         icon: UtensilsCrossed,
         prize: "Exciting gifts",
-        fee: "₹50 per participant",
+        fee: "₹50 per team",
         team: "2 Members",
         rules: [
             "Team Formation: 2 members (1 eater, 1 assistant/server).",
