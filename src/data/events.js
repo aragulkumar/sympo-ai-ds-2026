@@ -136,7 +136,7 @@ export const nonTechnicalEvents = [
         title: "Heisenberg's Last Stand",
         description: "The Squad Battle Royale. Team up, strategize, and be the last squad standing in this intense gaming competition.",
         icon: Gamepad2,
-        prize: "Winner: ₹800 | Runner-up: ₹400",
+        prize: "Cash Prize + Certificate",
         fee: "₹75 per head",
         team: "Squad (4 Members)",
         rules: [
