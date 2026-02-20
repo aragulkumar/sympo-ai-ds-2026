@@ -346,18 +346,8 @@ const EventDetails = () => {
                                     <input type="text" name="college" value={formData.college} onChange={handleInputChange} placeholder="Your answer" required />
                                 </div>
 
-                                {isGaming && (
-                                    <>
-                                        <div className="form-question-card">
-                                            <label className="question-label">In-Game Name (IGN) <span className="required-star">*</span></label>
-                                            <input type="text" name="ign" value={formData.ign} onChange={handleInputChange} placeholder="Your answer" required />
-                                        </div>
-                                        <div className="form-question-card">
-                                            <label className="question-label">UID / Game ID <span className="required-star">*</span></label>
-                                            <input type="text" name="uid" value={formData.uid} onChange={handleInputChange} placeholder="Your answer" required />
-                                        </div>
-                                    </>
-                                )}
+
+
 
                                 {isTeamEvent && (
                                     <div className="form-question-card hidden">

@@ -74,7 +74,6 @@ export const technicalEvents = [
         fee: "₹100 per team",
         team: "2 Members",
         rules: [
-            "Preliminary round for shortlisting.",
             "No electronic gadgets allowed.",
             "Rapid fire round is a knockout phase."
         ],
