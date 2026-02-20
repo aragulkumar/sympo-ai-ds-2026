@@ -113,7 +113,7 @@ export const nonTechnicalEvents = [
         icon: Ghost,
         prize: "Cash Prize + Certificate",
         fee: "₹75 per head",
-        team: "Solo or up to 4 Members",
+        team: "1 to 2 Members",
         rules: [
             "Each team will get 1.30 - 2 mins to dance.",
             "Round 1: 1.30 mins will be given to dance and the songs will be changed in between.",
@@ -137,7 +137,7 @@ export const nonTechnicalEvents = [
         description: "The Squad Battle Royale. Team up, strategize, and be the last squad standing in this intense gaming competition.",
         icon: Gamepad2,
         prize: "Winner: ₹800 | Runner-up: ₹400",
-        fee: "₹200 per squad",
+        fee: "₹75 per head",
         team: "Squad (4 Members)",
         rules: [
             "Mode: Battle Royale – Custom Room | Map: Bermuda | Type: Squad.",
