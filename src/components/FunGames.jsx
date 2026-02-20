@@ -32,9 +32,7 @@ const FunGames = () => {
         <section id="fun-games" className="section events-section">
             <div className="container">
                 <h2 className="section-title">Fun Games</h2>
-                <p className="section-subtitle">
-                    Entry Fee: ₹50 per head | Winners receive exciting rewards!
-                </p>
+
                 <div className="events-grid">
                     {funGames.map((game) => {
                         const Icon = game.icon;

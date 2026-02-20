@@ -33,7 +33,7 @@ export const technicalEvents = [
         description: "Poster Presentation: Unleash your creativity and present your AI ideas through a poster using AI TOOLS. Showcase research innovation and real-world applications in a visual format.",
         icon: Binary,
         prize: "Cash Prize + Certificate",
-        fee: "₹75 per team",
+        fee: "₹100 per team",
         team: "Individual or Team of 2",
         rules: [
             "Not AI generated (The poster design itself).",
