@@ -90,12 +90,12 @@ export const technicalEvents = [
 export const nonTechnicalEvents = [
     {
         id: "heisen-beats",
-        title: "Heisen Beats (Adaptune)",
+        title: "Heisen Beats",
         description: "A spontaneous dance event where you must instantly adapt your moves to unpredictable songs played on the spot.",
         icon: Ghost,
         prize: "Cash Prize + Certificate",
         fee: "₹75 per head",
-        team: "Solo or upto 4 members",
+        team: "1 to 2 Members",
         rules: [
             "Round 1: 1.30 mins will be given to dance and the songs will be changed in between.",
             "Round 2: Top 5 teams will get into 2nd round and 2 mins will be given to dance and the songs will be changed.",
@@ -114,7 +114,7 @@ export const nonTechnicalEvents = [
         description: "The Squad Battle Royale. Team up, strategize, and be the last squad standing in this intense gaming competition.",
         icon: Gamepad2,
         prize: "Cash Prize + Certificate",
-        fee: "₹200 per squad",
+        fee: "₹75 per head",
         team: "Squad (4 Members)",
         rules: [
             "Map: Bermuda | Mode: Battle Royale - Custom Room.",
@@ -172,7 +172,7 @@ export const nonTechnicalEvents = [
     },
     {
         id: "breaking-vision",
-        title: "Breaking Vision",
+        title: "Break the Clues",
         description: "Visible Recognition Lab (Image identification). Test your visual recognition skills and decode hidden messages.",
         icon: Eye,
         prize: "Cash Prize + Certificate",
@@ -264,7 +264,7 @@ export const funGames = [
     },
     {
         id: "meth-soundfeast",
-        title: "Meth Soundfeast",
+        title: "Crack the Track",
         description: "The BGM Round. Identify the correct song using only the BGM - no lyrics, no clues!",
         icon: Music,
         prize: "Exciting gifts",

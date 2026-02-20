@@ -89,9 +89,6 @@ const Events = () => {
             <section id="non-technical-events" className="section events-section">
                 <div className="container">
                     <h2 className="section-title">Non-Technical Events</h2>
-                    <p className="section-subtitle">
-                        Entry Fee: ₹75 per head | Winners: ₹500 | Runners-up: ₹400 | E-Certificates for all
-                    </p>
                     <div className="events-grid">
                         {nonTechnicalEvents.map((event) => {
                             const Icon = event.icon;
