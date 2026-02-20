@@ -22,6 +22,12 @@ export const technicalEvents = [
             "Judging Criteria: Innovation & Originality, Technical Depth, Practical Implementation/Demo, Social Relevance, Presentation & Communication.",
             "Innovate. Integrate. Impact."
         ],
+        coordinators: [
+            { name: "Shalini (Head)", phone: "+91 63811 31400" },
+            { name: "Hemasri B", phone: "+91 78458 57559" },
+            { name: "Hemasri A", phone: "+91 63826 36290" },
+            { name: "Dhanyasri", phone: "+91 75300 17937" }
+        ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
     {

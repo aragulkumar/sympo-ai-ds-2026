@@ -266,6 +266,20 @@ const EventDetails = () => {
                                 {event.guidelines.map((guide, i) => <li key={i}>{guide}</li>)}
                             </ul>
                         </div>
+
+                        {event.coordinators && event.coordinators.length > 0 && (
+                            <div className="guidelines-section">
+                                <h3 className="section-label">📞 EVENT COORDINATORS</h3>
+                                <ul>
+                                    {event.coordinators.map((c, i) => (
+                                        <li key={i} style={{ listStyle: 'none', marginBottom: '0.4rem' }}>
+                                            <span style={{ color: '#39ff14', fontWeight: '700' }}>{c.name}</span>
+                                            <span style={{ color: '#aaa', fontFamily: 'Courier New, monospace', letterSpacing: '1px' }}> — {c.phone}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </div>
                 </div>
 
