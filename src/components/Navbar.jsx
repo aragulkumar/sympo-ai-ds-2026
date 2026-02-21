@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -14,11 +17,19 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const scrollToSection = (sectionId) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-            setIsMobileMenuOpen(false);
+    const handleNavClick = (sectionId) => {
+        setIsMobileMenuOpen(false);
+        if (location.pathname === '/') {
+            // Already on home — just scroll
+            const element = document.getElementById(sectionId);
+            if (element) element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            // On event page — navigate home then scroll after render
+            navigate('/');
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+            }, 350);
         }
     };
 
@@ -26,7 +37,7 @@ const Navbar = () => {
         <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             <div className="navbar-container">
                 <div className="navbar-left">
-                    <div className="navbar-logo" onClick={() => scrollToSection('hero')}>
+                    <div className="navbar-logo" onClick={() => handleNavClick('hero')}>
                         <img src="/heisenbyte-logo-green.png" alt="Heisenbyte" className="logo-image" />
                     </div>
                     <div className="navbar-college-logos">
@@ -47,16 +58,16 @@ const Navbar = () => {
 
                 <ul className={`navbar-menu ${isMobileMenuOpen ? 'active' : ''}`}>
                     <li>
-                        <a onClick={() => scrollToSection('hero')}>Home</a>
+                        <a onClick={() => handleNavClick('hero')}>Home</a>
                     </li>
                     <li>
-                        <a onClick={() => scrollToSection('about')}>About</a>
+                        <a onClick={() => handleNavClick('about')}>About</a>
                     </li>
                     <li>
-                        <a onClick={() => scrollToSection('technical-events')}>Events</a>
+                        <a onClick={() => handleNavClick('technical-events')}>Events</a>
                     </li>
                     <li>
-                        <a onClick={() => scrollToSection('contact')}>Contact</a>
+                        <a onClick={() => handleNavClick('contact')}>Contact</a>
                     </li>
                     <li>
                         <a
