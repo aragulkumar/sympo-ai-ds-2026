@@ -1,15 +1,15 @@
 import './Coordinators.css';
 
 const convenors = [
-    { name: "Dr. K. Senthil Kumar", role: "Principal" },
-    { name: "Dr. T.R. Chenthil", role: "Head of Department, AI&DS" },
+    { name: "Dr. K. Senthil Kumar", role: "Principal", photo: "/assets/principal.jpg" },
+    { name: "Dr. T.R. Chenthil", role: "Head of Department, AI&DS", photo: "/assets/hod.jpg" },
 ];
 
 const staffCoordinators = [
-    { name: "Mrs. Priya Dharshini", role: "Staff Coordinator" },
+    { name: "Mrs. Priya Dharshini", role: "Staff Coordinator", photo: null },
 ];
 
-const PersonCard = ({ name, role }) => {
+const PersonCard = ({ name, role, photo }) => {
     const initials = name
         .replace(/^(Dr\.|Mr\.|Mrs\.|Ms\.)\s*/i, '')
         .split(' ')
@@ -20,7 +20,11 @@ const PersonCard = ({ name, role }) => {
 
     return (
         <div className="coord-card">
-            <div className="coord-avatar">{initials}</div>
+            {photo ? (
+                <img src={photo} alt={name} className="coord-photo" />
+            ) : (
+                <div className="coord-avatar">{initials}</div>
+            )}
             <h3 className="coord-name">{name}</h3>
             <p className="coord-role">{role}</p>
         </div>

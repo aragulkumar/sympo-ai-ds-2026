@@ -11,7 +11,6 @@ const Contact = () => {
     return (
         <section id="contact" className="section contact-section">
             <div className="container">
-                <h2 className="section-title">Get In Touch</h2>
 
                 {/* Student Coordinators */}
                 <div className="sc-list-wrapper">
