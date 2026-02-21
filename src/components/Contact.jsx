@@ -1,8 +1,8 @@
 import './Contact.css';
 
 const studentCoordinators = [
-    { name: "Gowtham", role: "President", phone: "+91 63858 81949" },
-    { name: "Srina", role: "Vice President", phone: "+91 63798 64735" },
+    { name: "Gowtham", role: "Overall Coordinator", phone: "+91 63858 81949" },
+    { name: "Srina", role: "Overall Coordinator", phone: "+91 63798 64735" },
     { name: "Sanjay Raj", role: "Event Coordinator", phone: "+91 77088 66917" },
     { name: "Rithika", role: "Event Coordinator", phone: "+91 73392 92203" },
 ];
