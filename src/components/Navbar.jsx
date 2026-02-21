@@ -54,7 +54,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <a
-                            href="/assets/poster.jpg"
+                            href="/assets/poster.png"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="nav-brochure-btn"
