@@ -1,12 +1,12 @@
 import './Coordinators.css';
 
 const convenors = [
-    { name: "Dr. K. Senthil Kumar", role: "Principal", photo: "/assets/principal.jpg" },
-    { name: "Dr. T.R. Chenthil", role: "Head of Department, AI&DS", photo: "/assets/hod.jpg" },
+    { name: "Dr. K. Senthil Kumar", role: "Principal", photo: "/assets/Principal.png" },
+    { name: "Dr. T.R. Chenthil", role: "Head of Department, AI&DS", photo: "/assets/HOD.png" },
 ];
 
 const staffCoordinators = [
-    { name: "Mrs. Priya Dharshini", role: "Staff Coordinator", photo: "/assets/staff-coordinator.jpg" },
+    { name: "Mrs. Priya Dharshini", role: "Staff Coordinator", photo: "/assets/staff-coordinator.png" },
 ];
 
 const PersonCard = ({ name, role, photo }) => {
