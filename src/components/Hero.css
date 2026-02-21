@@ -168,7 +168,7 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .hero-content {
-        padding: 1rem;
+        padding: 5rem 1rem 1rem;
     }
 
     .hero-logo {
