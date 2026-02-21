@@ -1,0 +1,153 @@
+.sc-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+    position: relative;
+}
+
+.sc-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.sc-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #39ff14;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+}
+
+.sc-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #39ff14, #ffd700);
+    margin: 0 auto 3rem;
+    border-radius: 2px;
+}
+
+.sc-group {
+    margin-bottom: 2.5rem;
+}
+
+.sc-group-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    color: #ffd700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.sc-group-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.sc-leadership {
+    gap: 2.5rem;
+}
+
+.sc-card {
+    background: linear-gradient(135deg, #111 0%, #0a0a0a 100%);
+    border: 1px solid rgba(57, 255, 20, 0.2);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 200px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sc-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1.5px;
+    background: linear-gradient(135deg, #39ff14, #ffd700);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sc-card:hover::before {
+    opacity: 1;
+}
+
+.sc-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(57, 255, 20, 0.2);
+}
+
+.sc-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #39ff14, #ffd700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #000;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+}
+
+.sc-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sc-role {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    color: #39ff14;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sc-phone {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    margin-top: 0.25rem;
+}
+
+.sc-phone:hover {
+    color: #39ff14;
+}
+
+@media (max-width: 600px) {
+    .sc-title {
+        font-size: 1.8rem;
+    }
+
+    .sc-group-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sc-card {
+        width: 100%;
+        max-width: 300px;
+    }
+}
