@@ -20,7 +20,7 @@
     position: relative;
     z-index: 10;
     text-align: center;
-    padding: 2rem;
+    padding: 6rem 2rem 2rem;
     max-width: 900px;
     animation: fadeInUp 1s ease-out;
 }
