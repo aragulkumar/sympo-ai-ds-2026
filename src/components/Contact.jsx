@@ -54,18 +54,22 @@ const Contact = () => {
 
                 {/* Contact Us */}
                 <div className="contact-links-wrapper">
-                    <div className="contact-link-item">
-                        <div className="contact-link-icon">📧</div>
-                        <div>
-                            <p className="contact-link-label">Email Us</p>
-                            <a href="mailto:jec.aids.dept@gmail.com" className="contact-link-value">jec.aids.dept@gmail.com</a>
+                    <h3 className="sc-list-title">Follow Us</h3>
+                    <div className="sc-list-divider"></div>
+                    <div className="contact-links-grid">
+                        <div className="contact-link-item">
+                            <div className="contact-link-icon">📧</div>
+                            <div>
+                                <p className="contact-link-label">Email Us</p>
+                                <a href="mailto:jec.aids.dept@gmail.com" className="contact-link-value">jec.aids.dept@gmail.com</a>
+                            </div>
                         </div>
-                    </div>
-                    <div className="contact-link-item">
-                        <div className="contact-link-icon">📷</div>
-                        <div>
-                            <p className="contact-link-label">Follow Us</p>
-                            <a href="https://www.instagram.com/byte_of_heisen_26?igsh=MWN6bjE1ZDZ0MWRnaw==" target="_blank" rel="noopener noreferrer" className="contact-link-value">@byte_of_heisen_26</a>
+                        <div className="contact-link-item">
+                            <div className="contact-link-icon">📷</div>
+                            <div>
+                                <p className="contact-link-label">Instagram</p>
+                                <a href="https://www.instagram.com/byte_of_heisen_26?igsh=MWN6bjE1ZDZ0MWRnaw==" target="_blank" rel="noopener noreferrer" className="contact-link-value">@byte_of_heisen_26</a>
+                            </div>
                         </div>
                     </div>
                 </div>
