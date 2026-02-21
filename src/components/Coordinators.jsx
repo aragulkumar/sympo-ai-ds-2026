@@ -6,7 +6,7 @@ const convenors = [
 ];
 
 const staffCoordinators = [
-    { name: "Mrs. Priya Dharshini", role: "Staff Coordinator", photo: null },
+    { name: "Mrs. Priya Dharshini", role: "Staff Coordinator", photo: "/assets/staff-coordinator.jpg" },
 ];
 
 const PersonCard = ({ name, role, photo }) => {
