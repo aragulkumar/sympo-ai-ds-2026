@@ -1,0 +1,140 @@
+.coord-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+}
+
+.coord-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.coord-group {
+    text-align: center;
+}
+
+.coord-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.coord-title-bar {
+    width: 60px;
+    height: 3px;
+    background: #39ff14;
+    margin: 0 auto 3rem;
+    border-radius: 2px;
+}
+
+.coord-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.coord-grid-center {
+    justify-content: center;
+}
+
+/* Card */
+.coord-card {
+    background: linear-gradient(145deg, #111 0%, #0d0d0d 100%);
+    border: 1px solid rgba(57, 255, 20, 0.15);
+    border-radius: 20px;
+    padding: 2.5rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 220px;
+    max-width: 260px;
+    flex: 1;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.coord-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #39ff14, #ffd700);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.coord-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(57, 255, 20, 0.35);
+    box-shadow: 0 20px 50px rgba(57, 255, 20, 0.12);
+}
+
+.coord-card:hover::after {
+    opacity: 1;
+}
+
+/* Avatar */
+.coord-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #39ff14 0%, #ffd700 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #000;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 0 24px rgba(57, 255, 20, 0.35);
+    flex-shrink: 0;
+}
+
+.coord-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+}
+
+.coord-role {
+    font-size: 0.78rem;
+    color: #39ff14;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .coord-title {
+        font-size: 1.5rem;
+    }
+
+    .coord-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .coord-card {
+        width: 100%;
+        max-width: 300px;
+        min-width: unset;
+    }
+}

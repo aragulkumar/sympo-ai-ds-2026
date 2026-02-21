@@ -5,6 +5,7 @@ import About from './components/About';
 import Events from './components/Events';
 import FunGames from './components/FunGames';
 import Contact from './components/Contact';
+import Coordinators from './components/Coordinators';
 import CursorTrail from './components/CursorTrail';
 import EventDetails from './components/EventDetails';
 import AdminLogin from './pages/AdminLogin';
@@ -19,6 +20,7 @@ const LandingPage = () => (
     <About />
     <Events />
     <FunGames />
+    <Coordinators />
     <Contact />
   </>
 );
