@@ -1,7 +1,6 @@
 import './Coordinators.css';
 
 const convenors = [
-    { name: "Dr. K. Senthil Kumar", role: "Principal", photo: "/assets/Principal.png" },
     { name: "Dr. T.R. Chenthil", role: "Head of Department, AI&DS", photo: "/assets/HOD.png" },
 ];
 

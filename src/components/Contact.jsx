@@ -34,24 +34,6 @@ const Contact = () => {
                     </div>
                 </div>
 
-                {/* College Location */}
-                <div className="map-wrapper">
-                    <h3 className="map-title">College Location</h3>
-                    <div className="map-divider"></div>
-                    <div className="map-container">
-                        <iframe
-                            title="Jeppiaar Engineering College"
-                            src="https://maps.google.com/maps?q=Jeppiaar+Engineering+College,Rajiv+Gandhi+Salai,Chennai&output=embed&z=17"
-                            width="100%"
-                            height="380"
-                            style={{ border: 0, borderRadius: '16px' }}
-                            allowFullScreen=""
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                        />
-                    </div>
-                </div>
-
                 {/* Contact Us */}
                 <div className="contact-links-wrapper">
                     <h3 className="sc-list-title">Follow Us</h3>
