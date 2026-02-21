@@ -25,8 +25,14 @@ const Navbar = () => {
     return (
         <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             <div className="navbar-container">
-                <div className="navbar-logo" onClick={() => scrollToSection('hero')}>
-                    <img src="/heisenbyte-logo-green.png" alt="Heisenbyte" className="logo-image" />
+                <div className="navbar-left">
+                    <div className="navbar-logo" onClick={() => scrollToSection('hero')}>
+                        <img src="/heisenbyte-logo-green.png" alt="Heisenbyte" className="logo-image" />
+                    </div>
+                    <div className="navbar-college-logos">
+                        <img src="/assets/logo1.png" alt="College Logo 1" className="college-logo" />
+                        <img src="/assets/logo2.png" alt="College Logo 2" className="college-logo" />
+                    </div>
                 </div>
 
                 <button
