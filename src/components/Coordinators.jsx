@@ -9,7 +9,7 @@ const founder = {
 
 // Row 2 – Management trio
 const managementConvenors = [
-    { name: "Dr. Regeena J Murali", role: "Chairman & Managing Director", photo: "/assets/logo-regeena.png" },
+    { name: "Dr. Regeena J Murali", role: "Chairman & Managing Director, JEC", photo: "/assets/logo-regeena.png" },
     { name: "Dr. Shaleesha A. Stanley", role: "Dean-Academics", photo: "/assets/logo-shaleesha.png" },
     { name: "Dr. K. Senthil Kumar", role: "Principal", photo: "/assets/Principal.png" },
 ];
