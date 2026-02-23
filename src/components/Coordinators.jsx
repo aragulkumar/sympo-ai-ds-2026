@@ -4,7 +4,7 @@ import './Coordinators.css';
 const founder = {
     name: "Col. Dr. Jeppiaar",
     quote: "\u201cEntry is not important, Exit is important\u201d",
-    photo: null,
+    photo: "/assets/jeppiaar.png",
 };
 
 // Row 2 – Management trio
