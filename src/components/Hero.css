@@ -168,7 +168,7 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .hero-content {
-        padding: 5rem 1rem 1rem;
+        padding: 7rem 1rem 1rem;
     }
 
     .hero-logo {
@@ -212,6 +212,16 @@
 
     .hero-subtitle {
         letter-spacing: 1px;
+    }
+
+    .hero-college {
+        letter-spacing: 1px;
+        font-size: 0.65rem;
+    }
+
+    .hero-dept {
+        letter-spacing: 1px;
+        font-size: 0.7rem;
     }
 
     .hero-info {
