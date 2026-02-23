@@ -72,11 +72,11 @@
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-/* Logo 3 is naturally larger — keep it same visual size */
+/* Logo 3 is naturally larger — make it a bit smaller */
 .dept-logos-track img:nth-child(3),
 .dept-logos-track img:nth-child(7) {
-    height: 200px;
-    width: 200px;
+    height: 140px;
+    width: 140px;
     object-fit: contain;
 }
 
