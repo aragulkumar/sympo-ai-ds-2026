@@ -62,6 +62,7 @@ const EventDetails = () => {
     const [success, setSuccess] = useState(false);
     const [registrationId, setRegistrationId] = useState('');
     const [countdown, setCountdown] = useState(20);
+    const [showAltQR, setShowAltQR] = useState(false);
     const countdownRef = useRef(null);
 
     // Auto-reset after exactly 20 seconds
@@ -381,6 +382,29 @@ const EventDetails = () => {
                                                 />
                                             </div>
                                             <p className="qr-instruction">Scan using GPay, PhonePe, Paytm or any UPI app to pay <strong>{event.fee}</strong>.</p>
+
+                                            {/* Alternate / Backup QR */}
+                                            <div className="alt-qr-toggle-wrap">
+                                                <button
+                                                    type="button"
+                                                    className="alt-qr-toggle-btn"
+                                                    onClick={() => setShowAltQR(p => !p)}
+                                                >
+                                                    {showAltQR ? '▲ Hide' : '▼ Having trouble? Try alternate QR'}
+                                                </button>
+                                                {showAltQR && (
+                                                    <div className="alt-qr-box">
+                                                        <p className="alt-qr-label">🔁 Alternate UPI (Backup)</p>
+                                                        <p className="alt-qr-upi">UPI ID: <strong>chenthiltr@oksbi</strong></p>
+                                                        <img
+                                                            src="/assets/payment-qr.png"
+                                                            alt="Alternate UPI QR"
+                                                            className="alt-qr-img"
+                                                        />
+                                                        <p className="alt-qr-note">Use this QR only if the primary one above doesn't work.</p>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
 
                                         <div className="form-question-card">
