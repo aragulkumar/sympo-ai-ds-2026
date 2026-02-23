@@ -1,55 +1,88 @@
 import './Coordinators.css';
 
-const convenors = [
-    { name: "Dr. T.R. Chenthil", role: "Head of Department, AI&DS", photo: "/assets/HOD.png" },
+// Row 1 – Founder (alone)
+const founder = {
+    name: "Col. Dr. Jeppiaar",
+    quote: "\u201cEntry is not important, Exit is important\u201d",
+    photo: null,
+};
+
+// Row 2 – Management trio
+const managementConvenors = [
+    { name: "Dr. Regeena J Murali", role: "Chairperson, Jeppiaar Group of Institutions", photo: null },
+    { name: "Dr. Shaleesha A. Stanley", role: "Dean", photo: null },
+    { name: "Dr. K. Senthil Kumar", role: "Principal", photo: "/assets/Principal.png" },
 ];
 
-const staffCoordinators = [
-    { name: "Mrs. Priya Dharshini", role: "Staff Coordinator", photo: "/assets/staff-coordinator.png" },
+// Row 3 – HOD (alone)
+const hod = {
+    name: "Dr. T.R. Chenthil",
+    role: "Head of Department, AI\u0026DS",
+    photo: "/assets/HOD.png",
+};
+
+const facultyCoordinators = [
+    { name: "Mrs. Priya Dharshini", role: "Faculty Coordinator", photo: "/assets/staff-coordinator.png" },
 ];
 
-const PersonCard = ({ name, role, photo }) => {
-    const initials = name
-        .replace(/^(Dr\.|Mr\.|Mrs\.|Ms\.)\s*/i, '')
+const getInitials = (name) =>
+    name
+        .replace(/^(Col\.|Dr\.|Mr\.|Mrs\.|Ms\.)\s*/gi, '')
         .split(' ')
         .filter(Boolean)
         .slice(0, 2)
         .map((w) => w[0].toUpperCase())
         .join('');
 
-    return (
-        <div className="coord-card">
-            {photo ? (
-                <img src={photo} alt={name} className="coord-photo" />
-            ) : (
-                <div className="coord-avatar">{initials}</div>
-            )}
-            <h3 className="coord-name">{name}</h3>
-            <p className="coord-role">{role}</p>
-        </div>
-    );
-};
+const PersonCard = ({ name, role, photo, quote }) => (
+    <div className="coord-card">
+        {photo ? (
+            <img src={photo} alt={name} className="coord-photo" />
+        ) : (
+            <div className="coord-avatar">{getInitials(name)}</div>
+        )}
+        <h3 className="coord-name">{name}</h3>
+        {role && <p className="coord-role">{role}</p>}
+        {quote && <p className="coord-quote">{quote}</p>}
+    </div>
+);
 
 const Coordinators = () => {
     return (
         <section id="coordinators" className="coord-section">
             <div className="coord-container">
 
-                {/* Convenors */}
+                {/* CONVENORS */}
                 <div className="coord-group">
                     <h2 className="coord-title">Convenors</h2>
                     <div className="coord-title-bar"></div>
-                    <div className="coord-grid">
-                        {convenors.map((p) => <PersonCard key={p.name} {...p} />)}
+
+                    {/* Row 1 – Founder alone */}
+                    <div className="coord-grid coord-grid-center">
+                        <PersonCard {...founder} />
+                    </div>
+
+                    {/* Row 2 – Management trio */}
+                    <div className="coord-grid coord-grid-trio">
+                        {managementConvenors.map((p) => (
+                            <PersonCard key={p.name} {...p} />
+                        ))}
+                    </div>
+
+                    {/* Row 3 – HOD alone */}
+                    <div className="coord-grid coord-grid-center">
+                        <PersonCard {...hod} />
                     </div>
                 </div>
 
-                {/* Staff Coordinator */}
+                {/* FACULTY COORDINATOR */}
                 <div className="coord-group">
-                    <h2 className="coord-title">Staff Coordinator</h2>
+                    <h2 className="coord-title">Faculty Coordinator</h2>
                     <div className="coord-title-bar"></div>
                     <div className="coord-grid coord-grid-center">
-                        {staffCoordinators.map((p) => <PersonCard key={p.name} {...p} />)}
+                        {facultyCoordinators.map((p) => (
+                            <PersonCard key={p.name} {...p} />
+                        ))}
                     </div>
                 </div>
 

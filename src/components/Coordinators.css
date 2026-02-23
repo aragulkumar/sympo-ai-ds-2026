@@ -43,6 +43,13 @@
 
 .coord-grid-center {
     justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.coord-grid-trio {
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 /* Card */
@@ -132,6 +139,16 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     text-align: center;
+}
+
+.coord-quote {
+    font-size: 0.8rem;
+    color: rgba(255, 215, 0, 0.85);
+    font-style: italic;
+    text-align: center;
+    line-height: 1.5;
+    margin-top: 0.25rem;
+    padding: 0 0.5rem;
 }
 
 /* Mobile */
