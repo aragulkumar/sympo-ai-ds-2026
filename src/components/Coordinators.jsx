@@ -2,27 +2,27 @@ import './Coordinators.css';
 
 // Row 1 – Founder (alone)
 const founder = {
-    name: "Col. Dr. Jeppiaar",
-    quote: "\u201cEntry is not important, Exit is important\u201d",
+    name: "(Late) Hon. Col. Dr. Jeppiaar",
+    role: "Founder, Jeppiaar Educational Trust",
     photo: "/assets/jeppiaar.png",
 };
 
 // Row 2 – Management trio
 const managementConvenors = [
-    { name: "Dr. Regeena J Murali", role: "Chairperson, Jeppiaar Group of Institutions", photo: "/assets/logo-regeena.png" },
-    { name: "Dr. Shaleesha A. Stanley", role: "Dean", photo: "/assets/logo-shaleesha.png" },
+    { name: "Dr. Regeena J Murali", role: "Chairman", photo: "/assets/logo-regeena.png" },
+    { name: "Dr. Shaleesha A. Stanley", role: "Dean-Academics", photo: "/assets/logo-shaleesha.png" },
     { name: "Dr. K. Senthil Kumar", role: "Principal", photo: "/assets/Principal.png" },
 ];
 
 // Row 3 – HOD (alone)
 const hod = {
     name: "Dr. T.R. Chenthil",
-    role: "HOD, AI \u0026 DS",
+    role: "HOD, AI&DS",
     photo: "/assets/HOD.png",
 };
 
 const facultyCoordinators = [
-    { name: "Mrs. Priya Dharshini", role: "Faculty Coordinator", photo: "/assets/staff-coordinator.png" },
+    { name: "Mrs. Priyadharshini K", role: "Faculty Coordinator", photo: "/assets/staff-coordinator.png" },
 ];
 
 const getInitials = (name) =>
