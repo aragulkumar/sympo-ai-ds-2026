@@ -936,11 +936,14 @@
 }
 
 .alt-qr-img {
-    width: 180px;
-    height: 180px;
+    width: 100%;
+    max-width: 260px;
+    height: auto;
     object-fit: contain;
-    border-radius: 10px;
+    border-radius: 12px;
     border: 2px solid rgba(57, 255, 20, 0.3);
+    background: #fff;
+    padding: 4px;
 }
 
 .alt-qr-note {
