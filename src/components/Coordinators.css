@@ -63,7 +63,7 @@
     align-items: center;
     gap: 0.6rem;
     min-width: 220px;
-    max-width: 260px;
+    max-width: fit-content;
     flex: 1;
     transition: all 0.3s ease;
     position: relative;
@@ -125,12 +125,13 @@
 
 .coord-name {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: #fff;
     text-align: center;
     line-height: 1.4;
     letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 .coord-role {

@@ -9,15 +9,15 @@ const founder = {
 
 // Row 2 – Management trio
 const managementConvenors = [
-    { name: "Dr. Regeena J Murali", role: "Chairperson, Jeppiaar Group of Institutions", photo: null },
-    { name: "Dr. Shaleesha A. Stanley", role: "Dean", photo: null },
+    { name: "Dr. Regeena J Murali", role: "Chairperson, Jeppiaar Group of Institutions", photo: "/assets/logo-regeena.png" },
+    { name: "Dr. Shaleesha A. Stanley", role: "Dean", photo: "/assets/logo-shaleesha.png" },
     { name: "Dr. K. Senthil Kumar", role: "Principal", photo: "/assets/Principal.png" },
 ];
 
 // Row 3 – HOD (alone)
 const hod = {
     name: "Dr. T.R. Chenthil",
-    role: "Head of Department, AI\u0026DS",
+    role: "HOD, AI \u0026 DS",
     photo: "/assets/HOD.png",
 };
 
