@@ -41,8 +41,10 @@ const Navbar = () => {
                         <img src="/heisenbyte-logo-green.png" alt="Heisenbyte" className="logo-image" />
                     </div>
                     <div className="navbar-college-logos">
-                        <img src="/assets/logo1.png" alt="College Logo 1" className="college-logo" />
-                        <img src="/assets/logo2.png" alt="College Logo 2" className="college-logo" />
+                        <img src="/assets/logo1.png" alt="Logo 1" className="college-logo" />
+                        <img src="/assets/logo2.png" alt="Logo 2" className="college-logo" />
+                        <img src="/assets/logo3.png" alt="Logo 3" className="college-logo" />
+                        <img src="/assets/logo4.png" alt="Logo 4" className="college-logo" />
                     </div>
                 </div>
 
