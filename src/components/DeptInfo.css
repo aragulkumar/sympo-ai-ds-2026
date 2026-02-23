@@ -75,8 +75,8 @@
 /* Logo 3 is naturally larger — make it a bit smaller */
 .dept-logos-track img:nth-child(3),
 .dept-logos-track img:nth-child(7) {
-    height: 140px;
-    width: 140px;
+    height: 155px;
+    width: 155px;
     object-fit: contain;
 }
 
