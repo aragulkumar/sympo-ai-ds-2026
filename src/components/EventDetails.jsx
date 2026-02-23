@@ -397,7 +397,7 @@ const EventDetails = () => {
                                                         <p className="alt-qr-label">🔁 Alternate UPI (Backup)</p>
                                                         <p className="alt-qr-upi">UPI ID: <strong>chenthiltr@oksbi</strong></p>
                                                         <img
-                                                            src="/assets/payment-qr.png"
+                                                            src="/assets/payment-qr.jpg"
                                                             alt="Alternate UPI QR"
                                                             className="alt-qr-img"
                                                         />
