@@ -40,6 +40,54 @@
     box-shadow: 0 0 30px rgba(57, 255, 20, 0.08);
 }
 
+/* ── Logos Marquee ── */
+.dept-logos-marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    padding: 1.5rem 0;
+    /* subtle fade edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.dept-logos-track {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    /* 8 logos = track is twice the natural width → slide by 50% */
+    animation: logoScroll 12s linear infinite;
+    width: max-content;
+}
+
+.dept-logos-track:hover {
+    animation-play-state: paused;
+}
+
+.dept-marquee-logo {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.25));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.dept-marquee-logo:hover {
+    transform: scale(1.12);
+    filter: drop-shadow(0 0 14px rgba(57, 255, 20, 0.55));
+}
+
+@keyframes logoScroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+
 /* About dept */
 .dept-about-card {
     background: linear-gradient(145deg, #111 0%, #0d0d0d 100%);

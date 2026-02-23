@@ -23,6 +23,21 @@ const DeptInfo = () => {
                     </div>
                 </div>
 
+                {/* Logos Marquee */}
+                <div className="dept-logos-marquee-wrapper">
+                    <div className="dept-logos-track">
+                        {/* Duplicated twice for seamless loop */}
+                        {[1, 2, 3, 4, 1, 2, 3, 4].map((n, i) => (
+                            <img
+                                key={i}
+                                src={`/assets/logo${n}.png`}
+                                alt={`Logo ${n}`}
+                                className="dept-marquee-logo"
+                            />
+                        ))}
+                    </div>
+                </div>
+
                 {/* About The Department */}
                 <div className="dept-about-wrapper">
                     <h2 className="dept-section-title">About The Department</h2>
