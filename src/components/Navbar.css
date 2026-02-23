@@ -52,6 +52,13 @@
     transition: transform 0.3s ease;
 }
 
+/* Logos 1, 2, 4 bigger */
+.college-logo:nth-child(1),
+.college-logo:nth-child(2),
+.college-logo:nth-child(4) {
+    height: 58px;
+}
+
 .college-logo:hover {
     transform: scale(1.1);
 }
