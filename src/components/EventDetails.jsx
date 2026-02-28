@@ -183,10 +183,13 @@ const EventDetails = () => {
             setRegistrationId(docRef.id);
 
             setUploadStatus('');
-            // Send invitation to leader
-            await sendInvitationEmail(formData.leaderEmail, formData.leaderName, event.title);
+            // Send confirmation to leader
+            if (formData.leaderEmail && formData.leaderName) {
+                console.log('[Email] Sending to leader:', formData.leaderEmail);
+                await sendInvitationEmail(formData.leaderEmail, formData.leaderName, event.title);
+            }
 
-            // Send invitations to other members
+            // Send confirmations to other members
             for (const member of activeMembers) {
                 if (member.email && member.name) {
                     await sendInvitationEmail(member.email, member.name, event.title);
