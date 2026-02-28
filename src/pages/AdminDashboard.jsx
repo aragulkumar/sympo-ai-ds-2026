@@ -457,15 +457,17 @@ const AdminDashboard = () => {
                                     {paymentUpdating && <p className="updating-text">Updating...</p>}
                                 </div>
 
-                                {/* ─── Delete Registration ─── */}
-                                <div className="delete-action-bar">
-                                    <button
-                                        className="delete-reg-btn"
-                                        onClick={() => deleteRegistration(selectedReg.id)}
-                                    >
-                                        🗑 DELETE REGISTRATION
-                                    </button>
-                                </div>
+                                {/* ─── Delete Registration (hidden for verified payments) ─── */}
+                                {selectedReg.paymentStatus !== 'verified' && (
+                                    <div className="delete-action-bar">
+                                        <button
+                                            className="delete-reg-btn"
+                                            onClick={() => deleteRegistration(selectedReg.id)}
+                                        >
+                                            🗑 DELETE REGISTRATION
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
