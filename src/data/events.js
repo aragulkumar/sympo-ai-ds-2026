@@ -185,7 +185,7 @@ export const nonTechnicalEvents = [
             "Judged on precision and artistic expression."
         ],
         coordinators: [
-            { name: "Divya", phone: "+91 80728 34225" }
+            { name: "Keerthika", phone: "+91 88255 65080" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
