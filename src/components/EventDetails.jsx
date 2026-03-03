@@ -4,7 +4,7 @@ import { allItems } from '../data/events';
 import './EventDetails.css';
 import { ChevronLeft, Info, ScrollText, Trophy, Users, BadgeIndianRupee, X, Send } from 'lucide-react';
 import { db } from '../firebase/config';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getCountFromServer } from 'firebase/firestore';
 import { sendInvitationEmail } from '../services/emailService';
 import { uploadPaymentScreenshot } from '../services/cloudinaryService';
 
@@ -63,6 +63,7 @@ const EventDetails = () => {
     const [registrationId, setRegistrationId] = useState('');
     const [countdown, setCountdown] = useState(20);
     const [showAltQR, setShowAltQR] = useState(false);
+    const [autoLimitClosed, setAutoLimitClosed] = useState(false);
     const countdownRef = useRef(null);
 
     // Auto-reset after exactly 20 seconds
@@ -103,6 +104,26 @@ const EventDetails = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    // Auto-close check: compare Firestore registration count against maxTeams limit
+    useEffect(() => {
+        if (!event?.maxTeams) return;
+        const checkLimit = async () => {
+            try {
+                const q = query(
+                    collection(db, 'registrations'),
+                    where('eventId', '==', event.id)
+                );
+                const snap = await getCountFromServer(q);
+                if (snap.data().count >= event.maxTeams) {
+                    setAutoLimitClosed(true);
+                }
+            } catch (err) {
+                console.warn('Could not check registration limit:', err.message);
+            }
+        };
+        checkLimit();
+    }, [event?.id, event?.maxTeams]);
 
     if (!event) {
         return (
@@ -296,11 +317,15 @@ const EventDetails = () => {
 
                 {/* Inline Registration Form Section */}
                 <div className="registration-section-inline" ref={formRef}>
-                    {event.registrationClosed ? (
+                    {(event.registrationClosed || autoLimitClosed) ? (
                         <div className="reg-closed-banner">
                             <div className="reg-closed-icon">🔒</div>
                             <h3 className="reg-closed-title">Registration Closed</h3>
-                            <p className="reg-closed-reason">{event.closedReason || "Registration for this event is now closed."}</p>
+                            <p className="reg-closed-reason">
+                                {event.registrationClosed
+                                    ? (event.closedReason || "Registration for this event is now closed.")
+                                    : `Registration limit of ${event.maxTeams} teams has been reached.`}
+                            </p>
                             <p className="reg-closed-sub">Thank you for your interest. Please check other events.</p>
                         </div>
                     ) : !success ? (

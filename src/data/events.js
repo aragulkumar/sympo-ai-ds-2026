@@ -26,8 +26,7 @@ export const technicalEvents = [
             { name: "Shalini", phone: "+91 63811 31400" }
         ],
         gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: false,
-        closedReason: "Registration limit of 15 teams reached"
+        maxTeams: 15
     },
     {
         id: "crystal-canvas",
