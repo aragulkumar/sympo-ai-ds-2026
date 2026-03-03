@@ -51,6 +51,9 @@ const Events = () => {
                                             </div>
                                         </div>
                                     </div>
+                                    {event.registrationClosed && (
+                                        <div className="reg-closed-badge">🔒 Registration Closed</div>
+                                    )}
                                     <div className="card-content">
                                         <p className="event-description">{event.description}</p>
 
@@ -71,8 +74,11 @@ const Events = () => {
                                         </div>
                                     </div>
                                     <div className="card-footer-explore">
-                                        <Link to={`/event/${event.id}`} className="explore-btn">
-                                            <span>Explore</span>
+                                        <Link
+                                            to={`/event/${event.id}`}
+                                            className={`explore-btn ${event.registrationClosed ? 'explore-btn-closed' : ''}`}
+                                        >
+                                            <span>{event.registrationClosed ? 'View Details' : 'Explore'}</span>
                                             <div className="btn-glow-small"></div>
                                         </Link>
                                     </div>

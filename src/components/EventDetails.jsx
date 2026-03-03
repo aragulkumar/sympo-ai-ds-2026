@@ -296,7 +296,14 @@ const EventDetails = () => {
 
                 {/* Inline Registration Form Section */}
                 <div className="registration-section-inline" ref={formRef}>
-                    {!success ? (
+                    {event.registrationClosed ? (
+                        <div className="reg-closed-banner">
+                            <div className="reg-closed-icon">🔒</div>
+                            <h3 className="reg-closed-title">Registration Closed</h3>
+                            <p className="reg-closed-reason">{event.closedReason || "Registration for this event is now closed."}</p>
+                            <p className="reg-closed-sub">Thank you for your interest. Please check other events.</p>
+                        </div>
+                    ) : !success ? (
                         <div className="google-form-wrapper">
                             <div className="google-form-header">
                                 <div className="header-color-strip"></div>
