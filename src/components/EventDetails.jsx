@@ -4,7 +4,7 @@ import { allItems } from '../data/events';
 import './EventDetails.css';
 import { ChevronLeft, Info, ScrollText, Trophy, Users, BadgeIndianRupee, X, Send } from 'lucide-react';
 import { db } from '../firebase/config';
-import { collection, addDoc, serverTimestamp, query, where, getDocs, limit } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs, limit, doc, getDoc } from 'firebase/firestore';
 import { sendInvitationEmail } from '../services/emailService';
 import { uploadPaymentScreenshot } from '../services/cloudinaryService';
 
@@ -111,11 +111,10 @@ const EventDetails = () => {
         const checkStatus = async () => {
             try {
                 // 1. Check admin-controlled Firestore override
-                const { getDoc } = await import('firebase/firestore');
                 const settingsSnap = await getDoc(doc(db, 'eventSettings', event.id));
                 if (settingsSnap.exists() && settingsSnap.data().registrationClosed === true) {
                     setAutoLimitClosed(true);
-                    return; // No need to check count
+                    return;
                 }
 
                 // 2. Check registration count against maxTeams limit
