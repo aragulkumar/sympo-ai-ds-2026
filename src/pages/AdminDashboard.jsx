@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase/config';
 import { signOut } from 'firebase/auth';
-import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, deleteDoc, setDoc } from 'firebase/firestore';
 import { X, FileText, LogOut, Eye, Phone, Mail, User, CreditCard, Image, Cpu, PartyPopper, Trophy, Download, ArrowUpDown, Filter, Settings, ToggleLeft, ToggleRight } from 'lucide-react';
 import { technicalEvents, nonTechnicalEvents, funGames } from '../data/events';
 import './AdminDashboard.css';
@@ -76,11 +76,7 @@ const AdminDashboard = () => {
         try {
             const ref = doc(db, 'eventSettings', eventId);
             const newState = !currentlyClosed;
-            await updateDoc(ref, { registrationClosed: newState, updatedAt: new Date() }).catch(async () => {
-                // doc may not exist yet — use setDoc
-                const { setDoc } = await import('firebase/firestore');
-                await setDoc(ref, { registrationClosed: newState, updatedAt: new Date() });
-            });
+            await setDoc(ref, { registrationClosed: newState, updatedAt: new Date() }, { merge: true });
             setEventSettings(prev => ({
                 ...prev,
                 [eventId]: { ...prev[eventId], registrationClosed: newState }
