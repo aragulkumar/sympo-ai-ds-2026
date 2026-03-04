@@ -23,7 +23,7 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  const RESEND_API_KEY = process.env.RESEND_API_KEY || process.env.VITE_RESEND_API_KEY;
   if (!RESEND_API_KEY) {
     console.error('RESEND_API_KEY not set in Netlify environment variables');
     return { statusCode: 200, body: JSON.stringify({ error: 'Email service not configured' }) };

@@ -110,14 +110,15 @@ const EventDetails = () => {
         if (!event?.id) return;
         const checkStatus = async () => {
             try {
-                // 1. Check admin-controlled Firestore override
+                // 1. Check admin-controlled Firestore override — if set, trust it completely
                 const settingsSnap = await getDoc(doc(db, 'eventSettings', event.id));
-                if (settingsSnap.exists() && settingsSnap.data().registrationClosed === true) {
-                    setAutoLimitClosed(true);
+                if (settingsSnap.exists()) {
+                    // Admin has explicitly set this event's status — honour it, skip count check
+                    setAutoLimitClosed(settingsSnap.data().registrationClosed === true);
                     return;
                 }
 
-                // 2. Check registration count against maxTeams limit
+                // 2. No admin override — fall back to registration count check
                 if (event?.maxTeams) {
                     const q = query(
                         collection(db, 'registrations'),
