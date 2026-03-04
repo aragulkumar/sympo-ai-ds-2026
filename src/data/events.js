@@ -52,7 +52,8 @@ export const technicalEvents = [
         coordinators: [
             { name: "Aruna", phone: "+91 77084 28561" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/..."
+        gformUrl: "https://docs.google.com/forms/d/...",
+        maxTeams: 15
     },
     {
         id: "tech-titration",
@@ -81,7 +82,8 @@ export const technicalEvents = [
         coordinators: [
             { name: "Moni Jaise", phone: "+91 89031 78726" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/..."
+        gformUrl: "https://docs.google.com/forms/d/...",
+        maxTeams: 15
     },
     {
         id: "better-call-quiz",
@@ -104,7 +106,8 @@ export const technicalEvents = [
         coordinators: [
             { name: "Antony", phone: "+91 93617 66186" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/..."
+        gformUrl: "https://docs.google.com/forms/d/...",
+        maxTeams: 15
     },
 ];
 

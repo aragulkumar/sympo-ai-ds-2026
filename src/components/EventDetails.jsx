@@ -4,7 +4,7 @@ import { allItems } from '../data/events';
 import './EventDetails.css';
 import { ChevronLeft, Info, ScrollText, Trophy, Users, BadgeIndianRupee, X, Send } from 'lucide-react';
 import { db } from '../firebase/config';
-import { collection, addDoc, serverTimestamp, query, where, getCountFromServer } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs, limit } from 'firebase/firestore';
 import { sendInvitationEmail } from '../services/emailService';
 import { uploadPaymentScreenshot } from '../services/cloudinaryService';
 
@@ -105,17 +105,18 @@ const EventDetails = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    // Auto-close check: compare Firestore registration count against maxTeams limit
+    // Auto-close check: fetch up to maxTeams registrations — if full, close
     useEffect(() => {
         if (!event?.maxTeams) return;
         const checkLimit = async () => {
             try {
                 const q = query(
                     collection(db, 'registrations'),
-                    where('eventId', '==', event.id)
+                    where('eventId', '==', event.id),
+                    limit(event.maxTeams)
                 );
-                const snap = await getCountFromServer(q);
-                if (snap.data().count >= event.maxTeams) {
+                const snap = await getDocs(q);
+                if (snap.size >= event.maxTeams) {
                     setAutoLimitClosed(true);
                 }
             } catch (err) {
