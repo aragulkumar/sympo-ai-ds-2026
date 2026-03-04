@@ -105,25 +105,36 @@ const EventDetails = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    // Auto-close check: fetch up to maxTeams registrations — if full, close
+    // Check Firestore eventSettings (admin toggle) AND registration count limit
     useEffect(() => {
-        if (!event?.maxTeams) return;
-        const checkLimit = async () => {
+        if (!event?.id) return;
+        const checkStatus = async () => {
             try {
-                const q = query(
-                    collection(db, 'registrations'),
-                    where('eventId', '==', event.id),
-                    limit(event.maxTeams)
-                );
-                const snap = await getDocs(q);
-                if (snap.size >= event.maxTeams) {
+                // 1. Check admin-controlled Firestore override
+                const { getDoc } = await import('firebase/firestore');
+                const settingsSnap = await getDoc(doc(db, 'eventSettings', event.id));
+                if (settingsSnap.exists() && settingsSnap.data().registrationClosed === true) {
                     setAutoLimitClosed(true);
+                    return; // No need to check count
+                }
+
+                // 2. Check registration count against maxTeams limit
+                if (event?.maxTeams) {
+                    const q = query(
+                        collection(db, 'registrations'),
+                        where('eventId', '==', event.id),
+                        limit(event.maxTeams)
+                    );
+                    const snap = await getDocs(q);
+                    if (snap.size >= event.maxTeams) {
+                        setAutoLimitClosed(true);
+                    }
                 }
             } catch (err) {
-                console.warn('Could not check registration limit:', err.message);
+                console.warn('Could not check event status:', err.message);
             }
         };
-        checkLimit();
+        checkStatus();
     }, [event?.id, event?.maxTeams]);
 
     if (!event) {

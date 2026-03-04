@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase/config';
 import { signOut } from 'firebase/auth';
 import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { X, FileText, LogOut, Eye, Phone, Mail, User, CreditCard, Image, Cpu, PartyPopper, Trophy, Download, ArrowUpDown, Filter } from 'lucide-react';
+import { X, FileText, LogOut, Eye, Phone, Mail, User, CreditCard, Image, Cpu, PartyPopper, Trophy, Download, ArrowUpDown, Filter, Settings, ToggleLeft, ToggleRight } from 'lucide-react';
 import { technicalEvents, nonTechnicalEvents, funGames } from '../data/events';
 import './AdminDashboard.css';
 
@@ -18,6 +18,7 @@ const CATEGORIES = [
     { key: 'technical', label: 'TECHNICAL', icon: Cpu },
     { key: 'non-technical', label: 'NON-TECHNICAL', icon: Trophy },
     { key: 'fun', label: 'FUN GAMES', icon: PartyPopper },
+    { key: 'control', label: 'EVENT CONTROL', icon: Settings },
 ];
 
 const AdminDashboard = () => {
@@ -30,6 +31,8 @@ const AdminDashboard = () => {
     const [sortBy, setSortBy] = useState('event-asc');
     const [eventFilter, setEventFilter] = useState('all');
     const [paymentUpdating, setPaymentUpdating] = useState(false);
+    const [eventSettings, setEventSettings] = useState({});
+    const [togglingEvent, setTogglingEvent] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,6 +40,7 @@ const AdminDashboard = () => {
         if (!isAuth) { navigate('/admin/login'); return; }
         setUser({ email: import.meta.env.VITE_ADMIN_EMAIL || 'admin@heisenbyte.com' });
         fetchData();
+        fetchEventSettings();
     }, [navigate]);
 
     const fetchData = async () => {
@@ -54,6 +58,38 @@ const AdminDashboard = () => {
             setError('Could not reach database. Check Firestore rules.');
             done = true; clearTimeout(timeout);
         } finally { setLoading(false); }
+    };
+
+    const fetchEventSettings = async () => {
+        try {
+            const snap = await getDocs(collection(db, 'eventSettings'));
+            const map = {};
+            snap.docs.forEach(d => { map[d.id] = d.data(); });
+            setEventSettings(map);
+        } catch (err) {
+            console.warn('Could not fetch eventSettings:', err.message);
+        }
+    };
+
+    const toggleEventRegistration = async (eventId, currentlyClosed) => {
+        setTogglingEvent(eventId);
+        try {
+            const ref = doc(db, 'eventSettings', eventId);
+            const newState = !currentlyClosed;
+            await updateDoc(ref, { registrationClosed: newState, updatedAt: new Date() }).catch(async () => {
+                // doc may not exist yet — use setDoc
+                const { setDoc } = await import('firebase/firestore');
+                await setDoc(ref, { registrationClosed: newState, updatedAt: new Date() });
+            });
+            setEventSettings(prev => ({
+                ...prev,
+                [eventId]: { ...prev[eventId], registrationClosed: newState }
+            }));
+        } catch (err) {
+            alert('Failed to update event status: ' + err.message);
+        } finally {
+            setTogglingEvent(null);
+        }
     };
 
     const handleLogout = () => {
@@ -195,137 +231,188 @@ const AdminDashboard = () => {
 
                 {/* ─── Main content ─── */}
                 <main className="dashboard-content">
-                    <section className="management-section">
-                        <div className="section-header">
-                            <h2>
-                                {CATEGORIES.find(c => c.key === activeCategory)?.label} — REGISTRATIONS
-                            </h2>
-                            <div className="header-actions">
-                                <span className="total-count">{sortedFiltered.length} entries</span>
+                    {activeCategory !== 'control' && (
+                        <section className="management-section">
+                            <div className="section-header">
+                                <h2>
+                                    {CATEGORIES.find(c => c.key === activeCategory)?.label} — REGISTRATIONS
+                                </h2>
+                                <div className="header-actions">
+                                    <span className="total-count">{sortedFiltered.length} entries</span>
 
-                                {/* Event Name Filter */}
-                                <div className="sort-control">
-                                    <Filter size={14} />
-                                    <select
-                                        value={eventFilter}
-                                        onChange={e => setEventFilter(e.target.value)}
-                                        className="sort-select"
-                                    >
-                                        <option value="all">All Events ({filtered.length})</option>
-                                        {uniqueEvents.map(evName => (
-                                            <option key={evName} value={evName}>
-                                                {evName} ({filtered.filter(r => r.eventName === evName).length})
-                                            </option>
-                                        ))}
-                                    </select>
+                                    {/* Event Name Filter */}
+                                    <div className="sort-control">
+                                        <Filter size={14} />
+                                        <select
+                                            value={eventFilter}
+                                            onChange={e => setEventFilter(e.target.value)}
+                                            className="sort-select"
+                                        >
+                                            <option value="all">All Events ({filtered.length})</option>
+                                            {uniqueEvents.map(evName => (
+                                                <option key={evName} value={evName}>
+                                                    {evName} ({filtered.filter(r => r.eventName === evName).length})
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    {/* Sort Control */}
+                                    <div className="sort-control">
+                                        <ArrowUpDown size={14} />
+                                        <select
+                                            value={sortBy}
+                                            onChange={e => setSortBy(e.target.value)}
+                                            className="sort-select"
+                                        >
+                                            <optgroup label="DATE">
+                                                <option value="date-desc">Newest First</option>
+                                                <option value="date-asc">Oldest First</option>
+                                            </optgroup>
+                                            <optgroup label="EVENT">
+                                                <option value="event-asc">Event A → Z</option>
+                                                <option value="event-desc">Event Z → A</option>
+                                            </optgroup>
+                                            <optgroup label="POPULARITY">
+                                                <option value="count-desc">Most Registrations</option>
+                                                <option value="count-asc">Least Registrations</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+
+                                    <button className="export-csv-btn" onClick={exportCSV} title="Export to CSV">
+                                        <Download size={14} />
+                                        <span>EXPORT CSV</span>
+                                    </button>
                                 </div>
-
-                                {/* Sort Control */}
-                                <div className="sort-control">
-                                    <ArrowUpDown size={14} />
-                                    <select
-                                        value={sortBy}
-                                        onChange={e => setSortBy(e.target.value)}
-                                        className="sort-select"
-                                    >
-                                        <optgroup label="DATE">
-                                            <option value="date-desc">Newest First</option>
-                                            <option value="date-asc">Oldest First</option>
-                                        </optgroup>
-                                        <optgroup label="EVENT">
-                                            <option value="event-asc">Event A → Z</option>
-                                            <option value="event-desc">Event Z → A</option>
-                                        </optgroup>
-                                        <optgroup label="POPULARITY">
-                                            <option value="count-desc">Most Registrations</option>
-                                            <option value="count-asc">Least Registrations</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-
-                                <button className="export-csv-btn" onClick={exportCSV} title="Export to CSV">
-                                    <Download size={14} />
-                                    <span>EXPORT CSV</span>
-                                </button>
                             </div>
-                        </div>
 
-                        <div className="data-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>LEADER NAME</th>
-                                        <th>PHONE</th>
-                                        <th>COLLEGE</th>
-                                        <th>EVENT</th>
-                                        <th>PAYMENT</th>
-                                        <th>DATE</th>
-                                        <th>VIEW</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {sortedFiltered.length > 0 ? (() => {
-                                        let lastEvent = null;
-                                        return sortedFiltered.map(reg => {
-                                            const showGroup = (sortBy === 'event-asc' || sortBy === 'event-desc' || sortBy === 'count-desc' || sortBy === 'count-asc') && reg.eventName !== lastEvent;
-                                            lastEvent = reg.eventName;
-                                            return (
-                                                <>
-                                                    {showGroup && (
-                                                        <tr key={`group-${reg.eventName}`} className="event-group-row">
-                                                            <td colSpan="7">
-                                                                <span className="event-group-name">{reg.eventName}</span>
-                                                                <span className="event-group-count">{eventCountMap[reg.eventName] || 0} registration{eventCountMap[reg.eventName] !== 1 ? 's' : ''}</span>
+                            <div className="data-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>LEADER NAME</th>
+                                            <th>PHONE</th>
+                                            <th>COLLEGE</th>
+                                            <th>EVENT</th>
+                                            <th>PAYMENT</th>
+                                            <th>DATE</th>
+                                            <th>VIEW</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {sortedFiltered.length > 0 ? (() => {
+                                            let lastEvent = null;
+                                            return sortedFiltered.map(reg => {
+                                                const showGroup = (sortBy === 'event-asc' || sortBy === 'event-desc' || sortBy === 'count-desc' || sortBy === 'count-asc') && reg.eventName !== lastEvent;
+                                                lastEvent = reg.eventName;
+                                                return (
+                                                    <>
+                                                        {showGroup && (
+                                                            <tr key={`group-${reg.eventName}`} className="event-group-row">
+                                                                <td colSpan="7">
+                                                                    <span className="event-group-name">{reg.eventName}</span>
+                                                                    <span className="event-group-count">{eventCountMap[reg.eventName] || 0} registration{eventCountMap[reg.eventName] !== 1 ? 's' : ''}</span>
+                                                                </td>
+                                                            </tr>
+                                                        )}
+                                                        <tr
+                                                            key={reg.id}
+                                                            className="clickable-row"
+                                                            onClick={() => setSelectedReg(reg)}
+                                                        >
+                                                            <td>{reg.leaderName || '—'}</td>
+                                                            <td>{reg.leaderPhone || '—'}</td>
+                                                            <td>{reg.college || '—'}</td>
+                                                            <td className="event-cell">{reg.eventName}</td>
+                                                            <td>
+                                                                {reg.paymentStatus === 'verified'
+                                                                    ? <span className="payment-badge paid">✓ VERIFIED</span>
+                                                                    : reg.paymentStatus === 'rejected'
+                                                                        ? <span className="payment-badge" style={{ background: 'rgba(255,68,68,0.1)', color: '#ff4444', borderColor: '#ff4444' }}>✗ REJECTED</span>
+                                                                        : reg.screenshotUrl || reg.transactionId
+                                                                            ? <span className="payment-badge pending">⏳ PENDING</span>
+                                                                            : <span className="payment-badge free">FREE</span>
+                                                                }
+                                                            </td>
+                                                            <td className="date-cell">
+                                                                {reg.timestamp
+                                                                    ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString('en-IN')
+                                                                    : 'N/A'}
+                                                            </td>
+                                                            <td>
+                                                                <button
+                                                                    className="view-btn"
+                                                                    onClick={e => { e.stopPropagation(); setSelectedReg(reg); }}
+                                                                >
+                                                                    <Eye size={14} /> VIEW
+                                                                </button>
                                                             </td>
                                                         </tr>
-                                                    )}
-                                                    <tr
-                                                        key={reg.id}
-                                                        className="clickable-row"
-                                                        onClick={() => setSelectedReg(reg)}
+                                                    </>
+                                                );
+                                            });
+                                        })() : (
+                                            <tr>
+                                                <td colSpan="7" style={{ textAlign: 'center', padding: '3rem', color: '#444' }}>
+                                                    No registrations found.
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* ─── Event Control Panel ─── */}
+                    {activeCategory === 'control' && (
+                        <section className="management-section event-control-section">
+                            <div className="section-header">
+                                <h2>EVENT CONTROL — REGISTRATION STATUS</h2>
+                                <span className="total-count">Toggle to open / close registration for any event</span>
+                            </div>
+
+                            {[
+                                { label: 'Technical Events', events: technicalEvents },
+                                { label: 'Non-Technical Events', events: nonTechnicalEvents },
+                                { label: 'Fun Games', events: funGames },
+                            ].map(group => (
+                                <div key={group.label} className="ec-group">
+                                    <h3 className="ec-group-title">{group.label}</h3>
+                                    <div className="ec-grid">
+                                        {group.events.map(ev => {
+                                            const isClosed = eventSettings[ev.id]?.registrationClosed ?? false;
+                                            const isToggling = togglingEvent === ev.id;
+                                            return (
+                                                <div key={ev.id} className={`ec-card ${isClosed ? 'ec-card-closed' : 'ec-card-open'}`}>
+                                                    <div className="ec-card-info">
+                                                        <span className="ec-event-name">{ev.title}</span>
+                                                        <span className={`ec-status-pill ${isClosed ? 'closed' : 'open'}`}>
+                                                            {isClosed ? '🔴 CLOSED' : '🟢 OPEN'}
+                                                        </span>
+                                                    </div>
+                                                    <button
+                                                        className={`ec-toggle-btn ${isClosed ? 'ec-btn-open' : 'ec-btn-close'}`}
+                                                        onClick={() => toggleEventRegistration(ev.id, isClosed)}
+                                                        disabled={isToggling}
                                                     >
-                                                        <td>{reg.leaderName || '—'}</td>
-                                                        <td>{reg.leaderPhone || '—'}</td>
-                                                        <td>{reg.college || '—'}</td>
-                                                        <td className="event-cell">{reg.eventName}</td>
-                                                        <td>
-                                                            {reg.paymentStatus === 'verified'
-                                                                ? <span className="payment-badge paid">✓ VERIFIED</span>
-                                                                : reg.paymentStatus === 'rejected'
-                                                                    ? <span className="payment-badge" style={{ background: 'rgba(255,68,68,0.1)', color: '#ff4444', borderColor: '#ff4444' }}>✗ REJECTED</span>
-                                                                    : reg.screenshotUrl || reg.transactionId
-                                                                        ? <span className="payment-badge pending">⏳ PENDING</span>
-                                                                        : <span className="payment-badge free">FREE</span>
-                                                            }
-                                                        </td>
-                                                        <td className="date-cell">
-                                                            {reg.timestamp
-                                                                ? new Date(reg.timestamp.seconds * 1000).toLocaleDateString('en-IN')
-                                                                : 'N/A'}
-                                                        </td>
-                                                        <td>
-                                                            <button
-                                                                className="view-btn"
-                                                                onClick={e => { e.stopPropagation(); setSelectedReg(reg); }}
-                                                            >
-                                                                <Eye size={14} /> VIEW
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </>
+                                                        {isToggling ? (
+                                                            <span>Updating...</span>
+                                                        ) : isClosed ? (
+                                                            <><ToggleLeft size={16} /> OPEN REGISTRATION</>
+                                                        ) : (
+                                                            <><ToggleRight size={16} /> CLOSE REGISTRATION</>
+                                                        )}
+                                                    </button>
+                                                </div>
                                             );
-                                        });
-                                    })() : (
-                                        <tr>
-                                            <td colSpan="7" style={{ textAlign: 'center', padding: '3rem', color: '#444' }}>
-                                                No registrations found.
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
+                                        })}
+                                    </div>
+                                </div>
+                            ))}
+                        </section>
+                    )}
                 </main>
             </div>
 

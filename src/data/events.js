@@ -26,9 +26,7 @@ export const technicalEvents = [
             { name: "Shalini", phone: "+91 63811 31400" }
         ],
         gformUrl: "https://docs.google.com/forms/d/...",
-        maxTeams: 15,
-        registrationClosed: true,
-        closedReason: "Registration limit of 15 teams reached"
+        maxTeams: 15
     },
     {
         id: "crystal-canvas",
@@ -83,9 +81,7 @@ export const technicalEvents = [
             { name: "Moni Jaise", phone: "+91 89031 78726" }
         ],
         gformUrl: "https://docs.google.com/forms/d/...",
-        maxTeams: 15,
-        registrationClosed: true,
-        closedReason: "Registration limit of 15 teams reached"
+        maxTeams: 15
     },
     {
         id: "better-call-quiz",
