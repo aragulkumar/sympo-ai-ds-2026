@@ -327,7 +327,7 @@ const EventDetails = () => {
                     </button>
                 </div>
 
-                {/* Inline Registration Form Section */}
+                {/* Inline Registration Form Section — Symposium concluded, form disabled */}
                 <div className="registration-section-inline" ref={formRef}>
                     {(event.registrationClosed || autoLimitClosed) ? (
                         <div className="reg-closed-banner">
@@ -338,203 +338,16 @@ const EventDetails = () => {
                                     ? (event.closedReason || "Registration for this event is now closed.")
                                     : `Registration limit of ${event.maxTeams} teams has been reached.`}
                             </p>
-                            <p className="reg-closed-sub">Thank you for your interest. Please check other events.</p>
-                        </div>
-                    ) : !success ? (
-                        <div className="google-form-wrapper">
-                            <div className="google-form-header">
-                                <div className="header-color-strip"></div>
-                                <div className="header-text-bb">
-                                    <h2>{event.title} REGISTRATION</h2>
-                                    <p>Please fill out the form below to secure your spot.</p>
-                                </div>
-                            </div>
-
-                            <form onSubmit={handleSubmit} className="google-style-form">
-                                <div className="form-question-card">
-                                    <div className="section-header-pill">TEAM LEADER</div>
-                                    <div className="form-field-group">
-                                        <label className="question-label">Full Name <span className="required-star">*</span></label>
-                                        <input type="text" name="leaderName" value={formData.leaderName} onChange={handleInputChange} placeholder="Your answer" required />
-                                    </div>
-                                    <div className="form-field-group">
-                                        <label className="question-label">Gmail Address <span className="required-star">*</span></label>
-                                        <input type="email" name="leaderEmail" value={formData.leaderEmail} onChange={handleInputChange} placeholder="Your answer" required />
-                                    </div>
-                                    <div className="form-field-group">
-                                        <label className="question-label">Phone Number <span className="required-star">*</span></label>
-                                        <input type="tel" name="leaderPhone" value={formData.leaderPhone} onChange={handleInputChange} placeholder="Your answer" required />
-                                    </div>
-                                </div>
-
-                                {getMaxMembers(event.team) > 1 && Array.from({ length: getMaxMembers(event.team) - 1 }).map((_, i) => {
-                                    // Member slot i corresponds to member number (i+2)
-                                    // Required if this slot is within the minimum team size
-                                    const isRequired = (i + 2) <= getMinMembers(event.team);
-                                    return (
-                                        <div key={i} className="form-question-card">
-                                            <div className="section-header-pill member">
-                                                TEAM MEMBER {i + 2} {!isRequired && <span style={{ fontWeight: 'normal', opacity: 0.6, fontSize: '0.7rem' }}>(Optional)</span>}
-                                            </div>
-                                            <div className="form-field-group">
-                                                <label className="question-label">Full Name {isRequired && <span className="required-star">*</span>}</label>
-                                                <input
-                                                    type="text"
-                                                    name={`member-${i}-name`}
-                                                    value={formData.members[i].name}
-                                                    onChange={handleInputChange}
-                                                    placeholder={isRequired ? 'Your answer' : 'Your answer (optional)'}
-                                                    required={isRequired}
-                                                />
-                                            </div>
-                                            <div className="form-field-group">
-                                                <label className="question-label">Gmail Address {isRequired && <span className="required-star">*</span>}</label>
-                                                <input
-                                                    type="email"
-                                                    name={`member-${i}-email`}
-                                                    value={formData.members[i].email}
-                                                    onChange={handleInputChange}
-                                                    placeholder={isRequired ? 'Your answer' : 'Your answer (optional)'}
-                                                    required={isRequired}
-                                                />
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-
-                                <div className="form-question-card">
-                                    <label className="question-label">College / Department <span className="required-star">*</span></label>
-                                    <input type="text" name="college" value={formData.college} onChange={handleInputChange} placeholder="Your answer" required />
-                                </div>
-
-
-
-
-                                {isTeamEvent && (
-                                    <div className="form-question-card hidden">
-                                        {/* Removed old teamMembers textarea as we now have dynamic fields */}
-                                    </div>
-                                )}
-
-                                {event.fee !== 'Free Entry' && (
-                                    <>
-                                        <div className="form-question-card payment-qr-card">
-                                            <label className="question-label">Scan to Pay <span className="required-star">*</span></label>
-                                            <p className="question-help upi-id-text">UPI ID: <strong>rithi73392@okaxis</strong></p>
-                                            <div className="qr-container-bb">
-                                                <img
-                                                    src="/upi-qr.jpeg"
-                                                    alt="Scan to Pay - UPI QR Code"
-                                                    className="upi-qr-image"
-                                                />
-                                            </div>
-                                            <p className="qr-instruction">Scan using GPay, PhonePe, Paytm or any UPI app to pay <strong>{event.fee}</strong>.</p>
-
-                                            {/* Alternate / Backup QR */}
-                                            <div className="alt-qr-toggle-wrap">
-                                                <button
-                                                    type="button"
-                                                    className="alt-qr-toggle-btn"
-                                                    onClick={() => setShowAltQR(p => !p)}
-                                                >
-                                                    {showAltQR ? '▲ Hide' : '▼ Having trouble? Try alternate QR'}
-                                                </button>
-                                                {showAltQR && (
-                                                    <div className="alt-qr-box">
-                                                        <p className="alt-qr-label">🔁 Alternate UPI (Backup)</p>
-                                                        <p className="alt-qr-upi">UPI ID: <strong>chenthiltr@oksbi</strong></p>
-                                                        <img
-                                                            src="/assets/payment-qr.jpg"
-                                                            alt="Alternate UPI QR"
-                                                            className="alt-qr-img"
-                                                        />
-                                                        <p className="alt-qr-note">Use this QR only if the primary one above doesn't work.</p>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className="form-question-card">
-                                            <label className="question-label">Upload Payment Screenshot <span className="required-star">*</span></label>
-                                            <p className="question-help">Supported formats: JPG, PNG, PDF</p>
-                                            <div className="file-upload-wrapper">
-                                                <input
-                                                    type="file"
-                                                    id="payment-upload"
-                                                    name="paymentScreenshot"
-                                                    className="hidden-file-input"
-                                                    onChange={handleFileChange}
-                                                    accept="image/*,.pdf"
-                                                />
-                                                <label htmlFor="payment-upload" className="file-upload-label">
-                                                    <Send size={18} />
-                                                    <span>{formData.screenshotName || "Add file"}</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </>
-                                )}
-
-                                <div className="form-question-card">
-                                    <label className="question-label">Transaction ID / UPI Reference <span className="required-star">{event.fee !== 'Free Entry' && '*'}</span></label>
-                                    <p className="question-help">Entry Fee: {event.fee}</p>
-                                    <input type="text" name="transactionId" value={formData.transactionId} onChange={handleInputChange} placeholder="Your answer" required={event.fee !== 'Free Entry'} />
-                                </div>
-
-                                <div className="form-actions-bb">
-                                    <button type="submit" className="google-submit-btn" disabled={submitting}>
-                                        {submitting ? (
-                                            <div className="btn-loading">
-                                                <div className="spinner-bb"></div>
-                                                <span>{uploadStatus || 'SUBMITTING...'}</span>
-                                            </div>
-                                        ) : (
-                                            <span>SUBMIT</span>
-                                        )}
-                                    </button>
-                                    <button type="reset" className="google-clear-btn" onClick={() => setFormData({
-                                        leaderName: '', leaderEmail: '', leaderPhone: '',
-                                        members: [{ name: '', email: '' }, { name: '', email: '' }, { name: '', email: '' }],
-                                        college: '', ign: '', uid: '', transactionId: '', paymentScreenshot: null, screenshotName: ''
-                                    })}>Clear form</button>
-                                </div>
-                            </form>
+                            <p className="reg-closed-sub">Thank you for your interest in HeisenByte 2026.</p>
                         </div>
                     ) : (
-                        <div className="success-google-card">
-                            <div className="header-color-strip success"></div>
-                            <div className="success-check">✓</div>
-                            <h2 className="success-title-bb">REGISTRATION CONFIRMED</h2>
-                            <p className="success-text-bb">
-                                Your entry for <strong>{event.title}</strong> has been recorded successfully.
+                        <div className="reg-closed-banner event-concluded-banner">
+                            <div className="reg-closed-icon">🎉</div>
+                            <h3 className="reg-closed-title">HeisenByte 2026 — Event Concluded</h3>
+                            <p className="reg-closed-reason">
+                                This symposium has successfully concluded. This website is now for viewing purposes only.
                             </p>
-
-                            {/* Email & WhatsApp notice */}
-                            <div style={{
-                                background: 'rgba(57,255,20,0.05)',
-                                border: '1px solid rgba(57,255,20,0.2)',
-                                borderRadius: '10px',
-                                padding: '1rem 1.2rem',
-                                margin: '1rem 0',
-                                textAlign: 'left'
-                            }}>
-                                <p style={{ margin: '0 0 0.5rem', color: '#39ff14', fontSize: '0.78rem', letterSpacing: '1px', fontWeight: 'bold' }}>📧 CONFIRMATION SENT</p>
-                                <p style={{ margin: '0 0 0.6rem', color: '#ccc', fontSize: '0.82rem', lineHeight: 1.6 }}>
-                                    A confirmation mail has been sent to your Gmail. Our event members will contact you through <strong style={{ color: '#25D366' }}>WhatsApp</strong> with further details.
-                                </p>
-                                <p style={{ margin: 0, color: '#555', fontSize: '0.72rem' }}>
-                                    Registration ID: <strong style={{ color: '#39ff14' }}>{registrationId}</strong>
-                                </p>
-                            </div>
-
-                            {/* Countdown */}
-                            <p style={{ fontSize: '0.7rem', color: '#444', marginTop: '0.8rem', textAlign: 'center' }}>
-                                This page resets in <strong style={{ color: '#39ff14' }}>{countdown}s</strong>
-                            </p>
-
-                            <button className="submit-another-btn" onClick={() => { setSuccess(false); setRegistrationId(''); }}>
-                                Register Another Person
-                            </button>
+                            <p className="reg-closed-sub">Thank you to all participants who made HeisenByte 2026 a success! 🧪</p>
                         </div>
                     )}
                 </div>

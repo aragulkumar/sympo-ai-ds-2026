@@ -52,8 +52,7 @@ export const technicalEvents = [
             { name: "Aruna", phone: "+91 77084 28561" }
         ],
         gformUrl: "https://docs.google.com/forms/d/...",
-        maxTeams: 15,
-        registrationClosed: true
+        maxTeams: 15
     },
     {
         id: "tech-titration",
@@ -108,8 +107,7 @@ export const technicalEvents = [
             { name: "Antony", phone: "+91 93617 66186" }
         ],
         gformUrl: "https://docs.google.com/forms/d/...",
-        maxTeams: 15,
-        registrationClosed: true
+        maxTeams: 15
     },
 ];
 
@@ -137,8 +135,7 @@ export const nonTechnicalEvents = [
         coordinators: [
             { name: "Asmitha", phone: "+91 99627 46111" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "heisenbergs-last-stand",
@@ -170,8 +167,7 @@ export const nonTechnicalEvents = [
         coordinators: [
             { name: "Divine", phone: "+91 63744 06012" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "heisen-glam-crew",
@@ -195,8 +191,7 @@ export const nonTechnicalEvents = [
         coordinators: [
             { name: "Keerthika", phone: "+91 88255 65080" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "heisen-pitch",
@@ -225,8 +220,7 @@ export const nonTechnicalEvents = [
         coordinators: [
             { name: "Sanjay B", phone: "+91 89399 62893" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "breaking-vision",
@@ -254,8 +248,7 @@ export const nonTechnicalEvents = [
         coordinators: [
             { name: "Adithya", phone: "+91 70107 73497" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
 ];
 
@@ -287,8 +280,7 @@ export const funGames = [
         coordinators: [
             { name: "Sindhiya", phone: "+91 73394 57276" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "battle-of-endurance",
@@ -319,8 +311,7 @@ export const funGames = [
         coordinators: [
             { name: "Joshua", phone: "+91 94445 92662" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "say-my-aim",
@@ -346,8 +337,7 @@ export const funGames = [
         coordinators: [
             { name: "Harini", phone: "+91 93610 69277" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "meth-soundfeast",
@@ -377,8 +367,7 @@ export const funGames = [
         coordinators: [
             { name: "Sanjana", phone: "+91 90426 46740" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
     {
         id: "heisen-guess",
@@ -404,8 +393,7 @@ export const funGames = [
         coordinators: [
             { name: "Adithyan", phone: "+91 98944 92951" }
         ],
-        gformUrl: "https://docs.google.com/forms/d/...",
-        registrationClosed: true
+        gformUrl: "https://docs.google.com/forms/d/..."
     },
 ];
 
