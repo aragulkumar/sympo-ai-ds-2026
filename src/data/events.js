@@ -23,7 +23,7 @@ export const technicalEvents = [
             "Innovate. Integrate. Impact."
         ],
         coordinators: [
-            { name: "Shalini", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Shalini", phone: "+91 63811 31400" }
         ],
         gformUrl: "https://docs.google.com/forms/d/...",
         maxTeams: 15,
@@ -49,7 +49,7 @@ export const technicalEvents = [
             "Focus on the future: The Future is now!"
         ],
         coordinators: [
-            { name: "Aruna", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Aruna", phone: "+91 77084 28561" }
         ],
         gformUrl: "https://docs.google.com/forms/d/...",
         maxTeams: 15
@@ -79,7 +79,7 @@ export const technicalEvents = [
             "Effective presentation of the project."
         ],
         coordinators: [
-            { name: "Moni Jaise", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Moni Jaise", phone: "+91 89031 78726" }
         ],
         gformUrl: "https://docs.google.com/forms/d/...",
         maxTeams: 15,
@@ -104,7 +104,7 @@ export const technicalEvents = [
             "Teamwork is key."
         ],
         coordinators: [
-            { name: "Antony", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Antony", phone: "+91 93617 66186" }
         ],
         gformUrl: "https://docs.google.com/forms/d/...",
         maxTeams: 15
@@ -133,7 +133,7 @@ export const nonTechnicalEvents = [
             "It's a high-energy challenge blending skill with improvisation."
         ],
         coordinators: [
-            { name: "Asmitha", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Asmitha", phone: "+91 99627 46111" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -165,7 +165,7 @@ export const nonTechnicalEvents = [
             "Organizer decision is final."
         ],
         coordinators: [
-            { name: "Divine", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Divine", phone: "+91 63744 06012" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -189,7 +189,7 @@ export const nonTechnicalEvents = [
             "Judged on precision and artistic expression."
         ],
         coordinators: [
-            { name: "Keerthika", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Keerthika", phone: "+91 88255 65080" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -218,7 +218,7 @@ export const nonTechnicalEvents = [
             "Unique selling propositions should be clear and convincing."
         ],
         coordinators: [
-            { name: "Sanjay B", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Sanjay B", phone: "+91 89399 62893" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -246,7 +246,7 @@ export const nonTechnicalEvents = [
             "Stay sharp — every second counts!"
         ],
         coordinators: [
-            { name: "Adithya", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Adithya", phone: "+91 70107 73497" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -278,7 +278,7 @@ export const funGames = [
             "A timer will be used for both rounds."
         ],
         coordinators: [
-            { name: "Sindhiya", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Sindhiya", phone: "+91 73394 57276" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -309,7 +309,7 @@ export const funGames = [
             "Final score will be recorded immediately after completion."
         ],
         coordinators: [
-            { name: "Joshua", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Joshua", phone: "+91 94445 92662" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -335,7 +335,7 @@ export const funGames = [
             "Judgment is final."
         ],
         coordinators: [
-            { name: "Harini", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Harini", phone: "+91 93610 69277" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -365,7 +365,7 @@ export const funGames = [
             "Judges' decision is final."
         ],
         coordinators: [
-            { name: "Sanjana", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Sanjana", phone: "+91 90426 46740" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
@@ -391,7 +391,7 @@ export const funGames = [
             "Teamwork and quick decisions are key."
         ],
         coordinators: [
-            { name: "Adithyan", phone: "JEC AI \u0026 DS Dept." }
+            { name: "Adithyan", phone: "+91 98944 92951" }
         ],
         gformUrl: "https://docs.google.com/forms/d/..."
     },
